@@ -1,6 +1,6 @@
 # **LAPR1_24_25_DIJ_03**
 
-Projeto integreador do Grupo 3 da unidade curricular Laboratório/Projeto I
+Projeto integrador do Grupo 3 da unidade curricular Laboratório/Projeto I
 
 ---
 
