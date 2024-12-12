@@ -5,9 +5,12 @@ import org.apache.commons.math3.linear.*;
 
 public class Projeto3 {
     static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) throws FileNotFoundException {
         int opcao = 0;
         double matriz[][];
+        double vetoresProprios[][];
+        double valoresProprios[][];
 
         while (opcao != 4) {
             System.out.println("=========== Menu ==========");
@@ -23,6 +26,13 @@ public class Projeto3 {
             switch (opcao) {
                 case 1:
                     matriz = lerMatriz();
+
+                    if (eSimetrica(matriz)) {
+                        vetoresProprios = matrizVetoresProprios(matriz);
+                        valoresProprios = matrizDiagonalValoresProprios(matriz);
+                    } else {
+                        System.out.println("A matriz não é simétrica. Não é possível realizar a decomposição.");
+                    }
                     break;
                 case 2:
                     break;
@@ -72,11 +82,11 @@ public class Projeto3 {
     }
 
     public static double[][] matrizVetoresProprios(double[][] matriz) {
-        RealMatrix matrizVetoresProprios = new Array2DRowRealMatrix(matriz);
+        RealMatrix matrizreal = new Array2DRowRealMatrix(matriz);
 
-        EigenDecomposition decomposicao = new EigenDecomposition(matrizVetoresProprios);
+        EigenDecomposition decomposicao = new EigenDecomposition(matrizreal);
 
-        double[][] vetoresproprios = new double[matriz.length][matriz[0].length];
+        double[][] vetoresproprios = new double[matriz.length][matriz.length];
 
         for (int i = 0; i < matriz.length; i++) {
             double[] vetorProprio = decomposicao.getEigenvector(i).toArray();
@@ -88,10 +98,28 @@ public class Projeto3 {
         return vetoresproprios;
     }
 
+    public static double[][] matrizDiagonalValoresProprios(double[][] matriz) {
+        RealMatrix matrizReal = new Array2DRowRealMatrix(matriz);
+
+        EigenDecomposition decomposicao = new EigenDecomposition(matrizReal);
+
+        double[] valoresproprios = decomposicao.getRealEigenvalues();
+
+        int tamanho = valoresproprios.length;
+
+        double[][] matrizdiagonal  = new double[tamanho][tamanho];
+
+        for(int i = 0; i < tamanho; i++) {
+            matrizdiagonal[i][i] = valoresproprios[i];
+        }
+
+        return matrizdiagonal;
+    }
+
     public static boolean eSimetrica(double[][] matriz) {
         for(int i = 0; i < matriz.length; i++) {
             for(int j = 0; j < matriz.length; j++) {
-                if(matriz[i][j] != matriz[i][j]) {
+                if(matriz[i][j] != matriz[j][i]) {
                     return false;
                 }
             }
