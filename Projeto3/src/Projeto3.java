@@ -213,7 +213,7 @@ public class Projeto3 {
         return multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
 
-    public static void erroAbsolutoMedio (double[][] matriz, double[][] calcularA, int M, int N) {
+    public static void calcularErroAbsolutoMedio (double[][] matriz, double[][] calcularA, int M, int N) {
         double erroAbsolutoMedio = 0;
         for (int linhas = 0; linhas < M; linhas++) {
             for (int colunas = 0; colunas < N; colunas++) {
