@@ -160,4 +160,8 @@ public class Projeto3 {
         double[][] resultado = multiplicarMatrizes(multiplicarMatrizes(vetoresproprios, matrizdiagonal), vetorTransposto);
         return resultado;
     }
+    public static double[][]CalcularA (double[][] matriz, double[][] matrizdiagonal, double[][] vetoresproprios) {
+        double[][] matrizA = multiplicar_VetorValor_VetorTransposto(matrizdiagonal, vetoresproprios, MatrizTransposta(vetoresproprios));
+        return matrizA;
+    }
 }
