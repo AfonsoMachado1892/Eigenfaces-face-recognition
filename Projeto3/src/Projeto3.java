@@ -30,6 +30,7 @@ public class Projeto3 {
                     if (eSimetrica(matriz)) {
                         vetoresProprios = matrizVetoresProprios(matriz);
                         valoresProprios = matrizDiagonalValoresProprios(matriz);
+
                     } else {
                         System.out.println("A matriz não é simétrica. Não é possível realizar a decomposição.");
                     }
@@ -58,7 +59,7 @@ public class Projeto3 {
         int cont = 0;
         int linhas;
 
-        while(in.hasNextLine()) {
+        while (in.hasNextLine()) {
             cont++;
             in.nextLine();
         }
@@ -69,9 +70,9 @@ public class Projeto3 {
 
         double[][] matriz = new double[linhas][linhas];
 
-        for(int i = 0; i < linhas; i++) {
+        for (int i = 0; i < linhas; i++) {
             String[] valores = in.nextLine().split(",");
-            for(int j = 0; j < linhas; j++) {
+            for (int j = 0; j < linhas; j++) {
                 matriz[i][j] = Double.parseDouble(valores[j]);
             }
         }
@@ -107,9 +108,9 @@ public class Projeto3 {
 
         int tamanho = valoresproprios.length;
 
-        double[][] matrizdiagonal  = new double[tamanho][tamanho];
+        double[][] matrizdiagonal = new double[tamanho][tamanho];
 
-        for(int i = 0; i < tamanho; i++) {
+        for (int i = 0; i < tamanho; i++) {
             matrizdiagonal[i][i] = valoresproprios[i];
         }
 
@@ -117,15 +118,16 @@ public class Projeto3 {
     }
 
     public static boolean eSimetrica(double[][] matriz) {
-        for(int i = 0; i < matriz.length; i++) {
-            for(int j = 0; j < matriz.length; j++) {
-                if(matriz[i][j] != matriz[j][i]) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                if (matriz[i][j] != matriz[j][i]) {
                     return false;
                 }
             }
         }
         return true;
     }
+
     public static double[][] MatrizTransposta(double[][] matriz) {
         double[][] mTransposta;
         mTransposta = new double[matriz[0].length][matriz.length];
@@ -136,6 +138,7 @@ public class Projeto3 {
         }
         return mTransposta;
     }
+
     public static void exibirMatriz(double[][] matriz, String nomeMatriz) {
         System.out.println(nomeMatriz + ":");
         for (int i = 0; i < matriz.length; i++) {
@@ -145,6 +148,7 @@ public class Projeto3 {
             System.out.println();
         }
     }
+
     public static double[][] multiplicarMatrizes(double[][] matriz1, double[][] matriz2) {
         double[][] matrizMultiplicada = new double[matriz1.length][matriz2[0].length];
         for (int i = 0; i < matriz1.length; i++) {
@@ -156,12 +160,37 @@ public class Projeto3 {
         }
         return matrizMultiplicada;
     }
-    public static double[][] multiplicar_VetorValor_VetorTransposto (double[][] matrizdiagonal, double[][] vetoresproprios, double[][] vetorTransposto) {
+
+    public static double[][] multiplicar_VetorValor_VetorTransposto(double[][] matrizdiagonal, double[][] vetoresproprios, double[][] vetorTransposto) {
         double[][] resultado = multiplicarMatrizes(multiplicarMatrizes(vetoresproprios, matrizdiagonal), vetorTransposto);
         return resultado;
     }
-    public static double[][]CalcularA (double[][] matriz, double[][] matrizdiagonal, double[][] vetoresproprios) {
+
+    public static double[][] CalcularA(double[][] matriz, double[][] matrizdiagonal, double[][] vetoresproprios) {
         double[][] matrizA = multiplicar_VetorValor_VetorTransposto(matrizdiagonal, vetoresproprios, MatrizTransposta(vetoresproprios));
         return matrizA;
+    }
+
+    public static double[][] calcularAk(double[][] matrizDiagonal, double[][] vetoresProprios, int k) {
+
+        double[][] vetoresPropriosReduzidos = new double[vetoresProprios.length][k];
+        for (int i = 0; i < vetoresProprios.length; i++) {
+            for (int j = 0; j < k; j++) {
+                vetoresPropriosReduzidos[i][j] = vetoresProprios[i][j];
+            }
+        }
+
+
+        double[][] matrizDiagonalReduzida = new double[k][k];
+        for (int i = 0; i < k; i++) {
+            matrizDiagonalReduzida[i][i] = matrizDiagonal[i][i];
+        }
+
+
+        double[][] vetoresPropriosTranspostos = MatrizTransposta(vetoresPropriosReduzidos);
+
+
+        double[][] pkDk = multiplicarMatrizes(vetoresPropriosReduzidos, matrizDiagonalReduzida);
+        return multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
 }
