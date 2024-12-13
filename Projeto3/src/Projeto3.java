@@ -145,4 +145,15 @@ public class Projeto3 {
             System.out.println();
         }
     }
+    public static double[][] multiplicarMatrizes(double[][] matriz1, double[][] matriz2) {
+        double[][] matrizMultiplicada = new double[matriz1.length][matriz2[0].length];
+        for (int i = 0; i < matriz1.length; i++) {
+            for (int j = 0; j < matriz2[0].length; j++) {
+                for (int l = 0; l < matriz2.length; l++) {
+                    matrizMultiplicada[i][j] += matriz1[i][l] * matriz2[l][j];
+                }
+            }
+        }
+        return matrizMultiplicada;
+    }
 }
