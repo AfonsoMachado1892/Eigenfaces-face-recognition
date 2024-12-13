@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
 import org.apache.commons.math3.linear.*;
+import java.lang.Math;
 
 public class Projeto3 {
     static Scanner sc = new Scanner(System.in);
@@ -184,7 +185,7 @@ public class Projeto3 {
         return resultado;
     }
 
-    public static double[][] CalcularA(double[][] matriz, double[][] matrizdiagonal, double[][] vetoresproprios) {
+    public static double[][] calcularA(double[][] matriz, double[][] matrizdiagonal, double[][] vetoresproprios) {
         double[][] matrizA = multiplicar_VetorValor_VetorTransposto(matrizdiagonal, vetoresproprios, MatrizTransposta(vetoresproprios));
         return matrizA;
     }
@@ -210,5 +211,16 @@ public class Projeto3 {
 
         double[][] pkDk = multiplicarMatrizes(vetoresPropriosReduzidos, matrizDiagonalReduzida);
         return multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
+    }
+
+    public static void erroAbsolutoMedio (double[][] matriz, double[][] calcularA, int M, int N) {
+        double erroAbsolutoMedio = 0;
+        for (int linhas = 0; linhas < M; linhas++) {
+            for (int colunas = 0; colunas < N; colunas++) {
+                double moduloDiferencaEntreMatrizes = Math.abs(matriz[linhas][colunas]-calcularA[linhas][colunas]);
+                erroAbsolutoMedio = moduloDiferencaEntreMatrizes / M*N;
+            }
+        }
+        System.out.printf("Erro absoluto médio: %.2%%", erroAbsolutoMedio);
     }
 }
