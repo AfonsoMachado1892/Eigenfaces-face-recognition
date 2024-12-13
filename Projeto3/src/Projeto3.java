@@ -30,7 +30,25 @@ public class Projeto3 {
                     if (eSimetrica(matriz)) {
                         vetoresProprios = matrizVetoresProprios(matriz);
                         valoresProprios = matrizDiagonalValoresProprios(matriz);
+                        int k = 0;
+                        boolean kValido = false;
 
+                        while (!kValido) {
+                            System.out.print("Digite o número de vetores próprios (k) a utilizar (1-" + matriz.length + "): ");
+                            k = sc.nextInt();
+                            sc.nextLine();
+
+                            if (k>0 && k <= matriz.length) {
+                                kValido = true;
+
+                            } else {
+                                System.out.print("Valor inválido! Por favor insira um número entre 1 e " + matriz.length + ".");
+                            }
+                        }
+
+                        double [][] ak = calcularAk(valoresProprios, vetoresProprios, k);
+
+                        exibirMatriz(ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)");
                     } else {
                         System.out.println("A matriz não é simétrica. Não é possível realizar a decomposição.");
                     }
