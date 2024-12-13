@@ -156,4 +156,8 @@ public class Projeto3 {
         }
         return matrizMultiplicada;
     }
+    public static double[][] multiplicar_VetorValor_VetorTransposto (double[][] matrizdiagonal, double[][] vetoresproprios, double[][] vetorTransposto) {
+        double[][] resultado = multiplicarMatrizes(multiplicarMatrizes(vetoresproprios, matrizdiagonal), vetorTransposto);
+        return resultado;
+    }
 }
