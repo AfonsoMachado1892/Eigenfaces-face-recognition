@@ -9,9 +9,9 @@ public class Projeto3 {
 
     public static void main(String[] args) throws FileNotFoundException {
         int opcao = 0;
-        double matriz[][];
-        double vetoresProprios[][];
-        double valoresProprios[][];
+        double[][] matriz;
+        double[][] vetoresProprios;
+        double[][] valoresProprios;
 
         while (opcao != 4) {
             System.out.println("=========== Menu ==========");
@@ -46,10 +46,8 @@ public class Projeto3 {
                                 System.out.print("Valor inválido! Por favor insira um número entre 1 e " + matriz.length + ".");
                             }
                         }
-
-                        double [][] ak = calcularAk(valoresProprios, vetoresProprios, k);
-
-                        exibirMatriz(ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)");
+                        double [][] Ak = calcularAk(valoresProprios, vetoresProprios, k);
+                        exibirMatriz(Ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)");
                     } else {
                         System.out.println("A matriz não é simétrica. Não é possível realizar a decomposição.");
                     }
@@ -190,25 +188,26 @@ public class Projeto3 {
         return matrizA;
     }
 
-    public static double[][] calcularAk(double[][] matrizDiagonal, double[][] vetoresProprios, int k) {
-
-        double[][] vetoresPropriosReduzidos = new double[vetoresProprios.length][k];
-        for (int i = 0; i < vetoresProprios.length; i++) {
+    public static double[][] vetorespropriosreduzidos(double[][] vetoresproprios, int k) {
+        double[][] vetoresPropriosReduzidos = new double[vetoresproprios.length][k];
+        for (int i = 0; i < vetoresproprios.length; i++) {
             for (int j = 0; j < k; j++) {
-                vetoresPropriosReduzidos[i][j] = vetoresProprios[i][j];
+                vetoresPropriosReduzidos[i][j] = vetoresproprios[i][j];
             }
         }
+        return vetoresPropriosReduzidos;
+    }
 
-
+    public static double[][] matrizdiagonalreduzida(double[][] matrizDiagonal, int k) {
         double[][] matrizDiagonalReduzida = new double[k][k];
         for (int i = 0; i < k; i++) {
             matrizDiagonalReduzida[i][i] = matrizDiagonal[i][i];
         }
+        return matrizDiagonalReduzida;
+    }
 
-
+    public static double[][] calcularAk(double[][] matrizDiagonalReduzida, double[][] vetoresPropriosReduzidos, int k) {
         double[][] vetoresPropriosTranspostos = MatrizTransposta(vetoresPropriosReduzidos);
-
-
         double[][] pkDk = multiplicarMatrizes(vetoresPropriosReduzidos, matrizDiagonalReduzida);
         return multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
