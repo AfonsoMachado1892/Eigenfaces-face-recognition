@@ -46,11 +46,22 @@ public class Projeto3 {
                                 System.out.print("Valor inválido! Por favor insira um número entre 1 e " + matriz.length + ".");
                             }
                         }
+                        double[][] A = calcularA(matriz, valoresProprios, vetoresProprios);
                         double [][] Ak = calcularAk(valoresProprios, vetoresProprios, k);
+                        double[][] vetoresPropriosReduzidos = vetorespropriosreduzidos(vetoresProprios, k);
+                        double[][] valoresPropriosReduzidos = matrizdiagonalreduzida(valoresProprios, k);
+
+                        exibirMatriz(matriz, "Matriz CSV");
+                        System.out.println("Número de vetores próprios:" + k);
+                        exibirMatriz(vetoresPropriosReduzidos, "Vetores Próprios Reduzido");
+                        exibirMatriz(valoresPropriosReduzidos, "Valores Próprios Reduzido");
+                        exibirMatriz(calcularTransposta(vetoresPropriosReduzidos), "Vetores Próprios Reduzidos Transpostos");
                         exibirMatriz(Ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)");
+
                     } else {
                         System.out.println("A matriz não é simétrica. Não é possível realizar a decomposição.");
                     }
+
                     break;
                 case 2:
                     break;
@@ -145,7 +156,7 @@ public class Projeto3 {
         return true;
     }
 
-    public static double[][] MatrizTransposta(double[][] matriz) {
+    public static double[][] calcularTransposta(double[][] matriz) {
         double[][] mTransposta;
         mTransposta = new double[matriz[0].length][matriz.length];
         for (int i = 0; i < matriz.length; i++) {
@@ -184,7 +195,7 @@ public class Projeto3 {
     }
 
     public static double[][] calcularA(double[][] matriz, double[][] matrizdiagonal, double[][] vetoresproprios) {
-        double[][] matrizA = multiplicar_VetorValor_VetorTransposto(matrizdiagonal, vetoresproprios, MatrizTransposta(vetoresproprios));
+        double[][] matrizA = multiplicar_VetorValor_VetorTransposto(matrizdiagonal, vetoresproprios, calcularTransposta(vetoresproprios));
         return matrizA;
     }
 
@@ -207,7 +218,7 @@ public class Projeto3 {
     }
 
     public static double[][] calcularAk(double[][] matrizDiagonalReduzida, double[][] vetoresPropriosReduzidos, int k) {
-        double[][] vetoresPropriosTranspostos = MatrizTransposta(vetoresPropriosReduzidos);
+        double[][] vetoresPropriosTranspostos = calcularTransposta(vetoresPropriosReduzidos);
         double[][] pkDk = multiplicarMatrizes(vetoresPropriosReduzidos, matrizDiagonalReduzida);
         return multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
