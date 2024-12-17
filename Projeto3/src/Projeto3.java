@@ -57,11 +57,9 @@ public class Projeto3 {
 
                         erroAbsolutoMedio = calcularErroAbsolutoMedio(A, Ak);
 
-                        exibirMatriz(matriz, "Matriz CSV");
                         System.out.println("Número de vetores próprios:" + k);
                         exibirMatriz(vetoresPropriosReduzidos, "Vetores Próprios Reduzido");
                         exibirMatriz(valoresPropriosReduzidos, "Valores Próprios Reduzido");
-                        exibirMatriz(calcularTransposta(vetoresPropriosReduzidos), "Vetores Próprios Reduzidos Transpostos");
                         exibirMatriz(Ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)");
                         System.out.printf("Erro absoluto médio: %.2f%% \n", erroAbsolutoMedio);
 
