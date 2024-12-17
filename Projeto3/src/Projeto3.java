@@ -48,9 +48,10 @@ public class Projeto3 {
                             }
                         }
                         double[][] A = calcularA(matriz, valoresProprios, vetoresProprios);
-                        double [][] Ak = calcularAk(valoresProprios, vetoresProprios, k);
                         double[][] vetoresPropriosReduzidos = vetorespropriosreduzidos(vetoresProprios, k);
                         double[][] valoresPropriosReduzidos = matrizdiagonalreduzida(valoresProprios, k);
+                        double [][] Ak = calcularAk(valoresPropriosReduzidos, vetoresPropriosReduzidos, k);
+
                         erroAbsolutoMedio = calcularErroAbsolutoMedio(A, Ak);
 
                         exibirMatriz(matriz, "Matriz CSV");
