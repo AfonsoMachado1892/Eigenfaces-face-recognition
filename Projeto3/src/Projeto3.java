@@ -31,6 +31,7 @@ public class Projeto3 {
                     if (eSimetrica(matriz)) {
                         vetoresProprios = matrizVetoresProprios(matriz);
                         valoresProprios = matrizDiagonalValoresProprios(matriz);
+                        double erroAbsolutoMedio;
                         int k = 0;
                         boolean kValido = false;
 
@@ -50,6 +51,7 @@ public class Projeto3 {
                         double [][] Ak = calcularAk(valoresProprios, vetoresProprios, k);
                         double[][] vetoresPropriosReduzidos = vetorespropriosreduzidos(vetoresProprios, k);
                         double[][] valoresPropriosReduzidos = matrizdiagonalreduzida(valoresProprios, k);
+                        erroAbsolutoMedio = calcularErroAbsolutoMedio(A, Ak);
 
                         exibirMatriz(matriz, "Matriz CSV");
                         System.out.println("Número de vetores próprios:" + k);
@@ -57,6 +59,7 @@ public class Projeto3 {
                         exibirMatriz(valoresPropriosReduzidos, "Valores Próprios Reduzido");
                         exibirMatriz(calcularTransposta(vetoresPropriosReduzidos), "Vetores Próprios Reduzidos Transpostos");
                         exibirMatriz(Ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)");
+                        System.out.printf("Erro absoluto médio: %.2f%% \n", erroAbsolutoMedio);
 
                     } else {
                         System.out.println("A matriz não é simétrica. Não é possível realizar a decomposição.");
@@ -223,14 +226,17 @@ public class Projeto3 {
         return multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
 
-    public static void calcularErroAbsolutoMedio (double[][] matriz, double[][] calcularA, int M, int N) {
+    public static double calcularErroAbsolutoMedio (double[][] A, double[][] Ak) {
         double erroAbsolutoMedio = 0;
-        for (int linhas = 0; linhas < M; linhas++) {
-            for (int colunas = 0; colunas < N; colunas++) {
-                double moduloDiferencaEntreMatrizes = Math.abs(matriz[linhas][colunas]-calcularA[linhas][colunas]);
-                erroAbsolutoMedio = moduloDiferencaEntreMatrizes / M*N;
+        double moduloDiferencaEntreMatrizes = 0;
+        double modulos = 0;
+        for (int linhas = 0; linhas < Ak.length; linhas++) {
+            for (int colunas = 0; colunas < Ak.length; colunas++) {
+                moduloDiferencaEntreMatrizes = Math.abs(A[linhas][colunas]-Ak[linhas][colunas]);
+                modulos += moduloDiferencaEntreMatrizes;
             }
         }
-        System.out.printf("Erro absoluto médio: %.2%%", erroAbsolutoMedio);
+        erroAbsolutoMedio = modulos / Ak.length*Ak.length;
+        return erroAbsolutoMedio;
     }
 }
