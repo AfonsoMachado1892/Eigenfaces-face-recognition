@@ -230,14 +230,14 @@ public class Projeto3 {
     public static double calcularErroAbsolutoMedio (double[][] A, double[][] Ak) {
         double erroAbsolutoMedio = 0;
         double moduloDiferencaEntreMatrizes = 0;
-        double modulos = 0;
-        for (int linhas = 0; linhas < Ak.length; linhas++) {
-            for (int colunas = 0; colunas < Ak.length; colunas++) {
-                moduloDiferencaEntreMatrizes = Math.abs(A[linhas][colunas]-Ak[linhas][colunas]);
-                modulos += moduloDiferencaEntreMatrizes;
+        int M = Ak.length;
+        int N = Ak[0].length;
+        for (int linhas = 0; linhas < M; linhas++) {
+            for (int colunas = 0; colunas < N; colunas++) {
+                moduloDiferencaEntreMatrizes += Math.abs(A[linhas][colunas]-Ak[linhas][colunas]);
             }
         }
-        erroAbsolutoMedio = modulos / Ak.length*Ak.length;
+        erroAbsolutoMedio =  moduloDiferencaEntreMatrizes / (M*N);
         return erroAbsolutoMedio;
     }
 }
