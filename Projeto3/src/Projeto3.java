@@ -3,6 +3,8 @@ import java.util.Scanner;
 import java.io.File;
 import org.apache.commons.math3.linear.*;
 import java.lang.Math;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Projeto3 {
     static Scanner sc = new Scanner(System.in);
@@ -54,7 +56,6 @@ public class Projeto3 {
                         double[][] vetoresPropriosReduzidos = vetorespropriosreduzidos(vetoresProprios, k);
                         double[][] valoresPropriosReduzidos = matrizdiagonalreduzida(valoresProprios, k);
                         double [][] Ak = calcularAk(valoresPropriosReduzidos, vetoresPropriosReduzidos, k);
-
                         erroAbsolutoMedio = calcularErroAbsolutoMedio(A, Ak);
 
                         System.out.println("Número de vetores próprios:" + k);
@@ -62,6 +63,7 @@ public class Projeto3 {
                         exibirMatriz(valoresPropriosReduzidos, "Valores Próprios Reduzido");
                         exibirMatriz(Ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)");
                         System.out.printf("Erro absoluto médio: %.2f%% \n", erroAbsolutoMedio);
+                        guardarMatriz(Ak, diretorio, "Projeto3\\src\\Output\\funcionalidade1");
 
                     } else {
                         System.out.println("A matriz não é simétrica. Não é possível realizar a decomposição.");
@@ -236,5 +238,34 @@ public class Projeto3 {
         }
         erroAbsolutoMedio =  moduloDiferencaEntreMatrizes / (M*N);
         return erroAbsolutoMedio;
+    }
+
+    public static void guardarMatriz (double[][] Ak, String diretorio, String outputFolder) {
+        String nomeCSV = new File(diretorio).getName();
+        String nomeCSVreconstruido = "reconstruido" + nomeCSV;
+        String caminho = outputFolder + "/" + nomeCSVreconstruido;
+        File ficheiro = new File(caminho);
+        int contador = 1;
+
+        while (ficheiro.exists()) {
+            ficheiro = new File(outputFolder + "/" + nomeCSVreconstruido.replace(".csv", "(" + contador + ").csv"));
+            contador++;
+        }
+
+        try (PrintWriter printwriter = new PrintWriter(ficheiro)) {
+            for (int i = 0; i < Ak.length; i++) {
+                for (int j = 0; j < Ak[i].length; j++) {
+                    printwriter.printf("%.2f ", Ak[i][j]);
+                    if(j == Ak[i].length - 1) {
+                        printwriter.printf("");
+                    } else {
+                        printwriter.print("; ");
+                    }
+                }
+                printwriter.println();
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao guardar ficheiro CSV: " + e.getMessage());
+        }
     }
 }
