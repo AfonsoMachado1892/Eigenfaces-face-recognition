@@ -12,6 +12,7 @@ public class Projeto3 {
         double[][] matriz;
         double[][] vetoresProprios;
         double[][] valoresProprios;
+        String diretorio = "";
 
         while (opcao != 4) {
             System.out.println("=========== Menu ==========");
@@ -26,7 +27,9 @@ public class Projeto3 {
 
             switch (opcao) {
                 case 1:
-                    matriz = lerMatriz();
+                    System.out.println("Insira o diretório para o ficheiro: ");
+                    diretorio = sc.nextLine();
+                    matriz = lerMatriz(diretorio);
 
                     if (eSimetrica(matriz)) {
                         vetoresProprios = matrizVetoresProprios(matriz);
@@ -80,13 +83,9 @@ public class Projeto3 {
         }
     }
 
-    public static double[][] lerMatriz() throws FileNotFoundException {
+    public static double[][] lerMatriz(String diretorio) throws FileNotFoundException {
         //src/inputs/Funcionalidade1/exampleInputFunc1.csv
-
-        System.out.println("Insira o diretório para o ficheiro: ");
-        String diretorio = sc.nextLine();
         File file = new File(diretorio);
-
         Scanner in = new Scanner(file);
         int cont = 0;
         int linhas;
