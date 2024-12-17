@@ -14,7 +14,7 @@ public class Projeto3 {
         double[][] matriz;
         double[][] vetoresProprios;
         double[][] valoresProprios;
-        String diretorio = "";
+        String diretorio;
 
         while (opcao != 4) {
             System.out.println("=========== Menu ==========");
@@ -52,10 +52,10 @@ public class Projeto3 {
                                 System.out.print("Valor inválido! Por favor insira um número entre 1 e " + matriz.length + ".");
                             }
                         }
-                        double[][] A = calcularA(matriz, valoresProprios, vetoresProprios);
+                        double[][] A = calcularA(valoresProprios, vetoresProprios);
                         double[][] vetoresPropriosReduzidos = vetorespropriosreduzidos(vetoresProprios, k);
                         double[][] valoresPropriosReduzidos = matrizdiagonalreduzida(valoresProprios, k);
-                        double [][] Ak = calcularAk(valoresPropriosReduzidos, vetoresPropriosReduzidos, k);
+                        double [][] Ak = calcularAk(valoresPropriosReduzidos, vetoresPropriosReduzidos);
                         erroAbsolutoMedio = calcularErroAbsolutoMedio(A, Ak);
 
                         System.out.println("Número de vetores próprios:" + k);
@@ -193,13 +193,11 @@ public class Projeto3 {
     }
 
     public static double[][] multiplicar_VetorValor_VetorTransposto(double[][] matrizdiagonal, double[][] vetoresproprios, double[][] vetorTransposto) {
-        double[][] resultado = multiplicarMatrizes(multiplicarMatrizes(vetoresproprios, matrizdiagonal), vetorTransposto);
-        return resultado;
+        return multiplicarMatrizes(multiplicarMatrizes(vetoresproprios, matrizdiagonal), vetorTransposto);
     }
 
-    public static double[][] calcularA(double[][] matriz, double[][] matrizdiagonal, double[][] vetoresproprios) {
-        double[][] matrizA = multiplicar_VetorValor_VetorTransposto(matrizdiagonal, vetoresproprios, calcularTransposta(vetoresproprios));
-        return matrizA;
+    public static double[][] calcularA(double[][] matrizdiagonal, double[][] vetoresproprios) {
+        return multiplicar_VetorValor_VetorTransposto(matrizdiagonal, vetoresproprios, calcularTransposta(vetoresproprios));
     }
 
     public static double[][] vetorespropriosreduzidos(double[][] vetoresproprios, int k) {
@@ -220,14 +218,14 @@ public class Projeto3 {
         return matrizDiagonalReduzida;
     }
 
-    public static double[][] calcularAk(double[][] matrizDiagonalReduzida, double[][] vetoresPropriosReduzidos, int k) {
+    public static double[][] calcularAk(double[][] matrizDiagonalReduzida, double[][] vetoresPropriosReduzidos) {
         double[][] vetoresPropriosTranspostos = calcularTransposta(vetoresPropriosReduzidos);
         double[][] pkDk = multiplicarMatrizes(vetoresPropriosReduzidos, matrizDiagonalReduzida);
         return multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
 
     public static double calcularErroAbsolutoMedio (double[][] A, double[][] Ak) {
-        double erroAbsolutoMedio = 0;
+        double erroAbsolutoMedio;
         double moduloDiferencaEntreMatrizes = 0;
         int M = Ak.length;
         int N = Ak[0].length;
