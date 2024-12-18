@@ -12,11 +12,11 @@ public class Projeto3 {
         String diretorio;
 
         while (opcao != 4) {
-            System.out.println("=========== Menu ==========");
+            System.out.println("===================== Menu =====================");
             System.out.println("1. Decomposição Própria de Matriz Simétrica");
             System.out.println("2. Reconstrução de Imagens Utilizando Eigenfaces");
             System.out.println("3. Identificação de Imagem Mais Próxima");
-            System.out.println("4. Sair");
+            System.out.println("4. Sair \n");
             System.out.print("Escolha uma opção: ");
 
             opcao = sc.nextInt();
@@ -24,7 +24,7 @@ public class Projeto3 {
 
             switch (opcao) {
                 case 1:
-                    System.out.println("Insira o diretório para o ficheiro: ");
+                    System.out.print("\nInsira o diretório para o ficheiro: ");
                     diretorio = sc.nextLine();
                     matriz = leiturasaidadados.lerMatriz(diretorio);
 
@@ -36,7 +36,7 @@ public class Projeto3 {
                         boolean kValido = false;
 
                         while (!kValido) {
-                            System.out.print("Digite o número de vetores próprios (k) a utilizar (1-" + matriz.length + "): ");
+                            System.out.print("\nDigite o número de vetores próprios (k) a utilizar (1-" + matriz.length + "): ");
                             k = sc.nextInt();
                             sc.nextLine();
 
@@ -53,11 +53,11 @@ public class Projeto3 {
                         double [][] Ak = calcularMatrizes.calcularAk(valoresPropriosReduzidos, vetoresPropriosReduzidos);
                         erroAbsolutoMedio = calcularMatrizes.calcularErroAbsolutoMedio(A, Ak);
 
-                        System.out.println("Número de vetores próprios:" + k);
-                        leiturasaidadados.exibirMatriz(vetoresPropriosReduzidos, "Vetores Próprios Reduzido", 2);
-                        leiturasaidadados.exibirMatriz(valoresPropriosReduzidos, "Valores Próprios Reduzido", 2);
-                        leiturasaidadados.exibirMatriz(Ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)", 2);
-                        System.out.printf("Erro absoluto médio: %.2f%% \n", erroAbsolutoMedio);
+                        System.out.println("\nNúmero de vetores próprios:" + k);
+                        leiturasaidadados.exibirMatriz(vetoresPropriosReduzidos, "\nVetores Próprios Reduzido", 2);
+                        leiturasaidadados.exibirMatriz(valoresPropriosReduzidos, "\nValores Próprios Reduzido", 2);
+                        leiturasaidadados.exibirMatriz(Ak, "\nMatriz Ak (Aproximação com " + k + " vetores próprios)", 2);
+                        System.out.printf("\nErro absoluto médio: %.2f%% \n", erroAbsolutoMedio);
                         leiturasaidadados.guardarMatriz(Ak, diretorio, "Projeto3\\src\\Output\\funcionalidade1");
 
                     } else {
