@@ -39,11 +39,13 @@ public class leiturasaidadados {
     }
 
 
-    public static void exibirMatriz(double[][] matriz, String nomeMatriz) {
+    public static void exibirMatriz(double[][] matriz, String nomeMatriz, int casasDecimais) {
         System.out.println(nomeMatriz + ":");
+        String formato = "%." + casasDecimais + "f ";
+
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
-                System.out.print(matriz[i][j] + " ");
+                System.out.printf(formato, matriz[i][j]);
             }
             System.out.println();
         }

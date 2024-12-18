@@ -54,9 +54,9 @@ public class Projeto3 {
                         erroAbsolutoMedio = calcularMatrizes.calcularErroAbsolutoMedio(A, Ak);
 
                         System.out.println("Número de vetores próprios:" + k);
-                        leiturasaidadados.exibirMatriz(vetoresPropriosReduzidos, "Vetores Próprios Reduzido");
-                        leiturasaidadados.exibirMatriz(valoresPropriosReduzidos, "Valores Próprios Reduzido");
-                        leiturasaidadados.exibirMatriz(Ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)");
+                        leiturasaidadados.exibirMatriz(vetoresPropriosReduzidos, "Vetores Próprios Reduzido", 2);
+                        leiturasaidadados.exibirMatriz(valoresPropriosReduzidos, "Valores Próprios Reduzido", 2);
+                        leiturasaidadados.exibirMatriz(Ak, "Matriz Ak (Aproximação com " + k + " vetores próprios)", 2);
                         System.out.printf("Erro absoluto médio: %.2f%% \n", erroAbsolutoMedio);
                         leiturasaidadados.guardarMatriz(Ak, diretorio, "Projeto3\\src\\Output\\funcionalidade1");
 
