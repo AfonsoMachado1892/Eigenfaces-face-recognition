@@ -82,7 +82,7 @@ public class leiturasaidadados {
 
     public static void lerVetoresDeImagens() throws FileNotFoundException {
         String caminho = "src\\inputs\\Funcionalidades 2 e 3\\exemploMatrizesImagensCSVFuncionalidades2e3\\exemploMatrizesImagensCSVFuncionalidades2e3";
-        String ficheiroOutput = "src/vetores.txt";
+        String ficheiroOutput = "src/vetores.csv";
         double[][] matriz;
         double[] vetor;
         int cont;
