@@ -10,31 +10,34 @@ public class leiturasaidadados {
         //src/inputs/Funcionalidade1/exampleInputFunc1.csv
         File file = new File(diretorio);
         Scanner in = new Scanner(file);
-        int cont = 0;
-        int linhas;
+
+        int linhas = 0;
+        int colunas = 0;
 
         while (in.hasNextLine()) {
-            cont++;
-            in.nextLine();
+            String linha = in.nextLine();
+            if (!linha.trim().isEmpty()) {
+                linhas++;
+                if (colunas == 0) {
+                    colunas = linha.split(",").length;
+                }
+            }
         }
 
-        linhas = cont - 1;
+        double[][] matriz = new double[linhas][colunas];
 
         in = new Scanner(file);
-
-        double[][] matriz = new double[linhas][linhas];
-
         for (int i = 0; i < linhas; i++) {
             String[] valores = in.nextLine().split(",");
-            for (int j = 0; j < linhas; j++) {
+            for (int j = 0; j < colunas; j++) {
                 matriz[i][j] = Double.parseDouble(valores[j]);
             }
         }
 
         in.close();
-
         return matriz;
     }
+
 
     public static void exibirMatriz(double[][] matriz, String nomeMatriz) {
         System.out.println(nomeMatriz + ":");
