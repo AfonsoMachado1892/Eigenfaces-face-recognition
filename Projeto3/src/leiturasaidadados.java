@@ -106,7 +106,14 @@ public class leiturasaidadados {
                             cont++;
                         }
                     }
-                    
+                    for (int i = 0; i < vetor.length; i++) {
+                        printwriter.printf("%.0f", vetor[i]);
+                        if (i == vetor.length - 1) {
+                            printwriter.println();
+                        } else {
+                            printwriter.print(", ");
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
