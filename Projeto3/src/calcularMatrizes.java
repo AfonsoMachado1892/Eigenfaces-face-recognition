@@ -123,4 +123,30 @@ public class calcularMatrizes {
         double[][] pkDk = calcularMatrizes.multiplicarMatrizes(vetoresPropriosReduzidos, matrizDiagonalReduzida);
         return calcularMatrizes.multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
+
+    public static double[][] calcularValoresVetoresProprios(double[][] C, double[] valoresProprios) {
+        RealMatrix matrizC = new Array2DRowRealMatrix(C);
+        EigenDecomposition decomposicao = new EigenDecomposition(matrizC);
+
+        // Armazenar valores próprios
+        for (int i = 0; i < valoresProprios.length; i++) {
+            valoresProprios[i] = decomposicao.getRealEigenvalue(i);
+        }
+
+        // Vetores próprios (sem normalização)
+        double[][] vetoresProprios = new double[C.length][C.length];
+        for (int i = 0; i < C.length; i++) {
+            double[] vetorProprio = decomposicao.getEigenvector(i).toArray();
+            for (int j = 0; j < C.length; j++) {
+                vetoresProprios[j][i] = vetorProprio[j] * 2;
+            }
+        }
+        return vetoresProprios;
+    }
+
+
+
+
 }
+
+
