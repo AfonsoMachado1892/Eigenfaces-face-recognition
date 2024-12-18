@@ -117,7 +117,7 @@ public class leiturasaidadados {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Erro ao guardar ficheiro: " + e.getMessage());
+            System.out.print("\nErro ao guardar ficheiro: " + e.getMessage());
         }
     }
 

@@ -44,7 +44,7 @@ public class Projeto3 {
                                 kValido = true;
 
                             } else {
-                                System.out.print("Valor inválido! Por favor insira um número entre 1 e " + matriz.length + ".");
+                                System.out.print("\nValor inválido! Por favor insira um número entre 1 e " + matriz.length + ".\n");
                             }
                         }
                         double[][] A = calcularMatrizes.calcularA(valoresProprios, vetoresProprios);
@@ -53,7 +53,7 @@ public class Projeto3 {
                         double [][] Ak = calcularMatrizes.calcularAk(valoresPropriosReduzidos, vetoresPropriosReduzidos);
                         erroAbsolutoMedio = calcularMatrizes.calcularErroAbsolutoMedio(A, Ak);
 
-                        System.out.println("\nNúmero de vetores próprios:" + k);
+                        System.out.println("\nNúmero de vetores próprios: " + k);
                         leiturasaidadados.exibirMatriz(vetoresPropriosReduzidos, "\nVetores Próprios Reduzido", 2);
                         leiturasaidadados.exibirMatriz(valoresPropriosReduzidos, "\nValores Próprios Reduzido", 2);
                         leiturasaidadados.exibirMatriz(Ak, "\nMatriz Ak (Aproximação com " + k + " vetores próprios)", 2);
