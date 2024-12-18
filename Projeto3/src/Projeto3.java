@@ -57,7 +57,7 @@ public class Projeto3 {
                         leiturasaidadados.exibirMatriz(vetoresPropriosReduzidos, "\nVetores Próprios Reduzido", 2);
                         leiturasaidadados.exibirMatriz(valoresPropriosReduzidos, "\nValores Próprios Reduzido", 2);
                         leiturasaidadados.exibirMatriz(Ak, "\nMatriz Ak (Aproximação com " + k + " vetores próprios)", 2);
-                        System.out.printf("\nErro absoluto médio: %.2f%% \n", erroAbsolutoMedio);
+                        System.out.printf("\nErro absoluto médio: %.2f \n", erroAbsolutoMedio);
                         leiturasaidadados.guardarMatriz(Ak, diretorio, "Projeto3\\src\\Output\\funcionalidade1");
 
                     } else {
