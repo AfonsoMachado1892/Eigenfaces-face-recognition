@@ -79,16 +79,26 @@ public class calcularMatrizes {
         return calcularMatrizes.multiplicar_VetorValor_VetorTransposto(matrizdiagonal, vetoresproprios, calcularMatrizes.calcularTransposta(vetoresproprios));
     }
 
-    public static boolean eSimetrica(double[][] matriz) {
+    public static boolean verificarMatriz(double[][] matriz) {
+        if((matriz.length != matriz[0].length)) {
+            return false;
+        }
+
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
-                if (matriz[i][j] != matriz[j][i]) {
+                if ((matriz[i][j] != matriz[j][i])) {
                     return false;
                 }
             }
         }
+
+        if(matriz.length >= 256) {
+            return false;
+        }
+
         return true;
     }
+
 
     public static double[][] vetorespropriosreduzidos(double[][] vetoresproprios, int k) {
         double[][] vetoresPropriosReduzidos = new double[vetoresproprios.length][k];

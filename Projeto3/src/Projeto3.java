@@ -28,7 +28,7 @@ public class Projeto3 {
                     diretorio = sc.nextLine();
                     matriz = leiturasaidadados.lerMatriz(diretorio);
 
-                    if (calcularMatrizes.eSimetrica(matriz)) {
+                    if (calcularMatrizes.verificarMatriz(matriz)) {
                         vetoresProprios = calcularMatrizes.matrizVetoresProprios(matriz);
                         valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz);
                         double erroAbsolutoMedio;
