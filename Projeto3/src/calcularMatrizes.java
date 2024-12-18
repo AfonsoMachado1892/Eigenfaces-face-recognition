@@ -143,6 +143,35 @@ public class calcularMatrizes {
         return vetoresProprios;
     }
 
+    public static double[][] reconstruirImagem(double[][] imagem, double[][] media, double[][] eigenfaces, int k) {
+        // Subtrair média da imagem
+        double[][] imagemCentrada = new double[imagem.length][1];
+        for (int i = 0; i < imagem.length; i++) {
+            imagemCentrada[i][0] = imagem[i][0] - media[i][0];
+        }
+
+        // Calcular pesos
+        double[][] pesos = new double[k][1];
+        for (int i = 0; i < k; i++) {
+            double soma = 0;
+            for (int j = 0; j < imagemCentrada.length; j++) {
+                soma += eigenfaces[j][i] * imagemCentrada[j][0];
+            }
+            pesos[i][0] = soma;
+        }
+
+        // Reconstruir imagem
+        double[][] imagemReconstruida = new double[media.length][1];
+        for (int i = 0; i < media.length; i++) {
+            imagemReconstruida[i][0] = media[i][0];
+        }
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < media.length; j++) {
+                imagemReconstruida[j][0] += eigenfaces[j][i] * pesos[i][0];
+            }
+        }
+        return imagemReconstruida;
+    }
 }
 
 
