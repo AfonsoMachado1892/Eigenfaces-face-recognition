@@ -125,53 +125,23 @@ public class calcularMatrizes {
     }
 
     public static double[][] calcularValoresVetoresProprios(double[][] C, double[] valoresProprios) {
+
         RealMatrix matrizC = new Array2DRowRealMatrix(C);
         EigenDecomposition decomposicao = new EigenDecomposition(matrizC);
 
-        // Armazenar valores próprios
         for (int i = 0; i < valoresProprios.length; i++) {
             valoresProprios[i] = decomposicao.getRealEigenvalue(i);
         }
 
-        // Vetores próprios (sem normalização)
         double[][] vetoresProprios = new double[C.length][C.length];
         for (int i = 0; i < C.length; i++) {
             double[] vetorProprio = decomposicao.getEigenvector(i).toArray();
             for (int j = 0; j < C.length; j++) {
-                vetoresProprios[j][i] = vetorProprio[j] * 2;
+                vetoresProprios[j][i] = vetorProprio[j];
             }
         }
         return vetoresProprios;
     }
-
-
-    public static double[][] reconstruirImagem(double[][] imagem, double[][] media, double[][] eigenfaces, int k) {
-        double[][] imagemCentrada = new double[imagem.length][1];
-        for (int i = 0; i < imagem.length; i++) {
-            imagemCentrada[i][0] = imagem[i][0] - media[i][0];
-        }
-
-        double[][] pesos = new double[k][1];
-        for (int i = 0; i < k; i++) {
-            double soma = 0;
-            for (int j = 0; j < imagemCentrada.length; j++) {
-                soma += eigenfaces[j][i] * imagemCentrada[i][0]; 
-            }
-            pesos[i][0] = soma;
-        }
-
-        double[][] imagemReconstruida = new double[media.length][1];
-        for (int i = 0; i < media.length; i++) {
-            imagemReconstruida[i][0] = media[i][0];
-        }
-        for (int i = 0; i < k; i++) {
-            for (int j = 0; j < media.length; j++) {
-                imagemReconstruida[j][0] += eigenfaces[j][i] * pesos[i][0];
-            }
-        }
-        return imagemReconstruida;
-    }
-
 
 }
 
