@@ -79,4 +79,40 @@ public class leiturasaidadados {
             System.out.println("Erro ao guardar ficheiro CSV: " + e.getMessage());
         }
     }
+
+    public static void lerVetoresDeImagens() throws FileNotFoundException {
+        String caminho = "src\\inputs\\Funcionalidades 2 e 3\\exemploMatrizesImagensCSVFuncionalidades2e3\\exemploMatrizesImagensCSVFuncionalidades2e3";
+        String ficheiroOutput = "src/vetores.txt";
+        double[][] matriz;
+        double[] vetor;
+        int cont;
+
+        File[] ficheiros = new File(caminho).listFiles();
+
+        try (PrintWriter printwriter = new PrintWriter(new File(ficheiroOutput))) {
+            for (File f : ficheiros) {
+                String filePath = f.getAbsolutePath();
+                String fileExtension = filePath.substring(filePath.lastIndexOf(".") + 1);
+
+                if ("csv".equals(fileExtension)) {
+                    matriz = lerMatriz(filePath);
+
+                    vetor = new double[matriz.length * matriz[0].length];
+                    cont = 0;
+
+                    for (int i = 0; i < matriz.length; i++) {
+                        for (int j = 0; j < matriz[i].length; j++) {
+                            vetor[cont] = matriz[i][j];
+                            cont++;
+                        }
+                    }
+                    
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao guardar ficheiro: " + e.getMessage());
+        }
+    }
+
+
 }

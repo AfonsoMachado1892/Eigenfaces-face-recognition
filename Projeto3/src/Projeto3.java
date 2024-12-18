@@ -66,6 +66,7 @@ public class Projeto3 {
 
                     break;
                 case 2:
+                    leiturasaidadados.lerVetoresDeImagens();
                     break;
                 case 3:
                     break;
