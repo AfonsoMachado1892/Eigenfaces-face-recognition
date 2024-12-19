@@ -50,7 +50,7 @@ public class Projeto3 {
                         double[][] A = calcularMatrizes.calcularA(valoresProprios, vetoresProprios);
                         double[][] vetoresPropriosReduzidos = calcularMatrizes.vetorespropriosreduzidos(vetoresProprios, k);
                         double[][] valoresPropriosReduzidos = calcularMatrizes.matrizdiagonalreduzida(valoresProprios, k);
-                        double [][] Ak = calcularMatrizes.calcularAk(valoresPropriosReduzidos, vetoresPropriosReduzidos);
+                        double[][] Ak = calcularMatrizes.calcularAk(valoresPropriosReduzidos, vetoresPropriosReduzidos);
                         erroAbsolutoMedio = calcularMatrizes.calcularErroAbsolutoMedio(A, Ak);
 
                         System.out.println("\nNúmero de vetores próprios: " + k);
@@ -66,7 +66,20 @@ public class Projeto3 {
 
                     break;
                 case 2:
-                    leiturasaidadados.lerVetoresDeImagens();
+                    final String dirFunc23 = "src\\inputs\\Funcionalidades 2 e 3\\exemploMatrizesImagensCSVFuncionalidades2e3\\exemploMatrizesImagensCSVFuncionalidades2e3";
+                    final String ficheiroOutput = "src/vetores.csv";
+
+                    double[][] matrizM = leiturasaidadados.lerMatriz(ficheiroOutput);
+                    matrizM = calcularMatrizes.calcularTransposta(matrizM);
+
+                    for(int i = 0; i < matrizM.length; i++) {
+                        for(int j = 0; j < matrizM[i].length; j++) {
+                            System.out.print(matrizM[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
+
+                    leiturasaidadados.lerVetoresDeImagens(dirFunc23, ficheiroOutput);
                     break;
                 case 3:
                     break;
