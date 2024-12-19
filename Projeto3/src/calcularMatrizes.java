@@ -143,6 +143,22 @@ public class calcularMatrizes {
         return vetoresProprios;
     }
 
+    public static double[][]normalizarVetoresProprios(double[][]vetoresProprios) {
+        // Normalizar vetores próprios
+        double[][] vetoresPropriosNormalizados = new double [vetoresProprios.length][vetoresProprios[0].length];
+        for (int i = 0; i < vetoresProprios.length; i++) {
+            double soma = 0;
+            for (int j = 0; j < vetoresProprios[i].length; j++) {
+                soma += Math.pow(vetoresProprios[i][j], 2);
+            }
+            double norma = Math.sqrt(soma);
+            for (int j = 0; j < vetoresProprios[i].length; j++) {
+                vetoresPropriosNormalizados[i][j] = vetoresProprios[i][j] / norma;
+            }
+        }
+        return vetoresPropriosNormalizados;
+    }
+
     public static double[][] reconstruirImagem(double[][] imagem, double[][] media, double[][] eigenfaces, int k) {
         // Subtrair média da imagem
         double[][] imagemCentrada = new double[imagem.length][1];
