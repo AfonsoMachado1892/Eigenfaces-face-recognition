@@ -69,17 +69,11 @@ public class Projeto3 {
                     final String dirFunc23 = "src\\inputs\\Funcionalidades 2 e 3\\exemploMatrizesImagensCSVFuncionalidades2e3\\exemploMatrizesImagensCSVFuncionalidades2e3";
                     final String ficheiroOutput = "src/vetores.csv";
 
+                    leiturasaidadados.lerVetoresDeImagens(dirFunc23, ficheiroOutput);
+
                     double[][] matrizM = leiturasaidadados.lerMatriz(ficheiroOutput);
                     matrizM = calcularMatrizes.calcularTransposta(matrizM);
 
-                    for(int i = 0; i < matrizM.length; i++) {
-                        for(int j = 0; j < matrizM[i].length; j++) {
-                            System.out.print(matrizM[i][j] + " ");
-                        }
-                        System.out.println();
-                    }
-
-                    leiturasaidadados.lerVetoresDeImagens(dirFunc23, ficheiroOutput);
                     break;
                 case 3:
                     break;
