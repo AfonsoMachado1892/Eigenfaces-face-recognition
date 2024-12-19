@@ -172,6 +172,21 @@ public class calcularMatrizes {
         }
         return imagemReconstruida;
     }
+
+    public static double[][] calcularVetorMedia(double[][] imagem) {
+        int numImagens = 0;
+        int somaValoresImagens = 0;
+        double[][] media = new double[imagem.length][1];
+
+        for (int linhas = 0; linhas < imagem.length; linhas++) {
+            for (int colunas = 0; colunas < imagem[0].length; colunas++) {
+                somaValoresImagens += imagem[linhas][colunas];
+                numImagens++;
+            }
+            media[linhas][0] = somaValoresImagens / numImagens;
+        }
+        return media;
+    }
 }
 
 
