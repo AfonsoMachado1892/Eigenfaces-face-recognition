@@ -118,7 +118,7 @@ public class calcularMatrizes {
     }
 
     public static double[][] calcularAk(double[][] matrizDiagonalReduzida, double[][] vetoresPropriosReduzidos) {
-        double[][] vetoresPropriosTranspostos =calcularMatrizes.calcularTransposta(vetoresPropriosReduzidos);
+        double[][] vetoresPropriosTranspostos = calcularMatrizes.calcularTransposta(vetoresPropriosReduzidos);
         double[][] pkDk = calcularMatrizes.multiplicarMatrizes(vetoresPropriosReduzidos, matrizDiagonalReduzida);
         return calcularMatrizes.multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
@@ -193,5 +193,13 @@ public class calcularMatrizes {
             }
         }
         return phi;
+    }
+
+    public static double[][] vetoresPropriosC(double[][] phi) {
+        double[][] phiTransposta = calcularTransposta(phi);
+        double[][] matrizPhiTransposta_Phi = multiplicarMatrizes(phiTransposta, phi);
+        double[][] vetoresPropriosPhiTransposta_Phi = matrizVetoresProprios(matrizPhiTransposta_Phi);
+        double[][] vetoresPropriosC = multiplicarMatrizes(phi, vetoresPropriosPhiTransposta_Phi);
+        return vetoresPropriosC;
     }
 }
