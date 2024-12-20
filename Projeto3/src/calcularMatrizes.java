@@ -99,7 +99,6 @@ public class calcularMatrizes {
         return true;
     }
 
-
     public static double[][] vetorespropriosreduzidos(double[][] vetoresproprios, int k) {
         double[][] vetoresPropriosReduzidos = new double[vetoresproprios.length][k];
         for (int i = 0; i < vetoresproprios.length; i++) {
@@ -124,26 +123,7 @@ public class calcularMatrizes {
         return calcularMatrizes.multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
 
-    public static double[][] calcularValoresVetoresProprios(double[][] C, double[] valoresProprios) {
-
-        RealMatrix matrizC = new Array2DRowRealMatrix(C);
-        EigenDecomposition decomposicao = new EigenDecomposition(matrizC);
-
-        for (int i = 0; i < valoresProprios.length; i++) {
-            valoresProprios[i] = decomposicao.getRealEigenvalue(i);
-        }
-
-        double[][] vetoresProprios = new double[C.length][C.length];
-        for (int i = 0; i < C.length; i++) {
-            double[] vetorProprio = decomposicao.getEigenvector(i).toArray();
-            for (int j = 0; j < C.length; j++) {
-                vetoresProprios[j][i] = vetorProprio[j];
-            }
-        }
-        return vetoresProprios;
-    }
-
-    public static double[][]normalizarVetoresProprios(double[][]vetoresProprios) {
+    public static double[][] normalizarVetoresProprios(double[][]vetoresProprios) {
         // Normalizar vetores próprios
         double[][] vetoresPropriosNormalizados = new double [vetoresProprios.length][vetoresProprios[0].length];
         for (int i = 0; i < vetoresProprios.length; i++) {
@@ -189,9 +169,9 @@ public class calcularMatrizes {
         return imagemReconstruida;
     }
 
-    public static double[][] calcularVetorMedia(double[][] imagem) {
+    public static double[][] calcularMedia(double[][] imagem) {
         int numImagens = 0;
-        int somaValoresImagens = 0;
+        double somaValoresImagens = 0;
         double[][] media = new double[imagem.length][1];
 
         for (int linhas = 0; linhas < imagem.length; linhas++) {
@@ -203,6 +183,15 @@ public class calcularMatrizes {
         }
         return media;
     }
+
+    public static double[][] calcularPhi(double[][] imagem, double[][] media) {
+        double[][] phi = new double[imagem.length][1];
+
+        for (int linhas = 0; linhas < imagem.length; linhas++) {
+            for (int colunas = 0; colunas < imagem[0].length; colunas++) {
+                phi[linhas][colunas] = imagem[linhas][0] - media[linhas][0];
+            }
+        }
+        return phi;
+    }
 }
-
-
