@@ -169,27 +169,27 @@ public class calcularMatrizes {
         return imagemReconstruida;
     }
 
-    public static double[][] calcularMedia(double[][] imagem) {
+    public static double[][] calcularMedia(double[][] matrizM) {
         int numImagens = 0;
         double somaValoresImagens = 0;
-        double[][] media = new double[imagem.length][1];
+        double[][] media = new double[matrizM.length][1];
 
-        for (int linhas = 0; linhas < imagem.length; linhas++) {
-            for (int colunas = 0; colunas < imagem[0].length; colunas++) {
-                somaValoresImagens += imagem[linhas][colunas];
+        for (int colunas = 0; colunas < matrizM.length; colunas++) {
+            for (int linhas = 0; linhas < matrizM[0].length; linhas++) {
+                somaValoresImagens += matrizM[linhas][colunas];
                 numImagens++;
             }
-            media[linhas][0] = somaValoresImagens / numImagens;
+            media[colunas][0] = somaValoresImagens / numImagens;
         }
         return media;
     }
 
-    public static double[][] calcularPhi(double[][] imagem, double[][] media) {
-        double[][] phi = new double[imagem.length][1];
+    public static double[][] calcularPhi(double[][] matrizM, double[][] media) {
+        double[][] phi = new double[matrizM.length][1];
 
-        for (int linhas = 0; linhas < imagem.length; linhas++) {
-            for (int colunas = 0; colunas < imagem[0].length; colunas++) {
-                phi[linhas][colunas] = imagem[linhas][0] - media[linhas][0];
+        for (int linhas = 0; linhas < matrizM.length; linhas++) {
+            for (int colunas = 0; colunas < matrizM[0].length; colunas++) {
+                phi[linhas][colunas] = matrizM[linhas][0] - media[linhas][0];
             }
         }
         return phi;
