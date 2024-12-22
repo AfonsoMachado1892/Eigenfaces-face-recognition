@@ -124,7 +124,6 @@ public class calcularMatrizes {
     }
 
     public static double[][] normalizarVetoresProprios(double[][]vetoresProprios) {
-        // Normalizar vetores próprios
         double[][] vetoresPropriosNormalizados = new double [vetoresProprios.length][vetoresProprios[0].length];
         for (int i = 0; i < vetoresProprios.length; i++) {
             double soma = 0;
@@ -137,36 +136,6 @@ public class calcularMatrizes {
             }
         }
         return vetoresPropriosNormalizados;
-    }
-
-    public static double[][] reconstruirImagem(double[][] imagem, double[][] media, double[][] eigenfaces, int k) {
-        // Subtrair média da imagem
-        double[][] imagemCentrada = new double[imagem.length][1];
-        for (int i = 0; i < imagem.length; i++) {
-            imagemCentrada[i][0] = imagem[i][0] - media[i][0];
-        }
-
-        // Calcular pesos
-        double[][] pesos = new double[k][1];
-        for (int i = 0; i < k; i++) {
-            double soma = 0;
-            for (int j = 0; j < imagemCentrada.length; j++) {
-                soma += eigenfaces[j][i] * imagemCentrada[j][0];
-            }
-            pesos[i][0] = soma;
-        }
-
-        // Reconstruir imagem
-        double[][] imagemReconstruida = new double[media.length][1];
-        for (int i = 0; i < media.length; i++) {
-            imagemReconstruida[i][0] = media[i][0];
-        }
-        for (int i = 0; i < k; i++) {
-            for (int j = 0; j < media.length; j++) {
-                imagemReconstruida[j][0] += eigenfaces[j][i] * pesos[i][0];
-            }
-        }
-        return imagemReconstruida;
     }
 
     public static double[][] calcularMedia(double[][] matrizM) {
@@ -200,6 +169,8 @@ public class calcularMatrizes {
         double[][] matrizPhiTransposta_Phi = multiplicarMatrizes(phiTransposta, phi);
         double[][] vetoresPropriosPhiTransposta_Phi = matrizVetoresProprios(matrizPhiTransposta_Phi);
         double[][] vetoresPropriosC = multiplicarMatrizes(phi, vetoresPropriosPhiTransposta_Phi);
+
         return vetoresPropriosC;
     }
+
 }
