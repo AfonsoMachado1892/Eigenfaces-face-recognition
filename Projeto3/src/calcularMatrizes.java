@@ -190,40 +190,75 @@ public class calcularMatrizes {
         return calcularMatrizes.normalizarVetoresProprios(eigenfaces);
     }
 
-    public static double[][] reconstruirImagem(double[][] media, double[][] eigenfaces, double[][] pesos, int k) {
-        double[][] imagemReconstruida = new double[media.length][1];
+    public static double[][] reconstruirTodasImagens(double[][] M, double[][] media, double[][] eigenfaces, int k) {
+        int numImagens = M[0].length; // Número de imagens
+        double[][] imagensReconstruidas = new double[media.length][numImagens]; // Matriz para armazenar as imagens reconstruídas
 
+        for (int i = 0; i < numImagens; i++) {
 
-        for (int i = 0; i < media.length; i++) {
-            imagemReconstruida[i][0] = media[i][0];
-        }
-
-        
-        for (int i = 0; i < k; i++) {
+            double[][] imagem = new double[media.length][1];
             for (int j = 0; j < media.length; j++) {
-                imagemReconstruida[j][0] += eigenfaces[j][i] * pesos[i][0];
+                imagem[j][0] = M[j][i];
+            }
+
+            // Subtrair a média da imagem
+            double[][] imagemCentrada = new double[imagem.length][1];
+            for (int j = 0; j < imagem.length; j++) {
+                imagemCentrada[j][0] = imagem[j][0] - media[j][0];
+            }
+
+            // Calcular os pesos para a imagem atual
+            double[][] pesos = new double[k][1];
+            for (int p = 0; p < k; p++) {
+                double soma = 0;
+                for (int j = 0; j < imagemCentrada.length; j++) {
+                    soma += eigenfaces[j][p] * imagemCentrada[j][0];
+                }
+                pesos[p][0] = soma;
+            }
+
+
+            double[][] imagemReconstruida = new double[media.length][1];
+            for (int j = 0; j < media.length; j++) {
+                imagemReconstruida[j][0] = media[j][0]; // Adicionar a média
+            }
+            for (int p = 0; p < k; p++) {
+                for (int j = 0; j < media.length; j++) {
+                    imagemReconstruida[j][0] += eigenfaces[j][p] * pesos[p][0];
+                }
+            }
+
+            // Armazenar a imagem reconstruída na matriz de saída
+            for (int j = 0; j < media.length; j++) {
+                imagensReconstruidas[j][i] = imagemReconstruida[j][0];
             }
         }
-        return imagemReconstruida;
+
+        return imagensReconstruidas;
     }
 
-    public static double[][] calcularPesos(double[][] imagem, double[][] media, double[][] eigenfaces, int k) {
-        // Subtrair a média da imagem
-        double[][] imagemCentrada = new double[imagem.length][1];
-        for (int i = 0; i < imagem.length; i++) {
-            imagemCentrada[i][0] = imagem[i][0] - media[i][0];
+
+    public static double[][] calcularPesos(double[][] A, double[][] media, double[][] eigenfaces, int k) {
+        int numImagens = A[0].length; // Número de imagens
+        double[][] pesos = new double[k][numImagens]; // Matriz para armazenar os pesos de todas as imagens
+
+        for (int i = 0; i < numImagens; i++) {
+
+            double[][] imagemCentrada = new double[media.length][1];
+            for (int j = 0; j < media.length; j++) {
+                imagemCentrada[j][0] = A[j][i] - media[j][0]; // Subtrair a média da imagem
+            }
+
+            // Calcular os pesos para a imagem atual
+            for (int p = 0; p < k; p++) {
+                double soma = 0;
+                for (int j = 0; j < imagemCentrada.length; j++) {
+                    soma += eigenfaces[j][p] * imagemCentrada[j][0];
+                }
+                pesos[p][i] = soma; 
+            }
         }
 
-        // Calcular os pesos
-        double[][] pesos = new double[k][1];
-        for (int i = 0; i < k; i++) {
-            double soma = 0;
-            for (int j = 0; j < imagemCentrada.length; j++) {
-                soma += eigenfaces[j][i] * imagemCentrada[j][0];
-            }
-            pesos[i][0] = soma;
-        }
         return pesos;
     }
-
 }
