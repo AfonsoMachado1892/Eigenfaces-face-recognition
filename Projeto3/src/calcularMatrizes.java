@@ -172,5 +172,83 @@ public class calcularMatrizes {
 
         return vetoresPropriosC;
     }
+    public static double[][] calcularValoresVetoresPropriosDeC(double[][] phi, double[] valoresProprios) {
+        // Calcular matriz Phi^T * Phi
+        double[][] phiTransposta = calcularMatrizes.calcularTransposta(phi);
+        double[][] phiTransposta_Phi = calcularMatrizes.multiplicarMatrizes(phiTransposta, phi);
+
+        // Calcular valores e vetores próprios de Phi^T * Phi
+        RealMatrix matrizPhiTransposta_Phi = new Array2DRowRealMatrix(phiTransposta_Phi);
+        EigenDecomposition decomposicao = new EigenDecomposition(matrizPhiTransposta_Phi);
+
+        // Armazenar valores próprios
+        for (int i = 0; i < valoresProprios.length; i++) {
+            valoresProprios[i] = decomposicao.getRealEigenvalue(i);
+        }
+
+        // Armazenar vetores próprios de Phi^T * Phi
+        double[][] vetoresPropriosPhiTransposta_Phi = new double[phiTransposta_Phi.length][phiTransposta_Phi.length];
+        for (int i = 0; i < phiTransposta_Phi.length; i++) {
+            double[] vetorProprio = decomposicao.getEigenvector(i).toArray();
+            for (int j = 0; j < phiTransposta_Phi.length; j++) {
+                vetoresPropriosPhiTransposta_Phi[j][i] = vetorProprio[j];
+            }
+        }
+
+        return vetoresPropriosPhiTransposta_Phi;
+    }
+
+    public static double[][] calcularEigenfaces(double[][] phi, double[][] vetoresPropriosPhiTransposta_Phi, int k) {
+        // Calcular os eigenfaces: phi * vetores próprios de Phi^T * Phi
+        double[][] eigenfaces = new double[phi.length][k];
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < phi.length; j++) {
+                double soma = 0;
+                for (int l = 0; l < vetoresPropriosPhiTransposta_Phi.length; l++) {
+                    soma += phi[j][l] * vetoresPropriosPhiTransposta_Phi[l][i];
+                }
+                eigenfaces[j][i] = soma;
+            }
+        }
+
+        // Normalizar os eigenfaces
+        return calcularMatrizes.normalizarVetoresProprios(eigenfaces);
+    }
+
+    public static double[][] reconstruirImagem(double[][] media, double[][] eigenfaces, double[][] pesos, int k) {
+        double[][] imagemReconstruida = new double[media.length][1];
+
+
+        for (int i = 0; i < media.length; i++) {
+            imagemReconstruida[i][0] = media[i][0];
+        }
+
+        
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < media.length; j++) {
+                imagemReconstruida[j][0] += eigenfaces[j][i] * pesos[i][0];
+            }
+        }
+        return imagemReconstruida;
+    }
+
+    public static double[][] calcularPesos(double[][] imagem, double[][] media, double[][] eigenfaces, int k) {
+        // Subtrair a média da imagem
+        double[][] imagemCentrada = new double[imagem.length][1];
+        for (int i = 0; i < imagem.length; i++) {
+            imagemCentrada[i][0] = imagem[i][0] - media[i][0];
+        }
+
+        // Calcular os pesos
+        double[][] pesos = new double[k][1];
+        for (int i = 0; i < k; i++) {
+            double soma = 0;
+            for (int j = 0; j < imagemCentrada.length; j++) {
+                soma += eigenfaces[j][i] * imagemCentrada[j][0];
+            }
+            pesos[i][0] = soma;
+        }
+        return pesos;
+    }
 
 }
