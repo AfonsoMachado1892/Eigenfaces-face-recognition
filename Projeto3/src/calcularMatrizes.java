@@ -173,64 +173,39 @@ public class calcularMatrizes {
         return vetoresPropriosC;
     }
 
-    public static double[][] calcularEigenfaces(double[][] phi, double[][] vetoresPropriosPhiTransposta_Phi, int k) {
-        // Calcular os eigenfaces: phi * vetores próprios de Phi^T * Phi
-        double[][] eigenfaces = new double[phi.length][k];
-        for (int i = 0; i < k; i++) {
-            for (int j = 0; j < phi.length; j++) {
+
+    public static double[][] calcularPesos(double[][] A, double[][] eigenfaces, int k) {
+        int numImagens = A[0].length; // Número de imagens
+        double[][] pesos = new double[k][numImagens]; // Matriz para armazenar os pesos de todas as imagens
+
+        for (int i = 0; i < numImagens; i++) { // Para cada imagem
+            for (int p = 0; p < k; p++) { // Para cada eigenface
                 double soma = 0;
-                for (int l = 0; l < vetoresPropriosPhiTransposta_Phi.length; l++) {
-                    soma += phi[j][l] * vetoresPropriosPhiTransposta_Phi[l][i];
+                for (int j = 0; j < A.length; j++) { // Para cada pixel
+                    soma += eigenfaces[j][p] * A[j][i];
                 }
-                eigenfaces[j][i] = soma;
+                pesos[p][i] = soma;
             }
         }
 
-        // Normalizar os eigenfaces
-        return calcularMatrizes.normalizarVetoresProprios(eigenfaces);
+        return pesos;
     }
 
-    public static double[][] reconstruirTodasImagens(double[][] M, double[][] media, double[][] eigenfaces, int k) {
-        int numImagens = M[0].length; // Número de imagens
+    public static double[][] reconstruirTodasImagens(double[][] media, double[][] eigenfaces, double[][] pesos, int k) {
+        int numImagens = pesos[0].length; // Número de imagens
         double[][] imagensReconstruidas = new double[media.length][numImagens]; // Matriz para armazenar as imagens reconstruídas
 
         for (int i = 0; i < numImagens; i++) {
-
-            double[][] imagem = new double[media.length][1];
+            // Inicializar com a média
             for (int j = 0; j < media.length; j++) {
-                imagem[j][0] = M[j][i];
+                imagensReconstruidas[j][i] = media[j][0];
             }
 
-            // Subtrair a média da imagem
-            double[][] imagemCentrada = new double[imagem.length][1];
-            for (int j = 0; j < imagem.length; j++) {
-                imagemCentrada[j][0] = imagem[j][0] - media[j][0];
-            }
-
-            // Calcular os pesos para a imagem atual
-            double[][] pesos = new double[k][1];
-            for (int p = 0; p < k; p++) {
-                double soma = 0;
-                for (int j = 0; j < imagemCentrada.length; j++) {
-                    soma += eigenfaces[j][p] * imagemCentrada[j][0];
-                }
-                pesos[p][0] = soma;
-            }
-
-
-            double[][] imagemReconstruida = new double[media.length][1];
-            for (int j = 0; j < media.length; j++) {
-                imagemReconstruida[j][0] = media[j][0]; // Adicionar a média
-            }
+            // Adicionar contribuição das eigenfaces ponderadas pelos pesos
             for (int p = 0; p < k; p++) {
                 for (int j = 0; j < media.length; j++) {
-                    imagemReconstruida[j][0] += eigenfaces[j][p] * pesos[p][0];
+                    imagensReconstruidas[j][i] += eigenfaces[j][p] * pesos[p][i];
                 }
-            }
-
-            // Armazenar a imagem reconstruída na matriz de saída
-            for (int j = 0; j < media.length; j++) {
-                imagensReconstruidas[j][i] = imagemReconstruida[j][0];
             }
         }
 
@@ -238,27 +213,6 @@ public class calcularMatrizes {
     }
 
 
-    public static double[][] calcularPesos(double[][] A, double[][] media, double[][] eigenfaces, int k) {
-        int numImagens = A[0].length; // Número de imagens
-        double[][] pesos = new double[k][numImagens]; // Matriz para armazenar os pesos de todas as imagens
 
-        for (int i = 0; i < numImagens; i++) {
 
-            double[][] imagemCentrada = new double[media.length][1];
-            for (int j = 0; j < media.length; j++) {
-                imagemCentrada[j][0] = A[j][i] - media[j][0]; // Subtrair a média da imagem
-            }
-
-            // Calcular os pesos para a imagem atual
-            for (int p = 0; p < k; p++) {
-                double soma = 0;
-                for (int j = 0; j < imagemCentrada.length; j++) {
-                    soma += eigenfaces[j][p] * imagemCentrada[j][0];
-                }
-                pesos[p][i] = soma; 
-            }
-        }
-
-        return pesos;
-    }
 }
