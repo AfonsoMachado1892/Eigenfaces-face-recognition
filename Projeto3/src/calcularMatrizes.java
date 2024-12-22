@@ -143,8 +143,8 @@ public class calcularMatrizes {
         double somaValoresImagens = 0;
         double[][] media = new double[matrizM.length][1];
 
-        for (int colunas = 0; colunas < matrizM.length; colunas++) {
-            for (int linhas = 0; linhas < matrizM[0].length; linhas++) {
+        for (int colunas = 0; colunas < matrizM[0].length; colunas++) {
+            for (int linhas = 0; linhas < matrizM.length; linhas++) {
                 somaValoresImagens += matrizM[linhas][colunas];
                 numImagens++;
             }
@@ -154,7 +154,7 @@ public class calcularMatrizes {
     }
 
     public static double[][] calcularPhi(double[][] matrizM, double[][] media) {
-        double[][] phi = new double[matrizM.length][1];
+        double[][] phi = new double[matrizM.length][matrizM[0].length];
 
         for (int linhas = 0; linhas < matrizM.length; linhas++) {
             for (int colunas = 0; colunas < matrizM[0].length; colunas++) {
@@ -171,31 +171,6 @@ public class calcularMatrizes {
         double[][] vetoresPropriosC = multiplicarMatrizes(phi, vetoresPropriosPhiTransposta_Phi);
 
         return vetoresPropriosC;
-    }
-    public static double[][] calcularValoresVetoresPropriosDeC(double[][] phi, double[] valoresProprios) {
-        // Calcular matriz Phi^T * Phi
-        double[][] phiTransposta = calcularMatrizes.calcularTransposta(phi);
-        double[][] phiTransposta_Phi = calcularMatrizes.multiplicarMatrizes(phiTransposta, phi);
-
-        // Calcular valores e vetores próprios de Phi^T * Phi
-        RealMatrix matrizPhiTransposta_Phi = new Array2DRowRealMatrix(phiTransposta_Phi);
-        EigenDecomposition decomposicao = new EigenDecomposition(matrizPhiTransposta_Phi);
-
-        // Armazenar valores próprios
-        for (int i = 0; i < valoresProprios.length; i++) {
-            valoresProprios[i] = decomposicao.getRealEigenvalue(i);
-        }
-
-        // Armazenar vetores próprios de Phi^T * Phi
-        double[][] vetoresPropriosPhiTransposta_Phi = new double[phiTransposta_Phi.length][phiTransposta_Phi.length];
-        for (int i = 0; i < phiTransposta_Phi.length; i++) {
-            double[] vetorProprio = decomposicao.getEigenvector(i).toArray();
-            for (int j = 0; j < phiTransposta_Phi.length; j++) {
-                vetoresPropriosPhiTransposta_Phi[j][i] = vetorProprio[j];
-            }
-        }
-
-        return vetoresPropriosPhiTransposta_Phi;
     }
 
     public static double[][] calcularEigenfaces(double[][] phi, double[][] vetoresPropriosPhiTransposta_Phi, int k) {
