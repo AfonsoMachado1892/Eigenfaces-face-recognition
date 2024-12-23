@@ -48,7 +48,7 @@ public class UI {
             double[][] vetoresProprios = calcularMatrizes.matrizVetoresProprios(matriz);
             double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz);
 
-            int k = obterK(matriz.length);
+            int k = obterK(matriz[0].length, "Selecione o número de vetores próprios a utilizar: ");
 
             double[][] A = calcularMatrizes.calcularA(valoresProprios, vetoresProprios);
             double[][] vetoresPropriosReduzidos = calcularMatrizes.vetorespropriosreduzidos(vetoresProprios, k);
@@ -68,25 +68,29 @@ public class UI {
         }
     }
 
-    private static int obterK(int tamanhoMaximo) {
+    public static int obterK(int tamanho, String mensagem) {
+        Scanner scanner = new Scanner(System.in);
         int k;
-        int limiteSuperior = Math.min(8, tamanhoMaximo); // O limite de k é o menor entre 8 e tamanhoMaximo.
 
         while (true) {
-            System.out.print("\nDigite o número de vetores próprios (k) a utilizar (-1 para todos ou 1-" + limiteSuperior + "): ");
-            k = sc.nextInt();
-            sc.nextLine();
+            System.out.println(mensagem);
+            System.out.printf("Introduza um valor para k (0 < k < %d): ", tamanho);
+
+            k = scanner.nextInt();
 
             if (k == -1) {
-                System.out.println("Você escolheu usar todos os vetores próprios disponíveis.");
-                return limiteSuperior; // Retorna o valor máximo permitido (até 8).
-            } else if (k >= 1 && k <= limiteSuperior) {
-                System.out.println("Você escolheu " + k + " vetores próprios. Continuando...");
-                return k; // Retorna o valor válido de k.
+                k = tamanho;
+                break;
+            } else if (k > 0 && k <= tamanho) {
+                break;
+            } else if (k > tamanho) {
+                k = tamanho;
+                break;
             } else {
-                System.out.println("Valor inválido! Por favor insira um número válido entre 1 e " + limiteSuperior + ", ou -1 para todos.");
+                System.out.println("Valor inválido. Tente novamente.");
             }
         }
+        return k;
     }
 
 
@@ -107,7 +111,13 @@ public class UI {
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresProprios(vetoresPropriosC);
 
-        int k = obterK(vetoresPropriosC.length);
+        int k = obterK(vetoresPropriosNormalizados[0].length, "Selecione o número de eigenfaces a utilizar na reconstrução de imagens: ");
+
+        double[][] pesos = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
+        double[][] imagensReconstruidas = calcularMatrizes.reconstruirTodasImagens(media, vetoresPropriosNormalizados, pesos, k);
+
+        System.out.printf("Dimensões da matriz A: %d x %d", matrizPhi.length, matrizPhi[0].length);
+        System.out.printf("Dimensões da matriz de eigenfaces: %d x %d", vetoresPropriosNormalizados.length, vetoresPropriosNormalizados[0].length);
     }
 
     private static void identificarImagem() {

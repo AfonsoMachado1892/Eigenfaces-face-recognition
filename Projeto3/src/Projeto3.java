@@ -9,5 +9,8 @@ public class Projeto3 {
             opcao = UI.obterOpcao();
             UI.executarOpcao(opcao);
         }
+
+        //F1: src\inputs\Funcionalidade1\exampleInputFunc1.csv
+        //F2: src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3
     }
 }
