@@ -116,8 +116,17 @@ public class UI {
         double[][] pesos = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
         double[][] imagensReconstruidas = calcularMatrizes.reconstruirTodasImagens(media, vetoresPropriosNormalizados, pesos, k);
 
-        System.out.printf("Dimensões da matriz A: %d x %d", matrizPhi.length, matrizPhi[0].length);
-        System.out.printf("Dimensões da matriz de eigenfaces: %d x %d", vetoresPropriosNormalizados.length, vetoresPropriosNormalizados[0].length);
+        leiturasaidadados.exibirMatriz(media, "Matriz µ", 0);
+        System.out.printf("Número de eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
+
+        for (int i = 0; i < pesos[0].length; i++) {
+            System.out.println("Imagem " + (i + 1) + ":");
+            System.out.print("Pesos w: ");
+            for (int p = 0; p < k; p++) {
+                System.out.print(pesos[p][i] + " ");
+            }
+            System.out.println();
+        }
     }
 
     private static void identificarImagem() {
