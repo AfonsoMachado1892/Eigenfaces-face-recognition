@@ -70,16 +70,25 @@ public class UI {
 
     private static int obterK(int tamanhoMaximo) {
         int k;
-        do {
-            System.out.print("\nDigite o número de vetores próprios (k) a utilizar (1-" + tamanhoMaximo + "): ");
+        int limiteSuperior = Math.min(8, tamanhoMaximo); // O limite de k é o menor entre 8 e tamanhoMaximo.
+
+        while (true) {
+            System.out.print("\nDigite o número de vetores próprios (k) a utilizar (-1 para todos ou 1-" + limiteSuperior + "): ");
             k = sc.nextInt();
             sc.nextLine();
-            if (k < 1 || k > tamanhoMaximo) {
-                System.out.println("Valor inválido! Por favor insira um número válido.");
+
+            if (k == -1) {
+                System.out.println("Você escolheu usar todos os vetores próprios disponíveis.");
+                return limiteSuperior; // Retorna o valor máximo permitido (até 8).
+            } else if (k >= 1 && k <= limiteSuperior) {
+                System.out.println("Você escolheu " + k + " vetores próprios. Continuando...");
+                return k; // Retorna o valor válido de k.
+            } else {
+                System.out.println("Valor inválido! Por favor insira um número válido entre 1 e " + limiteSuperior + ", ou -1 para todos.");
             }
-        } while (k < 1 || k > tamanhoMaximo);
-        return k;
+        }
     }
+
 
     private static void reconstruirImagens() throws FileNotFoundException {
         //src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3
