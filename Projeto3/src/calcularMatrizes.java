@@ -139,16 +139,15 @@ public class calcularMatrizes {
     }
 
     public static double[][] calcularMedia(double[][] matrizM) {
-        int colunas = matrizM[0].length;
-        int linhas = matrizM.length;
-        double[][] media = new double[linhas][1];
+        double[][] media = new double[matrizM.length][1];
+        double soma;
 
-        for (int i = 0; i < linhas; i++) {
-            double soma = 0;
-            for (int j = 0; j < colunas; j++) {
+        for (int i = 0; i < matrizM.length; i++) {
+            soma = 0;
+            for (int j = 0; j < matrizM[0].length; j++) {
                 soma += matrizM[i][j];
             }
-            media[i][0] = soma / colunas;
+            media[i][0] = soma / matrizM[0].length;
         }
 
         return media;
@@ -158,9 +157,9 @@ public class calcularMatrizes {
     public static double[][] calcularPhi(double[][] matrizM, double[][] media) {
         double[][] phi = new double[matrizM.length][matrizM[0].length];
 
-        for (int linhas = 0; linhas < matrizM.length; linhas++) {
-            for (int colunas = 0; colunas < matrizM[0].length; colunas++) {
-                phi[linhas][colunas] = matrizM[linhas][colunas] - media[linhas][0];
+        for (int i = 0; i < matrizM.length; i++) {
+            for (int j = 0; j < matrizM[0].length; j++) {
+                phi[i][j] = matrizM[i][j] - media[i][0];
             }
         }
         return phi;
