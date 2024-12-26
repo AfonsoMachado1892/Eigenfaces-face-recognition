@@ -139,30 +139,33 @@ public class calcularMatrizes {
     }
 
     public static double[][] calcularMedia(double[][] matrizM) {
-        int numImagens = 0;
-        double somaValoresImagens = 0;
-        double[][] media = new double[matrizM.length][1];
+        int colunas = matrizM[0].length;
+        int linhas = matrizM.length;
+        double[][] media = new double[linhas][1];
 
-        for (int colunas = 0; colunas < matrizM[0].length; colunas++) {
-            for (int linhas = 0; linhas < matrizM.length; linhas++) {
-                somaValoresImagens += matrizM[linhas][colunas];
-                numImagens++;
+        for (int i = 0; i < linhas; i++) {
+            double soma = 0;
+            for (int j = 0; j < colunas; j++) {
+                soma += matrizM[i][j];
             }
-            media[colunas][0] = somaValoresImagens / numImagens;
+            media[i][0] = soma / colunas;
         }
+
         return media;
     }
+
 
     public static double[][] calcularPhi(double[][] matrizM, double[][] media) {
         double[][] phi = new double[matrizM.length][matrizM[0].length];
 
         for (int linhas = 0; linhas < matrizM.length; linhas++) {
             for (int colunas = 0; colunas < matrizM[0].length; colunas++) {
-                phi[linhas][colunas] = matrizM[linhas][0] - media[linhas][0];
+                phi[linhas][colunas] = matrizM[linhas][colunas] - media[linhas][0];
             }
         }
         return phi;
     }
+
 
     public static double[][] vetoresPropriosC(double[][] phi) {
         double[][] phiTransposta = calcularTransposta(phi);

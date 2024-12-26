@@ -61,7 +61,7 @@ public class UI {
             leiturasaidadados.exibirMatriz(valoresPropriosReduzidos, "\nValores Próprios Reduzido", 2);
             leiturasaidadados.exibirMatriz(Ak, "\nMatriz Ak (Aproximação com " + k + " vetores próprios)", 2);
             System.out.printf("\nErro absoluto médio: %.2f \n", erroAbsolutoMedio);
-            leiturasaidadados.guardarMatriz(Ak, diretorio, "src\\Output\\funcionalidade1");
+            leiturasaidadados.guardarMatriz(Ak, diretorio, "src\\outputs\\funcionalidade1");
 
         } else {
             System.out.println("A matriz não é simétrica. Não é possível realizar a decomposição.");
@@ -117,8 +117,8 @@ public class UI {
         double[][] imagensReconstruidas = calcularMatrizes.reconstruirTodasImagens(media, vetoresPropriosNormalizados, pesos, k);
 
         leiturasaidadados.exibirMatriz(media, "Matriz µ", 0);
-        System.out.printf("Número de eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
 
+        System.out.println();
         for (int i = 0; i < pesos[0].length; i++) {
             System.out.println("Imagem " + (i + 1) + ":");
             System.out.print("Pesos w: ");
@@ -127,6 +127,9 @@ public class UI {
             }
             System.out.println();
         }
+
+        System.out.printf("%n%nNúmero de Eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
+
     }
 
     private static void identificarImagem() {
