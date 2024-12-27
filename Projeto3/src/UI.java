@@ -130,13 +130,6 @@ public class UI {
 
         System.out.printf("%nNúmero de Eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
 
-        for(int i = 0; i < 2; i++) {
-            for(int j = 0; j < 2; j++) {
-                System.out.printf("%f, ", matrizPhi[i][j]);
-            }
-            System.out.println();
-        }
-
 
 
     }

@@ -166,11 +166,30 @@ public class calcularMatrizes {
     }
 
 
-    public static double[][] vetoresPropriosC(double[][] phi) {
-        double[][] phiTransposta = calcularTransposta(phi);
-        double[][] matrizPhiTransposta_Phi = multiplicarMatrizes(phiTransposta, phi);
-        double[][] vetoresPropriosPhiTransposta_Phi = matrizVetoresProprios(matrizPhiTransposta_Phi);
-        double[][] vetoresPropriosC = multiplicarMatrizes(phi, vetoresPropriosPhiTransposta_Phi);
+    public static double[][] vetoresPropriosC(double[][] matrizA) {
+        double[][] transpostaA = calcularTransposta(matrizA);
+
+        double[][] matrizATA = multiplicarMatrizes(transpostaA, matrizA);
+
+        double[][] matrizVetoresPropriosATA = matrizVetoresProprios(matrizATA);
+
+        int linhasA = matrizA.length;
+        int numVetoresProprios = matrizVetoresPropriosATA[0].length;
+
+        double[][] vetoresPropriosC = new double[linhasA][numVetoresProprios];
+
+        for (int i = 0; i < numVetoresProprios; i++) {
+            double[][] vetorViColuna = new double[matrizATA.length][1];
+            for (int j = 0; j < vetorViColuna.length; j++) {
+                vetorViColuna[j][0] = matrizVetoresPropriosATA[j][i];
+            }
+
+            double[][] vetorUiColuna = multiplicarMatrizes(matrizA, vetorViColuna);
+
+            for (int j = 0; j < linhasA; j++) {
+                vetoresPropriosC[j][i] = vetorUiColuna[j][0];
+            }
+        }
 
         return vetoresPropriosC;
     }
