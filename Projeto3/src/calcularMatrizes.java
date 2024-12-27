@@ -123,20 +123,25 @@ public class calcularMatrizes {
         return calcularMatrizes.multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
     }
 
-    public static double[][] normalizarVetoresProprios(double[][]vetoresProprios) {
-        double[][] vetoresPropriosNormalizados = new double [vetoresProprios.length][vetoresProprios[0].length];
-        for (int i = 0; i < vetoresProprios.length; i++) {
+    public static double[][] normalizarVetoresProprios(double[][] vetoresProprios) {
+        double[][] vetoresPropriosNormalizados = new double[vetoresProprios.length][vetoresProprios[0].length];
+
+        for (int j = 0; j < vetoresProprios[0].length; j++) {
             double soma = 0;
-            for (int j = 0; j < vetoresProprios[i].length; j++) {
+
+            for (int i = 0; i < vetoresProprios.length; i++) {
                 soma += Math.pow(vetoresProprios[i][j], 2);
             }
             double norma = Math.sqrt(soma);
-            for (int j = 0; j < vetoresProprios[i].length; j++) {
+
+            for (int i = 0; i < vetoresProprios.length; i++) {
                 vetoresPropriosNormalizados[i][j] = vetoresProprios[i][j] / norma;
             }
         }
+
         return vetoresPropriosNormalizados;
     }
+
 
     public static double[][] calcularMedia(double[][] matrizM) {
         double[][] media = new double[matrizM.length][1];
@@ -193,6 +198,8 @@ public class calcularMatrizes {
 
         return vetoresPropriosC;
     }
+
+
 
 
     public static double[][] calcularPesos(double[][] A, double[][] eigenfaces, int k) {
