@@ -116,20 +116,21 @@ public class UI {
         double[][] pesos = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
         double[][] imagensReconstruidas = calcularMatrizes.reconstruirTodasImagens(media, vetoresPropriosNormalizados, pesos, k);
 
-        leiturasaidadados.exibirMatriz(media, "Matriz µ", 0);
+        leiturasaidadados.exibirMatriz(media, "Matriz µ", 2);
 
         System.out.println();
         for (int i = 0; i < pesos[0].length; i++) {
             System.out.println("Imagem " + (i + 1) + ":");
             System.out.print("Pesos w: ");
             for (int p = 0; p < k; p++) {
-                System.out.print(pesos[p][i] + " ");
+                System.out.printf("%.2f ", pesos[p][i]);
             }
             System.out.println();
         }
 
         System.out.printf("%nNúmero de Eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
 
+        System.out.printf("%nEAM: %.2f%n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensReconstruidas));
 
 
     }
