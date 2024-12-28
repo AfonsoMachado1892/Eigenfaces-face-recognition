@@ -76,12 +76,11 @@ public class calcularMatrizes {
         return matrizMultiplicada;
     }
 
-    public static double[][] multiplicar_VetorValor_VetorTransposto(double[][] matrizdiagonal, double[][] vetoresproprios, double[][] vetorTransposto) {
-        return calcularMatrizes.multiplicarMatrizes(calcularMatrizes.multiplicarMatrizes(vetoresproprios, matrizdiagonal), vetorTransposto);
-    }
-
     public static double[][] calcularA(double[][] matrizdiagonal, double[][] vetoresproprios) {
-        return calcularMatrizes.multiplicar_VetorValor_VetorTransposto(matrizdiagonal, vetoresproprios, calcularMatrizes.calcularTransposta(vetoresproprios));
+        return calcularMatrizes.multiplicarMatrizes(
+                calcularMatrizes.multiplicarMatrizes(vetoresproprios, matrizdiagonal),
+                calcularMatrizes.calcularTransposta(vetoresproprios)
+        );
     }
 
     public static boolean verificarMatriz(double[][] matriz) {
