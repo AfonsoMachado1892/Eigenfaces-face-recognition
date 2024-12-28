@@ -133,6 +133,7 @@ public class UI {
         System.out.printf("%nEAM: %.2f%n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensReconstruidas));
 
 
+        leiturasaidadados.guardarImagem(imagensReconstruidas, "src\\outputs\\funcionalidade2");
     }
 
     private static void identificarImagem() {

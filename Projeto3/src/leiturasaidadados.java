@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class leiturasaidadados {
@@ -117,5 +114,44 @@ public class leiturasaidadados {
         } catch (IOException e) {
             System.out.println("Erro ao guardar ficheiro: " + e.getMessage());
         }
+    }
+
+    public static void guardarImagem(double[][] imagensReconstruidas, String caminhoOutput) {
+
+        try {
+            for (int coluna = 0; coluna < imagensReconstruidas[0].length; coluna++) {
+                int[][] intimagemReconstruida = new int[imagensReconstruidas.length][1];
+                for (int i = 0; i < imagensReconstruidas.length; i++) {
+                    intimagemReconstruida[i][0] = (int) (imagensReconstruidas[i][coluna]);
+                }
+
+                String nomeImagem = "imagem_" + (coluna + 1) + ".jpg";
+                String caminhoImagem = caminhoOutput + File.separator + nomeImagem;
+
+                double[][] matrizImagemReconstruida = arrayparaMatriz(intimagemReconstruida);
+
+                calcularMatrizes.escreverArraycomoImagem(matrizImagemReconstruida, caminhoImagem);
+                System.out.println("Imagem " + (coluna + 1) + " escrita com sucesso em: " + caminhoImagem);
+            }
+        } catch (IOException e) {
+            System.err.println("Ocorreu um erro ao escrever a imagem: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Valores de pixeis inválidos no array: " + e.getMessage());
+        }
+    }
+
+    public static double[][] arrayparaMatriz(int[][] array) {
+        int colunas = 64;
+        int linhas = 64;
+        if (array.length != linhas * colunas) {
+            throw new IllegalArgumentException("O vetor não equivale às dimensões da matriz");
+        }
+        double[][] arrayConvertido = new double[linhas][colunas];
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < colunas; j++) {
+                arrayConvertido[i][j] = array[i * colunas + j][0];
+            }
+        }
+        return arrayConvertido;
     }
 }

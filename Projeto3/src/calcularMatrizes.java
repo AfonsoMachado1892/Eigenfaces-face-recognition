@@ -2,6 +2,11 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class calcularMatrizes {
 
     public static double[][] matrizVetoresProprios(double[][] matriz) {
@@ -240,7 +245,24 @@ public class calcularMatrizes {
         return imagensReconstruidas;
     }
 
+    public static void escreverArraycomoImagem(double[][] array, String caminhoOutput) throws IOException {
+        int alturaImagem = array.length;
+        int larguraImagem = array[0].length;
+        BufferedImage imagem = new BufferedImage(larguraImagem, alturaImagem, BufferedImage.TYPE_BYTE_GRAY);
 
-
+        for (int y = 0; y < alturaImagem; y++) {
+            for (int x = 0; x < larguraImagem; x++) {
+                int intensidade = (int) array[y][x];
+                if (intensidade < 0 || intensidade > 255) {
+                    System.out.println(intensidade + "");
+                    throw new IllegalArgumentException("A intensidade do pixel deve estar entre 0 e 255.");
+                }
+                int rgb = (intensidade << 16) | (intensidade << 8) | intensidade;
+                imagem.setRGB(x, y, rgb);
+            }
+        }
+        File outputFile = new File(caminhoOutput);
+        ImageIO.write(imagem, "jpg", outputFile);
+    }
 
 }
