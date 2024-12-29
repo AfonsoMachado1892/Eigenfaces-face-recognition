@@ -77,14 +77,14 @@ public class leiturasaidadados {
         }
     }
 
-    public static void lerVetoresDeImagens(String caminho, String ficheiroOutput) throws FileNotFoundException {
+    public static void lerVetoresDeImagens(String caminho, String ficheiroOutput) {
         double[][] matriz;
         double[] vetor;
         int cont;
 
         File[] ficheiros = new File(caminho).listFiles();
 
-        try (PrintWriter printwriter = new PrintWriter(new File(ficheiroOutput))) {
+        try (PrintWriter printwriter = new PrintWriter((ficheiroOutput))) {
             for (File f : ficheiros) {
                 String filePath = f.getAbsolutePath();
                 String fileExtension = filePath.substring(filePath.lastIndexOf(".") + 1);
