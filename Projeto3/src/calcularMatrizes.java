@@ -97,11 +97,7 @@ public class calcularMatrizes {
             }
         }
 
-        if(matriz.length >= 256) {
-            return false;
-        }
-
-        return true;
+        return matriz.length < 256;
     }
 
     public static double[][] vetorespropriosreduzidos(double[][] vetoresproprios, int k) {
@@ -254,7 +250,6 @@ public class calcularMatrizes {
             for (int x = 0; x < larguraImagem; x++) {
                 int intensidade = (int) array[y][x];
                 if (intensidade < 0 || intensidade > 255) {
-                    System.out.println(intensidade + "");
                     throw new IllegalArgumentException("A intensidade do pixel deve estar entre 0 e 255.");
                 }
                 int rgb = (intensidade << 16) | (intensidade << 8) | intensidade;
