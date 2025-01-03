@@ -48,15 +48,13 @@ public class leiturasaidadados {
         }
     }
 
-    public static void guardarMatriz (double[][] Ak, String diretorio, String outputFolder) {
-        String nomeCSV = new File(diretorio).getName();
-        String nomeCSVreconstruido = "reconstruido" + nomeCSV;
-        String caminho = outputFolder + "/" + nomeCSVreconstruido;
+    public static void guardarMatriz (double[][] Ak, String nome, String outputFolder) {
+        String caminho = outputFolder + "/" + nome;
         File ficheiro = new File(caminho);
         int contador = 1;
 
         while (ficheiro.exists()) {
-            ficheiro = new File(outputFolder + "/" + nomeCSVreconstruido.replace(".csv", "(" + contador + ").csv"));
+            ficheiro = new File(outputFolder + "/" + nome.replace(".csv", "(" + contador + ").csv"));
             contador++;
         }
 

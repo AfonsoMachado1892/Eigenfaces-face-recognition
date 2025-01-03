@@ -61,7 +61,7 @@ public class UI {
             leiturasaidadados.exibirMatriz(valoresPropriosReduzidos, "\nValores Próprios Reduzido", 2);
             leiturasaidadados.exibirMatriz(Ak, "\nMatriz Ak (Aproximação com " + k + " vetores próprios)", 2);
             System.out.printf("\nErro absoluto médio: %.2f \n", erroAbsolutoMedio);
-            leiturasaidadados.guardarMatriz(Ak, diretorio, "src\\outputs\\funcionalidade1");
+            leiturasaidadados.guardarMatriz(Ak, "exampleInputFunc1.csv", "src\\outputs\\funcionalidade1");
 
         } else {
             System.out.println("A matriz não é simétrica. Não é possível realizar a decomposição.");
