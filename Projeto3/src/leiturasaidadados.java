@@ -153,12 +153,12 @@ public class leiturasaidadados {
         return arrayConvertido;
     }
 
-    public static void guardarCSV(double[][] inputCSV, String caminhoOutput) {
-        int numImagens = inputCSV[0].length;
+    public static void guardarCSV(double[][] inputCSV, String caminhoOutput, String nome) {
+        int largura = inputCSV[0].length;
         int dimensaoImagem = 64;
 
-        for (int coluna = 0; coluna < numImagens; coluna++) {
-            String nomeCSV = "imagem_" + (coluna + 1) + ".csv";
+        for (int coluna = 0; coluna < largura; coluna++) {
+            String nomeCSV = nome + "_" + (coluna + 1) + ".csv";
             String caminhoCSV = caminhoOutput + File.separator + nomeCSV;
 
             try (PrintWriter printwriter = new PrintWriter(caminhoCSV)) {
