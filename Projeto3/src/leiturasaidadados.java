@@ -154,4 +154,29 @@ public class leiturasaidadados {
         }
         return arrayConvertido;
     }
+
+    public static void guardarCSV(double[][] inputCSV, String caminhoOutput) {
+        int numImagens = inputCSV[0].length;
+        int dimensaoImagem = 64;
+
+        for (int coluna = 0; coluna < numImagens; coluna++) {
+            String nomeCSV = "imagem_" + (coluna + 1) + ".csv";
+            String caminhoCSV = caminhoOutput + File.separator + nomeCSV;
+
+            try (PrintWriter printwriter = new PrintWriter(caminhoCSV)) {
+                for (int i = 0; i < dimensaoImagem; i++) {
+                    for (int j = 0; j < dimensaoImagem; j++) {
+                        printwriter.printf("%.2f ", inputCSV[i * dimensaoImagem + j][coluna]);
+                        if (j == dimensaoImagem - 1) {
+                            printwriter.println();
+                        } else {
+                            printwriter.print("; ");
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Erro ao guardar ficheiro CSV: " + e.getMessage());
+            }
+        }
+    }
 }
