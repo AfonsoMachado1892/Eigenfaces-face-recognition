@@ -114,16 +114,16 @@ public class leiturasaidadados {
         }
     }
 
-    public static void guardarImagem(double[][] imagensReconstruidas, String caminhoOutput) {
+    public static void guardarImagem(double[][] inputCSV, String caminhoOutput, String nome) {
 
         try {
-            for (int coluna = 0; coluna < imagensReconstruidas[0].length; coluna++) {
-                int[][] intimagemReconstruida = new int[imagensReconstruidas.length][1];
-                for (int i = 0; i < imagensReconstruidas.length; i++) {
-                    intimagemReconstruida[i][0] = (int) (imagensReconstruidas[i][coluna]);
+            for (int coluna = 0; coluna < inputCSV[0].length; coluna++) {
+                int[][] intimagemReconstruida = new int[inputCSV.length][1];
+                for (int i = 0; i < inputCSV.length; i++) {
+                    intimagemReconstruida[i][0] = (int) (inputCSV[i][coluna]);
                 }
 
-                String nomeImagem = "imagem_" + (coluna + 1) + ".jpg";
+                String nomeImagem = nome + "_" + (coluna + 1) + ".jpg";
                 String caminhoImagem = caminhoOutput + File.separator + nomeImagem;
 
                 double[][] matrizImagemReconstruida = arrayparaMatriz(intimagemReconstruida);
