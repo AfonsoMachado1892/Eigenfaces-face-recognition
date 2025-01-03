@@ -143,28 +143,28 @@ public class calcularMatrizes {
     }
 
 
-    public static double[][] calcularMedia(double[][] matrizM) {
-        double[][] media = new double[matrizM.length][1];
+    public static double[][] calcularMedia(double[][] matriz) {
+        double[][] media = new double[matriz.length][1];
         double soma;
 
-        for (int i = 0; i < matrizM.length; i++) {
+        for (int i = 0; i < matriz.length; i++) {
             soma = 0;
-            for (int j = 0; j < matrizM[0].length; j++) {
-                soma += matrizM[i][j];
+            for (int j = 0; j < matriz[0].length; j++) {
+                soma += matriz[i][j];
             }
-            media[i][0] = soma / matrizM[0].length;
+            media[i][0] = soma / matriz[0].length;
         }
 
         return media;
     }
 
 
-    public static double[][] calcularPhi(double[][] matrizM, double[][] media) {
-        double[][] phi = new double[matrizM.length][matrizM[0].length];
+    public static double[][] calcularPhi(double[][] matriz, double[][] media) {
+        double[][] phi = new double[matriz.length][matriz[0].length];
 
-        for (int i = 0; i < matrizM.length; i++) {
-            for (int j = 0; j < matrizM[0].length; j++) {
-                phi[i][j] = matrizM[i][j] - media[i][0];
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                phi[i][j] = matriz[i][j] - media[i][0];
             }
         }
         return phi;

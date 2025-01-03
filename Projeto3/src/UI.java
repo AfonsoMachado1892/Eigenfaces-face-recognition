@@ -138,7 +138,20 @@ public class UI {
         leiturasaidadados.guardarImagem(imagensReconstruidas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "imagem");
     }
 
-    private static void identificarImagem() {
-        // Coloque aqui a lógica da funcionalidade 3
+    private static void identificarImagem() throws FileNotFoundException {
+
+        System.out.print("\nInsira o diretório da imagem a identificar: ");
+        String diretorioNovaI = sc.nextLine();
+        System.out.print("\nInsira a localização da base imagens: ");
+        String baseImagens = sc.nextLine();
+        System.out.print("\nInsira o número de eigenfaces a utilizar na identificação da imagem: ");
+        int numEigenfaces = sc.nextInt();
+
+        leiturasaidadados.lerVetoresDeImagens(baseImagens, "src\\vetoresFunc3.csv");
+        double[][]novaImagem = leiturasaidadados.lerMatriz(diretorioNovaI);
+        double[][]matrizImagens = leiturasaidadados.lerMatriz("src\\vetoresFunc3.csv");
+        double[][]media = calcularMatrizes.calcularMedia(matrizImagens);
+        novaImagem = calcularMatrizes.calcularTransposta(novaImagem);
+        double[][]phiNovo = calcularMatrizes.calcularPhi(novaImagem, media);
     }
 }
