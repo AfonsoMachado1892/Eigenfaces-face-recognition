@@ -198,10 +198,7 @@ public class calcularMatrizes {
 
         return vetoresPropriosC;
     }
-
-
-
-
+    
     public static double[][] calcularPesos(double[][] A, double[][] eigenfaces, int k) {
         int numImagens = A[0].length; // Número de imagens
         double[][] pesos = new double[k][numImagens]; // Matriz para armazenar os pesos de todas as imagens
@@ -262,19 +259,16 @@ public class calcularMatrizes {
 
     // Método para calcular a distância euclidiana entre dois vetores
     public static double[] calcularDistanciaEuclidianaMatriz(double[][] omegaNova, double[][] omegaJ) {
+        double[] distanciaEuclidiana = new double[omegaNova[0].length];
 
-        int numImagens = omegaJ[0].length;
-        double[] distancias = new double[numImagens];
-
-        for (int i = 0; i < numImagens; i++) {
+        for (int colunas = 0; colunas < omegaNova[0].length; colunas++) {
             double soma = 0;
-            for (int j = 0; j < omegaNova.length; j++) {
-                soma += Math.pow(omegaNova[j][0] - omegaJ[j][i], 2);
+            for (int linhas = 0; linhas < omegaNova.length; linhas++) {
+                soma += Math.pow(omegaNova[linhas][0] - omegaJ[colunas][linhas], 2);
             }
-            distancias[i] = Math.sqrt(soma);
+            distanciaEuclidiana[colunas] = Math.sqrt(soma);
         }
-
-        return distancias;
+        return distanciaEuclidiana;
     }
 
     public static double[][] construirVetoresPesos(double[][] pesosBase) {
