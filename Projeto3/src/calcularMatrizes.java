@@ -263,19 +263,19 @@ public class calcularMatrizes {
     // Método para calcular a distância euclidiana entre dois vetores
     public static double[] calcularDistanciaEuclidianaMatriz(double[][] omegaNova, double[][] omegaJ) {
 
-        double[] distancias = new double[omegaJ.length];
+        int numImagens = omegaJ[0].length;
+        double[] distancias = new double[numImagens];
 
-        for (int i = 0; i < omegaJ.length; i++) {
+        for (int i = 0; i < numImagens; i++) {
             double soma = 0;
             for (int j = 0; j < omegaNova.length; j++) {
-                soma += Math.pow(omegaNova[j][0] - omegaJ[i][j], 2);
+                soma += Math.pow(omegaNova[j][0] - omegaJ[j][i], 2);
             }
             distancias[i] = Math.sqrt(soma);
         }
 
         return distancias;
     }
-
 
     public static double[][] construirVetoresPesos(double[][] pesosBase) {
         int numImagens = pesosBase[0].length;
