@@ -261,15 +261,22 @@ public class calcularMatrizes {
 
 
     // Método para calcular a distância euclidiana entre dois vetores
-    public static double calcularDistanciaEuclidiana(double[] vetor1, double[] vetor2) {
-        double soma = 0;
-        for (int i = 0; i < vetor1.length; i++) {
-            soma += Math.pow(vetor1[i] - vetor2[i], 2);
+    public static double[] calcularDistanciaEuclidianaMatriz(double[][] omegaNova, double[][] omegaJ) {
+
+        double[] distancias = new double[omegaJ.length];
+
+        for (int i = 0; i < omegaJ.length; i++) {
+            double soma = 0;
+            for (int j = 0; j < omegaNova.length; j++) {
+                soma += Math.pow(omegaNova[j][0] - omegaJ[i][j], 2);
+            }
+            distancias[i] = Math.sqrt(soma);
         }
-        return Math.sqrt(soma);
+
+        return distancias;
     }
 
-    // Método para construir os vetores de pesos das imagens da base
+
     public static double[][] construirVetoresPesos(double[][] pesosBase) {
         int numImagens = pesosBase[0].length;
         double[][] vetoresPesos = new double[numImagens][pesosBase.length];
@@ -282,23 +289,18 @@ public class calcularMatrizes {
         return vetoresPesos;
     }
 
-    // Método principal para identificação da imagem mais próxima
-    public static int identificarImagemMaisProxima(double[][] pesosBase, double[] pesosImagem) {
-        double menorDistancia = Double.MAX_VALUE;
-        int indiceMaisProximo = -1;
+    public static int obterIndiceMenorDistancia(double[] distancias) {
+        double menorValor = distancias[0];
+        int menorIndice = 0;
 
-        for (int i = 0; i < pesosBase.length; i++) {
-            double distancia = calcularDistanciaEuclidiana(pesosBase[i], pesosImagem);
-            System.out.println("Distância da imagem " + i + ": " + distancia);
-
-            if (distancia < menorDistancia) {
-                menorDistancia = distancia;
-                indiceMaisProximo = i;
+        for(int i = 1; i < distancias.length; i++) {
+            if(distancias[i] < menorValor) {
+                menorValor = distancias[i];
+                menorIndice = i;
             }
         }
 
-        System.out.println("A imagem mais próxima é a de índice: " + indiceMaisProximo + " com distância: " + menorDistancia);
-        return indiceMaisProximo;
+        return menorIndice;
     }
 
 

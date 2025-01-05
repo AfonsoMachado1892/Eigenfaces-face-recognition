@@ -139,19 +139,44 @@ public class UI {
     }
 
     private static void identificarImagem() throws FileNotFoundException {
+        int cont = 0;
 
         System.out.print("\nInsira o diretório da imagem a identificar: ");
         String diretorioNovaI = sc.nextLine();
         System.out.print("\nInsira a localização da base imagens: ");
         String baseImagens = sc.nextLine();
-        System.out.print("\nInsira o número de eigenfaces a utilizar na identificação da imagem: ");
-        int numEigenfaces = sc.nextInt();
 
-        leiturasaidadados.lerVetoresDeImagens(baseImagens, "src\\vetoresFunc3.csv");
-        double[][]novaImagem = leiturasaidadados.lerMatriz(diretorioNovaI);
-        double[][]matrizImagens = leiturasaidadados.lerMatriz("src\\vetoresFunc3.csv");
-        double[][]media = calcularMatrizes.calcularMedia(matrizImagens);
-        novaImagem = calcularMatrizes.calcularTransposta(novaImagem);
-        double[][]phiNovo = calcularMatrizes.calcularPhi(novaImagem, media);
+        leiturasaidadados.lerVetoresDeImagens(baseImagens, "src\\vetores.csv");
+
+        double[][] novaImagemMatriz = leiturasaidadados.lerMatriz(diretorioNovaI);
+        double[][] novaImagemVetor = new double[novaImagemMatriz.length * novaImagemMatriz.length][1];
+
+        for(int i = 0; i < novaImagemMatriz.length; i++) {
+            for(int j = 0; j < novaImagemMatriz[0].length; j++) {
+                novaImagemVetor[cont][0] = novaImagemMatriz[i][j];
+                cont++;
+            }
+        }
+
+        double[][]matrizImagens = leiturasaidadados.lerMatriz("src\\vetores.csv");
+        matrizImagens = calcularMatrizes.calcularTransposta(matrizImagens);
+        double[][] media = calcularMatrizes.calcularMedia(matrizImagens);
+        double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizImagens, media);
+        double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi);
+        double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresProprios(vetoresPropriosC);
+
+        int k = obterK(vetoresPropriosNormalizados[0].length, "Insira o número de eigenfaces a utilizar na identificação da imagem: ");
+
+        double[][] phiNovo = calcularMatrizes.calcularPhi(novaImagemVetor, media);
+        double[][] pesosNovaImagem = calcularMatrizes.calcularPesos(phiNovo, vetoresPropriosNormalizados, k);
+        double[][] pesosBaseImagens = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
+
+        double[] distancias = calcularMatrizes.calcularDistanciaEuclidianaMatriz(pesosNovaImagem, pesosBaseImagens);
+
+        int menorDistancia = calcularMatrizes.obterIndiceMenorDistancia(distancias);
+
+        System.out.println(menorDistancia);
+
+
     }
 }
