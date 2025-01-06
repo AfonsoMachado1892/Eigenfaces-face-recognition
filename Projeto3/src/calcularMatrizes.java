@@ -163,9 +163,9 @@ public class calcularMatrizes {
         double[][] transpostaA = calcularTransposta(matrizA);
         double[][] matrizATA = multiplicarMatrizes(transpostaA, matrizA);
         double[][] matrizVetoresPropriosATA = matrizVetoresProprios(matrizATA);
-        double[][] vetoresPropriosC = new double[linhasA][numVetoresProprios];
         int linhasA = matrizA.length;
         int numVetoresProprios = matrizVetoresPropriosATA[0].length;
+        double[][] vetoresPropriosC = new double[linhasA][numVetoresProprios];
 
         for (int i = 0; i < numVetoresProprios; i++) {
             double[][] vetorViColuna = new double[matrizATA.length][1];
