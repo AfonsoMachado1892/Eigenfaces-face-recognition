@@ -5,7 +5,7 @@ public class UI {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void mostrarMenu() {
-        System.out.println("===================== Menu =====================");
+        System.out.println("\n===================== Menu =====================");
         System.out.println("1. Decomposição Própria de Matriz Simétrica");
         System.out.println("2. Reconstrução de Imagens Utilizando Eigenfaces");
         System.out.println("3. Identificação de Imagem Mais Próxima");
@@ -74,7 +74,7 @@ public class UI {
 
         while (true) {
             System.out.println(mensagem);
-            System.out.printf("Introduza um valor para k (0 < k < %d): ", tamanho);
+            System.out.printf("\nIntroduza um valor para k (0 < k < %d): ", tamanho);
 
             k = scanner.nextInt();
 
@@ -165,7 +165,7 @@ public class UI {
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresProprios(vetoresPropriosC);
 
-        int k = obterK(vetoresPropriosNormalizados[0].length, "Insira o número de eigenfaces a utilizar na identificação da imagem: ");
+        int k = obterK(vetoresPropriosNormalizados[0].length, "\nInsira o número de eigenfaces a utilizar na identificação da imagem: ");
 
         double[][] phiNovo = calcularMatrizes.calcularPhi(novaImagemVetor, media);
         double[][] pesosNovaImagem = calcularMatrizes.calcularPesos(phiNovo, vetoresPropriosNormalizados, k);
