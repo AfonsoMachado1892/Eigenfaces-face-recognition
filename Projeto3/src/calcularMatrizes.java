@@ -246,7 +246,7 @@ public class calcularMatrizes {
         return pesos;
     }
 
-    //Reconstrução das imagens, utilizando um determinado número de k eiganfaces e os pesos associados a cada eiganface
+    //Reconstrução das imagens, utilizando um determinado número de k eigenfaces e os pesos associados a cada eigenface
     public static double[][] reconstruirTodasImagens(double[][] media, double[][] eigenfaces, double[][] pesos, int k) {
         int numImagens = pesos[0].length;
         double[][] imagensReconstruidas = new double[media.length][numImagens];
@@ -285,7 +285,7 @@ public class calcularMatrizes {
 
 
     //---------- Funcionalidade 3 ----------
-    
+
     //Cálculo da distância euclidiana
     public static double[] calcularDistanciaEuclidianaMatriz(double[][] omegaNova, double[][] omegaJ) {
         int numImagens = omegaJ[0].length;

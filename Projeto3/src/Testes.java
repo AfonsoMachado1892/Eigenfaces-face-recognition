@@ -26,10 +26,10 @@ public class Testes {
         */
 
         //Funcionalidade 2
-        testarNormalizarVetoresPropriosC();
-        /*
         testarCalcularMedia();
         testarCalcularPhi();
+        testarNormalizarVetoresPropriosC();
+        /*
         testarVetoresPropriosC();
         testarCalcularPesos();
         testarReconstruirTodasImagens();
@@ -37,12 +37,12 @@ public class Testes {
 
         //Funcionalidade 3
         testarCalcularDistanciaEuclidianaMatriz();
-        testarConstruirVetoresPesos();
         testarObterIndiceMenorDistancia();
         */
 
     }
 
+    //---------- Funcionalidade 1 ----------
     public static void testarMatrizVetoresProprios() {
         boolean valido = true;
 
@@ -260,23 +260,93 @@ public class Testes {
     }
 
 
-    //Funcionalidade 2
+    //---------- Funcionalidade 2 ----------
     public static void testarNormalizarVetoresPropriosC() {
         boolean valido = true;
 
         double[][] matriz = {
-                {1, 4, 5},
+                {1, 4, 0},
                 {6, 0, 2},
-                {2, 1, 3}
+                {2, 0, 3}
         };
 
         double[][] esperado = {
-                {1, (double) 2/5, (double) 11/6},
-                {0, 1, 3},
-                {0, 0, 1}
+                {(double) 1/Math.sqrt(41), 1 , 0},
+                {(double) 6/Math.sqrt(41), 0, (double) 2/Math.sqrt(13)},
+                {(double) 2/Math.sqrt(41), 0, (double) 3/Math.sqrt(13)}
         };
 
         double[][] resultado = calcularMatrizes.normalizarVetoresPropriosC(matriz);
+
+        for(int i = 0; i < resultado.length; i++) {
+            for(int j = 0; j < resultado[0].length; j++) {
+                if((int) esperado[i][j] != (int) resultado[i][j]) {
+                    valido = false;
+                }
+            }
+        }
+
+        if(valido) {
+            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+        } else {
+            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+        };
+    }
+
+    public static void testarCalcularMedia() {
+        boolean valido = true;
+
+        double[][] matriz = {
+                {3, 5, 1},
+                {2, 0, 6},
+                {0, 7, 4}
+        };
+
+        double[][] esperado = {
+                {3},
+                {(double) 8/3},
+                {(double) 11/3},
+        };
+
+        double[][] resultado = calcularMatrizes.calcularMedia(matriz);
+
+        for(int i = 0; i < resultado.length; i++) {
+            for(int j = 0; j < resultado[0].length; j++) {
+                if((int) esperado[i][j] != (int) resultado[i][j]) {
+                    valido = false;
+                }
+            }
+        }
+
+        if(valido) {
+            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+        } else {
+            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+        };
+    }
+
+    public static void testarCalcularPhi() {
+        boolean valido = true;
+
+        double[][] matrizA = {
+                {1, 2, 3},
+                {3, 2, 1},
+                {6, 0, 4}
+        };
+
+        double[][] matrizB = {
+                {3},
+                {1},
+                {2},
+        };
+
+        double[][] esperado = {
+                {-2, -1, 0},
+                {2, 1, 0},
+                {4, 0, 2}
+        };
+
+        double[][] resultado = calcularMatrizes.calcularPhi(matrizA, matrizB);
 
         for(int i = 0; i < resultado.length; i++) {
             for(int j = 0; j < resultado[0].length; j++) {
@@ -337,4 +407,6 @@ public class Testes {
     public static boolean testarEscreverArrayComoImagem() {
 
     }*/
+
+    //---------- Funcionalidade 3 ----------
 }
