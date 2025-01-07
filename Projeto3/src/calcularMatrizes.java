@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class calcularMatrizes {
-    //Funcionalidade 1
+    //---------- Funcionalidade 1 ----------
 
     //P - Matriz dos vetores próprios unitários
     public static double[][] matrizVetoresProprios(double[][] matriz) {
@@ -160,25 +160,9 @@ public class calcularMatrizes {
     }
 
 
-    //Funcionalidade 2
+    //---------- Funcionalidade 2 ----------
 
-
-    public static double[][] normalizarVetoresProprios(double[][] vetoresProprios) {
-        double[][] vetoresPropriosNormalizados = new double[vetoresProprios.length][vetoresProprios[0].length];
-
-        for (int j = 0; j < vetoresProprios[0].length; j++) {
-            double soma = 0;
-            for (int i = 0; i < vetoresProprios.length; i++) {
-                soma += Math.pow(vetoresProprios[i][j], 2);
-            }
-            double norma = Math.sqrt(soma);
-            for (int i = 0; i < vetoresProprios.length; i++) {
-                vetoresPropriosNormalizados[i][j] = vetoresProprios[i][j] / norma;
-            }
-        }
-        return vetoresPropriosNormalizados;
-    }
-
+    //Cálculo do vetor coluna média - média de todas as imagens presentes na matriz
     public static double[][] calcularMedia(double[][] matriz) {
         double[][] media = new double[matriz.length][1];
         double soma;
@@ -193,6 +177,7 @@ public class calcularMatrizes {
         return media;
     }
 
+    //Cálculo da matriz phi para cada imagem
     public static double[][] calcularPhi(double[][] matriz, double[][] media) {
         double[][] phi = new double[matriz.length][matriz[0].length];
 
@@ -204,6 +189,7 @@ public class calcularMatrizes {
         return phi;
     }
 
+    //Cálculo dos vetores próprios de C
     public static double[][] vetoresPropriosC(double[][] matrizA) {
         double[][] transpostaA = calcularTransposta(matrizA);
         double[][] matrizATA = multiplicarMatrizes(transpostaA, matrizA);
@@ -225,15 +211,33 @@ public class calcularMatrizes {
         }
         return vetoresPropriosC;
     }
-    
-    public static double[][] calcularPesos(double[][] A, double[][] eigenfaces, int k) {
-        int numImagens = A[0].length; // Número de imagens
-        double[][] pesos = new double[k][numImagens]; // Matriz para armazenar os pesos de todas as imagens
 
-        for (int i = 0; i < numImagens; i++) { // Para cada imagem
-            for (int p = 0; p < k; p++) { // Para cada eigenface
+    //Normalizar os vetores próprios de C
+    public static double[][] normalizarVetoresPropriosC(double[][] vetoresProprios) {
+        double[][] vetoresPropriosNormalizados = new double[vetoresProprios.length][vetoresProprios[0].length];
+
+        for (int j = 0; j < vetoresProprios[0].length; j++) {
+            double soma = 0;
+            for (int i = 0; i < vetoresProprios.length; i++) {
+                soma += Math.pow(vetoresProprios[i][j], 2);
+            }
+            double norma = Math.sqrt(soma);
+            for (int i = 0; i < vetoresProprios.length; i++) {
+                vetoresPropriosNormalizados[i][j] = vetoresProprios[i][j] / norma;
+            }
+        }
+        return vetoresPropriosNormalizados;
+    }
+
+    //Cálculo dos pesos
+    public static double[][] calcularPesos(double[][] A, double[][] eigenfaces, int k) {
+        int numImagens = A[0].length;
+        double[][] pesos = new double[k][numImagens];
+
+        for (int i = 0; i < numImagens; i++) {
+            for (int p = 0; p < k; p++) {
                 double soma = 0;
-                for (int j = 0; j < A.length; j++) { // Para cada pixel
+                for (int j = 0; j < A.length; j++) {
                     soma += eigenfaces[j][p] * A[j][i];
                 }
                 pesos[p][i] = soma;
@@ -242,12 +246,12 @@ public class calcularMatrizes {
         return pesos;
     }
 
+    //Reconstrução das imagens, utilizando um determinado número de k eiganfaces e os pesos associados a cada eiganface
     public static double[][] reconstruirTodasImagens(double[][] media, double[][] eigenfaces, double[][] pesos, int k) {
         int numImagens = pesos[0].length;
         double[][] imagensReconstruidas = new double[media.length][numImagens];
 
         for (int i = 0; i < numImagens; i++) {
-            // Inicializar com a média
             for (int j = 0; j < media.length; j++) {
                 imagensReconstruidas[j][i] = media[j][0];
             }
@@ -279,6 +283,10 @@ public class calcularMatrizes {
         ImageIO.write(imagem, "jpg", outputFile);
     }
 
+
+    //---------- Funcionalidade 3 ----------
+    
+    //Cálculo da distância euclidiana
     public static double[] calcularDistanciaEuclidianaMatriz(double[][] omegaNova, double[][] omegaJ) {
         int numImagens = omegaJ[0].length;
         double[] distancias = new double[numImagens];
@@ -293,18 +301,7 @@ public class calcularMatrizes {
         return distancias;
     }
 
-    public static double[][] construirVetoresPesos(double[][] pesosBase) {
-        int numImagens = pesosBase[0].length;
-        double[][] vetoresPesos = new double[numImagens][pesosBase.length];
-
-        for (int i = 0; i < numImagens; i++) {
-            for (int j = 0; j < pesosBase.length; j++) {
-                vetoresPesos[i][j] = pesosBase[j][i];
-            }
-        }
-        return vetoresPesos;
-    }
-
+    //Obter a menor de todas as distâncias calculadas
     public static int obterIndiceMenorDistancia(double[] distancias) {
         double menorValor = distancias[0];
         int menorIndice = 0;

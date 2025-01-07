@@ -15,17 +15,18 @@ public class Testes {
         testarMatrizVetoresProprios();
         testarMatrizValoresProprios();
         testarCalcularTransposta();
-        testarCalcularEAM();
         testarMultiplicarMatrizes();
         testarCalcularA();
+        testarCalcularEAM();
         /*
-        testarVerificarMatriz();
+        testarCalcularAk();
         testarVetoresPropriosReduzidos();
         testarMatrizDiagonalReduzida();
-        testarCalcularAk();*/
+        testarVerificarMatriz();
+        */
 
         //Funcionalidade 2
-        testarNormalizarVetoresProprios();
+        testarNormalizarVetoresPropriosC();
         /*
         testarCalcularMedia();
         testarCalcularPhi();
@@ -258,13 +259,15 @@ public class Testes {
         };
     }
 
-    public static void testarNormalizarVetoresProprios() {
+
+    //Funcionalidade 2
+    public static void testarNormalizarVetoresPropriosC() {
         boolean valido = true;
 
         double[][] matriz = {
-                {1, 3, 5},
-                {7, 0, 2},
-                {2, 3, 4}
+                {1, 4, 5},
+                {6, 0, 2},
+                {2, 1, 3}
         };
 
         double[][] esperado = {
@@ -273,7 +276,7 @@ public class Testes {
                 {0, 0, 1}
         };
 
-        double[][] resultado = calcularMatrizes.normalizarVetoresProprios(matriz);
+        double[][] resultado = calcularMatrizes.normalizarVetoresPropriosC(matriz);
 
         for(int i = 0; i < resultado.length; i++) {
             for(int j = 0; j < resultado[0].length; j++) {

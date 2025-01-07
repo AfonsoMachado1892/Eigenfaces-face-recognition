@@ -109,7 +109,7 @@ public class UI {
         double[][] media = calcularMatrizes.calcularMedia(matrizM);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizM, media);
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi);
-        double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresProprios(vetoresPropriosC);
+        double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
 
         int k = obterK(vetoresPropriosNormalizados[0].length, "\nSelecione o número de eigenfaces a utilizar na reconstrução de imagens: ");
 
@@ -162,7 +162,7 @@ public class UI {
         double[][] media = calcularMatrizes.calcularMedia(matrizImagens);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizImagens, media);
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi);
-        double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresProprios(vetoresPropriosC);
+        double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
 
         int k = obterK(vetoresPropriosNormalizados[0].length, "\nInsira o número de eigenfaces a utilizar na identificação da imagem: ");
 
