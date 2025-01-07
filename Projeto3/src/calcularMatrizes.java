@@ -80,19 +80,44 @@ public class calcularMatrizes {
     }
 
     public static boolean verificarMatriz(double[][] matriz) {
-        if((matriz.length != matriz[0].length)) {
+        if (matriz.length == 0 || matriz.length != matriz[0].length) {
+            return false;
+        }
+
+        if (matriz.length >= 256) {
             return false;
         }
 
         for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz.length; j++) {
-                if ((matriz[i][j] != matriz[j][i])) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (Double.isNaN(matriz[i][j]) || Double.isInfinite(matriz[i][j])) {
+                    return false;
+                }
+                if (matriz[i][j] != matriz[j][i]) {
                     return false;
                 }
             }
         }
-        return matriz.length < 256;
+
+        for (int i = matriz.length - 1; i >= 0; i--) {
+            boolean linhaEmBranco = true;
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matriz[i][j] != 0) {
+                    linhaEmBranco = false;
+                    break;
+                }
+            }
+            if (!linhaEmBranco) {
+                break;
+            }
+            if (linhaEmBranco && i < matriz.length - 1) {
+                continue;
+            }
+        }
+
+        return true;
     }
+
 
     public static double[][] vetorespropriosreduzidos(double[][] vetoresproprios, int k) {
         double[][] vetoresPropriosReduzidos = new double[vetoresproprios.length][k];
