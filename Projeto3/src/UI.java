@@ -48,11 +48,11 @@ public class UI {
             double[][] vetoresProprios = calcularMatrizes.matrizVetoresProprios(matriz);
             double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz);
 
-            int k = obterK(matriz[0].length, "Selecione o número de vetores próprios a utilizar: ");
+            int k = obterK(matriz[0].length, "\nSelecione o número de vetores próprios a utilizar: ");
 
             double[][] A = calcularMatrizes.calcularA(valoresProprios, vetoresProprios);
-            double[][] vetoresPropriosReduzidos = calcularMatrizes.vetorespropriosreduzidos(vetoresProprios, k);
-            double[][] valoresPropriosReduzidos = calcularMatrizes.matrizdiagonalreduzida(valoresProprios, k);
+            double[][] vetoresPropriosReduzidos = calcularMatrizes.vetoresPropriosReduzidos(vetoresProprios, k);
+            double[][] valoresPropriosReduzidos = calcularMatrizes.matrizDiagonalReduzida(valoresProprios, k);
             double[][] Ak = calcularMatrizes.calcularAk(valoresPropriosReduzidos, vetoresPropriosReduzidos);
             double erroAbsolutoMedio = calcularMatrizes.calcularErroAbsolutoMedio(A, Ak);
 
@@ -111,7 +111,7 @@ public class UI {
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresProprios(vetoresPropriosC);
 
-        int k = obterK(vetoresPropriosNormalizados[0].length, "Selecione o número de eigenfaces a utilizar na reconstrução de imagens: ");
+        int k = obterK(vetoresPropriosNormalizados[0].length, "\nSelecione o número de eigenfaces a utilizar na reconstrução de imagens: ");
 
         double[][] pesos = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
         double[][] imagensReconstruidas = calcularMatrizes.reconstruirTodasImagens(media, vetoresPropriosNormalizados, pesos, k);
@@ -129,7 +129,6 @@ public class UI {
         }
 
         System.out.printf("%nNúmero de Eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
-
         System.out.printf("%nEAM: %.2f%n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensReconstruidas));
 
         leiturasaidadados.guardarCSV(vetoresPropriosNormalizados, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface");
@@ -170,12 +169,10 @@ public class UI {
         double[][] phiNovo = calcularMatrizes.calcularPhi(novaImagemVetor, media);
         double[][] pesosNovaImagem = calcularMatrizes.calcularPesos(phiNovo, vetoresPropriosNormalizados, k);
         double[][] pesosBaseImagens = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
-
         double[] distancias = calcularMatrizes.calcularDistanciaEuclidianaMatriz(pesosNovaImagem, pesosBaseImagens);
 
         int menorDistancia = calcularMatrizes.obterIndiceMenorDistancia(distancias);
 
         System.out.println(menorDistancia);
-
     }
 }

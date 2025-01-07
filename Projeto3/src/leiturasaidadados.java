@@ -30,11 +30,9 @@ public class leiturasaidadados {
                 matriz[i][j] = Double.parseDouble(valores[j]);
             }
         }
-
         in.close();
         return matriz;
     }
-
 
     public static void exibirMatriz(double[][] matriz, String nomeMatriz, int casasDecimais) {
         System.out.println(nomeMatriz + ":");
@@ -86,13 +84,10 @@ public class leiturasaidadados {
             for (File f : ficheiros) {
                 String filePath = f.getAbsolutePath();
                 String fileExtension = filePath.substring(filePath.lastIndexOf(".") + 1);
-
                 if ("csv".equals(fileExtension)) {
                     matriz = lerMatriz(filePath);
-
                     vetor = new double[matriz.length * matriz[0].length];
                     cont = 0;
-
                     for (int i = 0; i < matriz.length; i++) {
                         for (int j = 0; j < matriz[i].length; j++) {
                             vetor[cont] = matriz[i][j];
@@ -115,7 +110,6 @@ public class leiturasaidadados {
     }
 
     public static void guardarImagem(double[][] inputCSV, String caminhoOutput, String nome) {
-
         try {
             for (int coluna = 0; coluna < inputCSV[0].length; coluna++) {
                 int[][] intimagemReconstruida = new int[inputCSV.length][1];
@@ -128,7 +122,7 @@ public class leiturasaidadados {
 
                 double[][] matrizImagemReconstruida = arrayparaMatriz(intimagemReconstruida);
 
-                calcularMatrizes.escreverArraycomoImagem(matrizImagemReconstruida, caminhoImagem);
+                calcularMatrizes.escreverArrayComoImagem(matrizImagemReconstruida, caminhoImagem);
                 System.out.println("Imagem " + (coluna + 1) + " escrita com sucesso em: " + caminhoImagem);
             }
         } catch (IOException e) {
@@ -141,10 +135,12 @@ public class leiturasaidadados {
     public static double[][] arrayparaMatriz(int[][] array) {
         int colunas = 64;
         int linhas = 64;
+
         if (array.length != linhas * colunas) {
             throw new IllegalArgumentException("O vetor não equivale às dimensões da matriz");
         }
         double[][] arrayConvertido = new double[linhas][colunas];
+
         for (int i = 0; i < linhas; i++) {
             for (int j = 0; j < colunas; j++) {
                 arrayConvertido[i][j] = array[i * colunas + j][0];
@@ -160,7 +156,6 @@ public class leiturasaidadados {
         for (int coluna = 0; coluna < largura; coluna++) {
             String nomeCSV = nome + "_" + (coluna + 1) + ".csv";
             String caminhoCSV = caminhoOutput + File.separator + nomeCSV;
-
             try (PrintWriter printwriter = new PrintWriter(caminhoCSV)) {
                 for (int i = 0; i < dimensaoImagem; i++) {
                     for (int j = 0; j < dimensaoImagem; j++) {

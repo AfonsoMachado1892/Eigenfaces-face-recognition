@@ -8,7 +8,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class calcularMatrizes {
+    //Funcionalidade 1
 
+    //P - Matriz dos vetores próprios unitários
     public static double[][] matrizVetoresProprios(double[][] matriz) {
         RealMatrix matrizreal = new Array2DRowRealMatrix(matriz);
         EigenDecomposition decomposicao = new EigenDecomposition(matrizreal);
@@ -23,6 +25,7 @@ public class calcularMatrizes {
         return vetoresproprios;
     }
 
+    //D - Matriz diagonal com os valores próprios associados aos vetores próprios da matriz A
     public static double[][] matrizDiagonalValoresProprios(double[][] matriz) {
         RealMatrix matrizReal = new Array2DRowRealMatrix(matriz);
         EigenDecomposition decomposicao = new EigenDecomposition(matrizReal);
@@ -35,6 +38,7 @@ public class calcularMatrizes {
         return matrizdiagonal;
     }
 
+    //P^T - Matriz transposta da matriz P
     public static double[][] calcularTransposta(double[][] matriz) {
         double[][] mTransposta;
         mTransposta = new double[matriz[0].length][matriz.length];
@@ -46,20 +50,7 @@ public class calcularMatrizes {
         return mTransposta;
     }
 
-    public static double calcularErroAbsolutoMedio (double[][] A, double[][] Ak) {
-        double erroAbsolutoMedio;
-        double moduloDiferencaEntreMatrizes = 0;
-        int M = Ak.length;
-        int N = Ak[0].length;
-        for (int linhas = 0; linhas < M; linhas++) {
-            for (int colunas = 0; colunas < N; colunas++) {
-                moduloDiferencaEntreMatrizes += Math.abs(A[linhas][colunas]-Ak[linhas][colunas]);
-            }
-        }
-        erroAbsolutoMedio =  moduloDiferencaEntreMatrizes / (M*N);
-        return erroAbsolutoMedio;
-    }
-
+    //Cálculo da multiplicação de matrizes
     public static double[][] multiplicarMatrizes(double[][] matriz1, double[][] matriz2) {
         double[][] matrizMultiplicada = new double[matriz1.length][matriz2[0].length];
         for (int i = 0; i < matriz1.length; i++) {
@@ -72,6 +63,7 @@ public class calcularMatrizes {
         return matrizMultiplicada;
     }
 
+    //A - Decomposição própria de uma matriz simétrica
     public static double[][] calcularA(double[][] matrizdiagonal, double[][] vetoresproprios) {
         return calcularMatrizes.multiplicarMatrizes(
                 calcularMatrizes.multiplicarMatrizes(vetoresproprios, matrizdiagonal),
@@ -79,26 +71,76 @@ public class calcularMatrizes {
         );
     }
 
+    //Pk - Matriz com os k vetores próprios unitários selecionados
+    public static double[][] vetoresPropriosReduzidos(double[][] vetoresproprios, int k) {
+        double[][] vetoresPropriosReduzidos = new double[vetoresproprios.length][k];
+        for (int i = 0; i < vetoresproprios.length; i++) {
+            for (int j = 0; j < k; j++) {
+                vetoresPropriosReduzidos[i][j] = vetoresproprios[i][j];
+            }
+        }
+        return vetoresPropriosReduzidos;
+    }
+
+    //Dk - Matriz diagonal com os k valores próprios com maior valor absoluto
+    public static double[][] matrizDiagonalReduzida(double[][] matrizDiagonal, int k) {
+        double[][] matrizDiagonalReduzida = new double[k][k];
+        for (int i = 0; i < k; i++) {
+            matrizDiagonalReduzida[i][i] = matrizDiagonal[i][i];
+        }
+        return matrizDiagonalReduzida;
+    }
+
+    //Ak - Aproximação da matriz A para k vetores próprios unitários selecionados
+    public static double[][] calcularAk(double[][] matrizDiagonalReduzida, double[][] vetoresPropriosReduzidos) {
+        double[][] vetoresPropriosTranspostos = calcularMatrizes.calcularTransposta(vetoresPropriosReduzidos);
+        double[][] pkDk = calcularMatrizes.multiplicarMatrizes(vetoresPropriosReduzidos, matrizDiagonalReduzida);
+        return calcularMatrizes.multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
+    }
+
+    //Cálculo do Erro Absoluto Médio
+    public static double calcularErroAbsolutoMedio (double[][] A, double[][] Ak) {
+        double erroAbsolutoMedio;
+        double moduloDiferencaEntreMatrizes = 0;
+        int M = Ak.length;
+        int N = Ak[0].length;
+
+        for (int linhas = 0; linhas < M; linhas++) {
+            for (int colunas = 0; colunas < N; colunas++) {
+                moduloDiferencaEntreMatrizes += Math.abs(A[linhas][colunas]-Ak[linhas][colunas]);
+            }
+        }
+        erroAbsolutoMedio =  moduloDiferencaEntreMatrizes / (M*N);
+        return erroAbsolutoMedio;
+    }
+
+    //Verificação das matrizes
     public static boolean verificarMatriz(double[][] matriz) {
+        //Tem que ser uma matriz quadrada
         if (matriz.length == 0 || matriz.length != matriz[0].length) {
             return false;
         }
 
+        //Tem que ter o número de linhas menor que 256
         if (matriz.length >= 256) {
             return false;
         }
 
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
+                //Tem que ser um número real
                 if (Double.isNaN(matriz[i][j]) || Double.isInfinite(matriz[i][j])) {
                     return false;
                 }
+
+                //Tem que ser uma matriz simétrica
                 if (matriz[i][j] != matriz[j][i]) {
                     return false;
                 }
             }
         }
 
+        //Pode ter linhas em branco no final de cada matriz
         for (int i = matriz.length - 1; i >= 0; i--) {
             boolean linhaEmBranco = true;
             for (int j = 0; j < matriz[i].length; j++) {
@@ -114,34 +156,12 @@ public class calcularMatrizes {
                 continue;
             }
         }
-
         return true;
     }
 
 
-    public static double[][] vetorespropriosreduzidos(double[][] vetoresproprios, int k) {
-        double[][] vetoresPropriosReduzidos = new double[vetoresproprios.length][k];
-        for (int i = 0; i < vetoresproprios.length; i++) {
-            for (int j = 0; j < k; j++) {
-                vetoresPropriosReduzidos[i][j] = vetoresproprios[i][j];
-            }
-        }
-        return vetoresPropriosReduzidos;
-    }
+    //Funcionalidade 2
 
-    public static double[][] matrizdiagonalreduzida(double[][] matrizDiagonal, int k) {
-        double[][] matrizDiagonalReduzida = new double[k][k];
-        for (int i = 0; i < k; i++) {
-            matrizDiagonalReduzida[i][i] = matrizDiagonal[i][i];
-        }
-        return matrizDiagonalReduzida;
-    }
-
-    public static double[][] calcularAk(double[][] matrizDiagonalReduzida, double[][] vetoresPropriosReduzidos) {
-        double[][] vetoresPropriosTranspostos = calcularMatrizes.calcularTransposta(vetoresPropriosReduzidos);
-        double[][] pkDk = calcularMatrizes.multiplicarMatrizes(vetoresPropriosReduzidos, matrizDiagonalReduzida);
-        return calcularMatrizes.multiplicarMatrizes(pkDk, vetoresPropriosTranspostos);
-    }
 
     public static double[][] normalizarVetoresProprios(double[][] vetoresProprios) {
         double[][] vetoresPropriosNormalizados = new double[vetoresProprios.length][vetoresProprios[0].length];
@@ -240,7 +260,7 @@ public class calcularMatrizes {
         return imagensReconstruidas;
     }
 
-    public static void escreverArraycomoImagem(double[][] array, String caminhoOutput) throws IOException {
+    public static void escreverArrayComoImagem(double[][] array, String caminhoOutput) throws IOException {
         int alturaImagem = array.length;
         int larguraImagem = array[0].length;
         BufferedImage imagem = new BufferedImage(larguraImagem, alturaImagem, BufferedImage.TYPE_BYTE_GRAY);
