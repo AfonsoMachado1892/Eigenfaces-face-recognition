@@ -22,15 +22,24 @@ public class Testes {
         testarVerificarMatriz();
         testarVetoresPropriosReduzidos();
         testarMatrizDiagonalReduzida();
-        testarCalcularAk();
+        testarCalcularAk();*/
 
+        //Funcionalidade 2
         testarNormalizarVetoresProprios();
+        /*
         testarCalcularMedia();
         testarCalcularPhi();
         testarVetoresPropriosC();
         testarCalcularPesos();
         testarReconstruirTodasImagens();
-        testarEscreverArrayComoImagem();*/
+        testarEscreverArrayComoImagem();
+
+        //Funcionalidade 3
+        testarCalcularDistanciaEuclidianaMatriz();
+        testarConstruirVetoresPesos();
+        testarObterIndiceMenorDistancia();
+        */
+
     }
 
     public static void testarMatrizVetoresProprios() {
@@ -247,7 +256,38 @@ public class Testes {
         } else {
             System.out.println("Teste de cálculo de Matriz A (Decomposição Própria de Matriz Simétrica) INVALIDADO!");
         };
+    }
 
+    public static void testarNormalizarVetoresProprios() {
+        boolean valido = true;
+
+        double[][] matriz = {
+                {1, 3, 5},
+                {7, 0, 2},
+                {2, 3, 4}
+        };
+
+        double[][] esperado = {
+                {1, (double) 2/5, (double) 11/6},
+                {0, 1, 3},
+                {0, 0, 1}
+        };
+
+        double[][] resultado = calcularMatrizes.normalizarVetoresProprios(matriz);
+
+        for(int i = 0; i < resultado.length; i++) {
+            for(int j = 0; j < resultado[0].length; j++) {
+                if((int) esperado[i][j] != (int) resultado[i][j]) {
+                    valido = false;
+                }
+            }
+        }
+
+        if(valido) {
+            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+        } else {
+            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+        };
     }
 
     /*
