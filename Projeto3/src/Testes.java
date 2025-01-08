@@ -181,28 +181,25 @@ public class Testes {
         boolean valido = true;
 
         double[][] matrizDiagonalReduzida = {
-                {3, 0, 0},
-                {0, 5, 0},
-                {0, 0, 7}
+                {3, 0},
+                {0, 2}
         };
 
         double[][] vetoresPropriosReduzidos = {
-                {1, 0, 0},
-                {0, 1, 0},
-                {0, 0, 1}
+                {0.8, -0.6},
+                {0.6, 0.8}
         };
 
         double[][] esperado = {
-                {3, 0, 0},
-                {0, 5, 0},
-                {0, 0, 7}
+                {2.64, 0.48},
+                {0.48, 2.36}
         };
 
         double[][] resultado = calcularMatrizes.calcularAk(matrizDiagonalReduzida, vetoresPropriosReduzidos);
 
         for (int i = 0; i < resultado.length; i++) {
             for (int j = 0; j < resultado[0].length; j++) {
-                if ((int) esperado[i][j] != (int) resultado[i][j]) {
+                if (Math.abs(esperado[i][j] - resultado[i][j]) > 0.01) {
                     valido = false;
                 }
             }
@@ -214,6 +211,7 @@ public class Testes {
             System.out.println("Teste de cálculo de Ak INVALIDADO!");
         }
     }
+
 
     public static void testarVetoresPropriosReduzidos() {
         boolean valido = true;
