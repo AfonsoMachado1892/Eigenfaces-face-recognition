@@ -220,7 +220,7 @@ public class Testes {
 
         double[][] vetoresProprios = {
                 {1, 2, 3, 4},
-                {5, 6, 7, 8}
+                {5, 6, 7, 8},
                 {9, 10, 11, 12}
         };
 
@@ -236,7 +236,7 @@ public class Testes {
 
         for (int i = 0; i < resultado.length; i++) {
             for (int j = 0; j < resultado[0].length; j++) {
-                if (int) esperado[i][j] != (int resultado[i][j]) {
+                if ((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
                 }
             }
@@ -248,6 +248,7 @@ public class Testes {
             System.out.println("Teste de redução de vetores próprios INVALIDADO!");
         }
     }
+
 
     public static void testarMultiplicarMatrizes() {
         boolean valido = true;
