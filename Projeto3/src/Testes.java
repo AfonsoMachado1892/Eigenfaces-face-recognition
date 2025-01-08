@@ -18,12 +18,12 @@ public class Testes {
         testarMultiplicarMatrizes();
         testarCalcularA();
         testarCalcularEAM();
-        /*
+
          testarCalcularAk();
         testarVetoresPropriosReduzidos();
         testarMatrizDiagonalReduzida();
         testarVerificarMatriz();
-        */
+
 
         //Funcionalidade 2
         testarCalcularMedia();
@@ -282,48 +282,69 @@ public class Testes {
             System.out.println("Teste de matriz diagonal reduzida INVALIDADO!");
         }
     }
-
-
+    
     public static void testarVerificarMatriz() {
         boolean valido = true;
 
+        // Matriz Válida (Quadrada, Simétrica, Menor que 256x256, Apenas números reais)
         double[][] matrizValida = {
                 {4, 2, 3},
                 {2, 5, 1},
                 {3, 1, 6}
         };
 
+        // Matriz Não Simétrica (Deve ser inválida)
         double[][] matrizNaoSimetrica = {
                 {4, 2, 3},
-                {3, 5, 1},
+                {3, 5, 1}, // O 3 na posição [1][0] quebra a simetria
                 {3, 1, 6}
         };
 
-        // Testando matriz válida
+        // Matriz Inválida (Com NaN e Infinito)
+        double[][] matrizInvalida = {
+                {4, 2, 3},
+                {2, Double.NaN, 1},
+                {3, 1, Double.POSITIVE_INFINITY}
+        };
+
+        // Matriz Inválida (Não é Quadrada)
+        double[][] matrizNaoQuadrada = {
+                {1, 2, 3},
+                {4, 5, 6}
+        };
+
+        // Teste Matriz Válida (Deve ser TRUE)
         if (!calcularMatrizes.verificarMatriz(matrizValida)) {
             valido = false;
+            System.out.println("ERRO: Matriz válida foi considerada inválida!");
         }
 
-        // Testando matriz não simétrica (deve ser falsa)
+        // Teste Matriz Não Simétrica (Deve ser FALSE)
         if (calcularMatrizes.verificarMatriz(matrizNaoSimetrica)) {
             valido = false;
+            System.out.println("ERRO: Matriz não simétrica foi considerada válida!");
         }
 
-        try {
-            // Simulando uma matriz inválida (número de colunas diferente)
-            double[][] matrizInvalida = {{4, 2, 3}, {2, 5}};
-            calcularMatrizes.verificarMatriz(matrizInvalida);
-            valido = false; // Se não gerar erro, o teste falhou
-        } catch (Exception e) {
-            // Se gerar erro, significa que o teste está correto
+        // Teste Matriz Inválida com NaN e Infinito (Deve ser FALSE)
+        if (calcularMatrizes.verificarMatriz(matrizInvalida)) {
+            valido = false;
+            System.out.println("ERRO: Matriz com valores NaN/Infinito foi considerada válida!");
         }
 
+        // Teste Matriz Não Quadrada (Deve ser FALSE)
+        if (calcularMatrizes.verificarMatriz(matrizNaoQuadrada)) {
+            valido = false;
+            System.out.println("ERRO: Matriz não quadrada foi considerada válida!");
+        }
+
+        // Exibir resultado final do teste
         if (valido) {
             System.out.println("Teste de verificação de matriz validado com sucesso!");
         } else {
             System.out.println("Teste de verificação de matriz INVALIDADO!");
         }
     }
+
 
 
     public static void testarMultiplicarMatrizes() {
