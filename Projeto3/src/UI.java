@@ -21,13 +21,33 @@ public class UI {
         sc.nextLine();
         switch (opcao) {
             case 1:
-                decomposicaoPropria();
+                System.out.print("\nInsira o diretório para o ficheiro: ");
+                String diretorio = sc.nextLine();
+
+                System.out.print("\nSelecione o número de Vetores Próprios a utilizar: ");
+                int k = sc.nextInt();
+
+                decomposicaoPropria(k, diretorio);
                 break;
             case 2:
-                reconstruirImagens();
+                System.out.print("\nInsira o diretório da pasta com as imagens a reconstruir: ");
+                String pasta = sc.nextLine();
+
+                System.out.print("\nSelecione o número de Eigenfaces a utilizar: ");
+                int e = sc.nextInt();
+
+                reconstruirImagens(e, pasta);
                 break;
             case 3:
-                identificarImagem();
+                System.out.print("\nInsira o diretório da imagem a identificar: ");
+                String diretorioNovaI = sc.nextLine();
+                System.out.print("\nInsira a localização da base imagens: ");
+                String baseImagens = sc.nextLine();
+
+                System.out.print("\nSelecione o número de Eigenfaces a utilizar: ");
+                int f = sc.nextInt();
+
+                identificarImagem(f, diretorioNovaI, baseImagens);
                 break;
             case 4:
                 System.out.println("A sair...");
@@ -37,18 +57,16 @@ public class UI {
         }
     }
 
-    private static void decomposicaoPropria() throws FileNotFoundException {
+    public static void decomposicaoPropria(int k, String diretorio) throws FileNotFoundException {
         //src\inputs\Funcionalidade1\exampleInputFunc1.csv
 
-        System.out.print("\nInsira o diretório para o ficheiro: ");
-        String diretorio = sc.nextLine();
         double[][] matriz = leiturasaidadados.lerMatriz(diretorio);
 
         if (calcularMatrizes.verificarMatriz(matriz)) {
             double[][] vetoresProprios = calcularMatrizes.matrizVetoresProprios(matriz);
             double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz);
 
-            int k = obterK(matriz[0].length, "\nSelecione o número de vetores próprios a utilizar: ");
+            k = verificarK(matriz[0].length, k);
 
             double[][] A = calcularMatrizes.calcularA(valoresProprios, vetoresProprios);
             double[][] vetoresPropriosReduzidos = calcularMatrizes.vetoresPropriosReduzidos(vetoresProprios, k);
@@ -68,37 +86,23 @@ public class UI {
         }
     }
 
-    public static int obterK(int tamanho, String mensagem) {
-        Scanner scanner = new Scanner(System.in);
-        int k;
-
-        while (true) {
-            System.out.println(mensagem);
-            System.out.printf("\nIntroduza um valor para k (0 < k < %d): ", tamanho);
-
-            k = scanner.nextInt();
-
-            if (k == -1) {
-                k = tamanho;
-                break;
-            } else if (k > 0 && k <= tamanho) {
-                break;
-            } else if (k > tamanho) {
-                k = tamanho;
-                break;
-            } else {
-                System.out.println("Valor inválido. Tente novamente.");
-            }
+    public static int verificarK(int tamanho, int k) {
+        if (k == -1) {
+            k = tamanho;
+        } else if (k > 0 && k <= tamanho) {
+            return k;
+        } else if (k > tamanho) {
+            k = tamanho;
+        } else {
+            throw new IllegalArgumentException("Valor inválido para k. Deve ser -1 ou um valor positivo.");
         }
         return k;
     }
 
 
-    private static void reconstruirImagens() throws FileNotFoundException {
+    public static void reconstruirImagens(int k, String pasta) throws FileNotFoundException {
         //src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3
 
-        System.out.print("\nInsira o diretório da pasta com as imagens a reconstruir: ");
-        String pasta = sc.nextLine();
         final String ficheiroOutput = "src/vetores.csv";
 
         leiturasaidadados.lerVetoresDeImagens(pasta, ficheiroOutput);
@@ -111,12 +115,12 @@ public class UI {
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
 
-        int k = obterK(vetoresPropriosNormalizados[0].length, "\nSelecione o número de eigenfaces a utilizar na reconstrução de imagens: ");
+        k = verificarK(vetoresPropriosNormalizados[0].length, k);
 
         double[][] pesos = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
         double[][] imagensReconstruidas = calcularMatrizes.reconstruirTodasImagens(media, vetoresPropriosNormalizados, pesos, k);
 
-        leiturasaidadados.exibirMatriz(media, "\nMatriz µ", 2);
+        leiturasaidadados.exibirMatriz(media, "Matriz µ", 2);
 
         System.out.println();
         for (int i = 0; i < pesos[0].length; i++) {
@@ -129,24 +133,19 @@ public class UI {
         }
 
         System.out.printf("%nNúmero de Eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
-        System.out.printf("%nEAM: %.2f%n \n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensReconstruidas));
+
+        System.out.printf("%nEAM: %.2f%n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensReconstruidas));
 
         leiturasaidadados.guardarCSV(vetoresPropriosNormalizados, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface");
         leiturasaidadados.guardarImagem(vetoresPropriosNormalizados, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface");
-        System.out.println();
         leiturasaidadados.guardarCSV(imagensReconstruidas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "imagem");
         leiturasaidadados.guardarImagem(imagensReconstruidas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "imagem");
     }
 
-    private static void identificarImagem() throws FileNotFoundException {
+    public static void identificarImagem(int k, String diretorioNovaI, String baseImagens) throws FileNotFoundException {
         int cont = 0;
 
-        System.out.print("\nInsira o diretório da imagem a identificar: ");
-        String diretorioNovaI = sc.nextLine();
-        System.out.print("\nInsira a localização da base imagens: ");
-        String baseImagens = sc.nextLine();
-
-        leiturasaidadados.lerVetoresDeImagens(baseImagens, "src\\vetores.csv");
+        leiturasaidadados.lerVetoresDeImagens(baseImagens, "src/vetores.csv");
 
         double[][] novaImagemMatriz = leiturasaidadados.lerMatriz(diretorioNovaI);
         double[][] novaImagemVetor = new double[novaImagemMatriz.length * novaImagemMatriz.length][1];
@@ -158,22 +157,24 @@ public class UI {
             }
         }
 
-        double[][]matrizImagens = leiturasaidadados.lerMatriz("src\\vetores.csv");
+        double[][]matrizImagens = leiturasaidadados.lerMatriz("src/vetores.csv");
         matrizImagens = calcularMatrizes.calcularTransposta(matrizImagens);
         double[][] media = calcularMatrizes.calcularMedia(matrizImagens);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizImagens, media);
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
 
-        int k = obterK(vetoresPropriosNormalizados[0].length, "\nInsira o número de eigenfaces a utilizar na identificação da imagem: ");
+        k = verificarK(vetoresPropriosNormalizados[0].length, k);
 
         double[][] phiNovo = calcularMatrizes.calcularPhi(novaImagemVetor, media);
         double[][] pesosNovaImagem = calcularMatrizes.calcularPesos(phiNovo, vetoresPropriosNormalizados, k);
         double[][] pesosBaseImagens = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
+
         double[] distancias = calcularMatrizes.calcularDistanciaEuclidianaMatriz(pesosNovaImagem, pesosBaseImagens);
 
         int menorDistancia = calcularMatrizes.obterIndiceMenorDistancia(distancias);
 
         System.out.println(menorDistancia);
+
     }
 }

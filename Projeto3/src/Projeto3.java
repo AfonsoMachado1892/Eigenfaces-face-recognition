@@ -2,12 +2,12 @@ import java.io.FileNotFoundException;
 
 public class Projeto3 {
     public static void main(String[] args) throws FileNotFoundException {
-        int opcao = 0;
-
-        while (opcao != 4) {
-            UI.mostrarMenu();
-            opcao = UI.obterOpcao();
-            UI.executarOpcao(opcao);
+        if (args.length == 0) {
+            System.out.println("Modo Interativo Iniciado.");
+            executarModoInterativo();
+        } else {
+            System.out.println("Modo Não Interativo Iniciado.");
+            executarModoNaoInterativo(args);
         }
 
          /*
@@ -22,5 +22,86 @@ public class Projeto3 {
         Imagem 213:    src\inputs\Funcionalidade 3\exemploImagensInputFuncionalidade3\exemploImagensInputFuncionalidade3\image_213.csv
         Base Imagens - src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3
         */
+
+        /*------------------------------*/
+
+        /*
+        EXECUTAR APP:
+        - MODO INTERATIVO: java -jar out\artifacts\Projeto3_jar\Projeto3.jar
+        - MODO NÃO INTERATIVO:
+        1: java -jar out\artifacts\Projeto3_jar\Projeto3.jar -f 1 -k 5 -i "src\inputs\Funcionalidade1\exampleInputFunc1.csv"
+        2: java -jar out\artifacts\Projeto3_jar\Projeto3.jar -f 2 -k 40 -d "src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3"
+        3: java -jar out\artifacts\Projeto3_jar\Projeto3.jar -f 3 -k 10 -i "src\inputs\Funcionalidade 3\exemploImagensInputFuncionalidade3\exemploImagensInputFuncionalidade3\image_213.csv" -d "src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3"
+
+         */
     }
+
+    public static void executarModoInterativo() throws FileNotFoundException {
+        int opcao;
+        do {
+            UI.mostrarMenu();
+            opcao = UI.obterOpcao();
+            UI.executarOpcao(opcao);
+        } while (opcao != 4);
+    }
+
+    private static void executarModoNaoInterativo(String[] args) throws FileNotFoundException {
+        int f = -1;
+        int k = -1;
+        String i = null;
+        String d = null;
+
+        for (int j = 0; j < args.length; j++) {
+            switch (args[j]) {
+                case "-f":
+                    f = Integer.parseInt(args[++j]);
+                    break;
+                case "-k":
+                    k = Integer.parseInt(args[++j]);
+                    break;
+                case "-i":
+                    i = args[++j];
+                    break;
+                case "-d":
+                    d = args[++j];
+                    break;
+                default:
+                    System.out.println("Parâmetro inválido: " + args[j]);
+                    return;
+            }
+        }
+
+        if (f < 1 || f > 3) {
+            System.out.println("Erro: A funcionalidade (f) deve ser 1, 2 ou 3.");
+            return;
+        }
+        if ((f == 1 || f == 3) && i == null) {
+            System.out.println("Erro: O parâmetro '-i' é obrigatório para as funcionalidades 1 e 3.");
+            return;
+        }
+        if ((f == 2 || f == 3) && d == null) {
+            System.out.println("Erro: O parâmetro '-d' é obrigatório para as funcionalidades 2 e 3.");
+            return;
+        }
+
+        switch (f) {
+            case 1:
+                System.out.println("A executar Funcionalidade 1...");
+                UI.decomposicaoPropria(k, i);
+                break;
+            case 2:
+                System.out.println("A executar Funcionalidade 2...");
+                UI.reconstruirImagens(k, d);
+                break;
+            case 3:
+                System.out.println("A executar Funcionalidade 3...");
+                UI.identificarImagem(k, i, d);
+                break;
+            default:
+                System.out.println("Erro: Funcionalidade inválida.");
+        }
+    }
+
 }
+
+
