@@ -181,7 +181,7 @@ public class Testes {
         boolean valido = true;
 
         double[][] matrizDiagonalReduzida = {
-                {3, 0, 0}
+                {3, 0, 0},
                 {0, 5, 0},
                 {0, 0, 7}
         };
@@ -202,18 +202,18 @@ public class Testes {
 
         for (int i = 0; i < resultado.length; i++) {
             for (int j = 0; j < resultado[0].length; j++) {
-                if ((int) esperado[i][j] != (int) resultado[i][j])
+                if ((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                }
             }
         }
-    }
 
-    if (valido) {
-        System.out.println("Teste de cálculo de Ak validado com sucesso!");
-    } else {
-        System.out.println("Teste de cálculo de Ak INVALIDADO!");
+        if (valido) {
+            System.out.println("Teste de cálculo de Ak validado com sucesso!");
+        } else {
+            System.out.println("Teste de cálculo de Ak INVALIDADO!");
+        }
     }
-}
 
 
 
