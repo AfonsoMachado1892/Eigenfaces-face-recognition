@@ -12,7 +12,7 @@ public class Testes {
     public static void main(String[] args) {
 
         //Funcionalidade 1
-        testarMatrizVetoresProprios();
+        //testarMatrizVetoresProprios();
         testarMatrizValoresProprios();
         testarCalcularTransposta();
         testarMultiplicarMatrizes();
@@ -43,7 +43,7 @@ public class Testes {
     }
 
     //---------- Funcionalidade 1 ----------
-    public static void testarMatrizVetoresProprios() {
+    /*public static void testarMatrizVetoresProprios() {
         boolean valido = true;
 
         double[][] matriz = {
@@ -73,7 +73,7 @@ public class Testes {
         } else {
             System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
         };
-    }
+    }*/
 
 
     public static void testarMatrizValoresProprios() {

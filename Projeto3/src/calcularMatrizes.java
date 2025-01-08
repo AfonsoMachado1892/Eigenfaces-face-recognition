@@ -11,18 +11,44 @@ public class calcularMatrizes {
     //---------- Funcionalidade 1 ----------
 
     //P - Matriz dos vetores próprios unitários
-    public static double[][] matrizVetoresProprios(double[][] matriz) {
+    public static double[][] matrizVetoresProprios(double[][] matriz, int k) {
         RealMatrix matrizreal = new Array2DRowRealMatrix(matriz);
         EigenDecomposition decomposicao = new EigenDecomposition(matrizreal);
-        double[][] vetoresproprios = new double[matriz.length][matriz.length];
+        double[][] vetoresProprios = new double[matriz.length][matriz.length];
 
         for (int i = 0; i < matriz.length; i++) {
             double[] vetorProprio = decomposicao.getEigenvector(i).toArray();
             for (int j = 0; j < matriz.length; j++) {
-                vetoresproprios[j][i] = vetorProprio[j];
+                vetoresProprios[j][i] = vetorProprio[j];
             }
         }
-        return vetoresproprios;
+
+        double[] valoresProprios = decomposicao.getRealEigenvalues();
+
+        int[] indices = new int[valoresProprios.length];
+        for (int i = 0; i < valoresProprios.length; i++) {
+            indices[i] = i;
+        }
+
+        for (int i = 0; i < valoresProprios.length - 1; i++) {
+            for (int j = i + 1; j < valoresProprios.length; j++) {
+                if (valoresProprios[indices[i]] < valoresProprios[indices[j]]) {
+                    int temp = indices[i];
+                    indices[i] = indices[j];
+                    indices[j] = temp;
+                }
+            }
+        }
+
+        double[][] matrizColuna = new double[vetoresProprios.length][k];
+        for (int col = 0; col < k; col++) {
+            int index = indices[col];
+            for (int row = 0; row < vetoresProprios.length; row++) {
+                matrizColuna[row][col] = vetoresProprios[row][index];
+            }
+        }
+
+        return matrizColuna;
     }
 
     //D - Matriz diagonal com os valores próprios associados aos vetores próprios da matriz A
@@ -190,10 +216,10 @@ public class calcularMatrizes {
     }
 
     //Cálculo dos vetores próprios de C
-    public static double[][] vetoresPropriosC(double[][] matrizA) {
+    public static double[][] vetoresPropriosC(double[][] matrizA, int k) {
         double[][] transpostaA = calcularTransposta(matrizA);
         double[][] matrizATA = multiplicarMatrizes(transpostaA, matrizA);
-        double[][] matrizVetoresPropriosATA = matrizVetoresProprios(matrizATA);
+        double[][] matrizVetoresPropriosATA = matrizVetoresProprios(matrizATA, k);
         int linhasA = matrizA.length;
         int numVetoresProprios = matrizVetoresPropriosATA[0].length;
         double[][] vetoresPropriosC = new double[linhasA][numVetoresProprios];
