@@ -177,6 +177,46 @@ public class Testes {
             System.out.println("Teste de cálculo de Erro Absoluto Médio INVALIDADO!");
         };
     }
+    public static void testarCalcularAk() {
+        boolean valido = true;
+
+        double[][] matrizDiagonalReduzida = {
+                {3, 0, 0}
+                {0, 5, 0},
+                {0, 0, 7}
+        };
+
+        double[][] vetoresPropriosReduzidos = {
+                {1, 0, 0},
+                {0, 1, 0},
+                {0, 0, 1}
+        };
+
+        double[][] esperado = {
+                {3, 0, 0},
+                {0, 5, 0},
+                {0, 0, 7}
+        };
+
+        double[][] resultado = calcularMatrizes.calcularAk(matrizDiagonalReduzida, vetoresPropriosReduzidos);
+
+        for (int i = 0; i < resultado.length; i++) {
+            for (int j = 0; j < resultado[0].length; j++) {
+                if ((int) esperado[i][j] != (int) resultado[i][j])
+                    valido = false;
+            }
+        }
+    }
+
+    if (valido) {
+        System.out.println("Teste de cálculo de Ak validado com sucesso!");
+    } else {
+        System.out.println("Teste de cálculo de Ak INVALIDADO!");
+    }
+}
+
+
+
 
     public static void testarMultiplicarMatrizes() {
         boolean valido = true;
