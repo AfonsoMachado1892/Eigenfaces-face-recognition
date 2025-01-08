@@ -250,6 +250,45 @@ public class Testes {
     }
 
 
+    public static void testarMatrizDiagonalReduzida() {
+        boolean valido = true;
+
+        double[][] matrizDiagonal = {
+                {3, 0, 0, 0}
+                {0, 5, 0, 0},
+                {0, 0, 7, 0},
+                {0, 0, 0, 2}
+        };
+
+        int k = 2;
+
+        double[][] esperado = {
+                {3, 0},
+                {0, 5}
+        };
+
+        double[][] resultado = calcularMatrizes.matrizDiagonalReduzida(matrizDiagonal, k);
+
+        for (int i = 0; i < resultado.length; i++) {
+            for (int j = 0; j < resultado[0].length; j++) {
+                if int(esperado[i][j]) != (int resultado[i][j]) {
+                    valido = false;
+                }
+            }
+        }
+
+        if (valido) {
+            System.out.println("Teste de matriz diagonal reduzida validado com sucesso!");
+        } else {
+            System.out.println("Teste de matriz diagonal reduzida INVALIDADO!");
+        }
+    }
+
+
+
+
+
+
     public static void testarMultiplicarMatrizes() {
         boolean valido = true;
 
