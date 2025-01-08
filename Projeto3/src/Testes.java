@@ -215,8 +215,39 @@ public class Testes {
         }
     }
 
+    public static void testarVetoresPropriosReduzidos() {
+        boolean valido = true;
 
+        double[][] vetoresProprios = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8}
+                {9, 10, 11, 12}
+        };
 
+        int k = 2;
+
+        double[][] esperado = {
+                {1, 2},
+                {5, 6},
+                {9, 10}
+        };
+
+        double[][] resultado = calcularMatrizes.vetoresPropriosReduzidos(vetoresProprios, k);
+
+        for (int i = 0; i < resultado.length; i++) {
+            for (int j = 0; j < resultado[0].length; j++) {
+                if (int) esperado[i][j] != (int resultado[i][j]) {
+                    valido = false;
+                }
+            }
+        }
+
+        if (valido) {
+            System.out.println("Teste de redução de vetores próprios validado com sucesso!");
+        } else {
+            System.out.println("Teste de redução de vetores próprios INVALIDADO!");
+        }
+    }
 
     public static void testarMultiplicarMatrizes() {
         boolean valido = true;
