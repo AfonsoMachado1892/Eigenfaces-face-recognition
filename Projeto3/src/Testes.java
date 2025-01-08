@@ -285,10 +285,65 @@ public class Testes {
     }
 
 
+    public static void testarVerificarMatriz() {
+        boolean valido = true;
 
+        double[][] matrizValida = {
+                {1, 2, 3},
+                {2, 4, 5},
+                {3, 5, 6}
+        };
 
+        double[][] matrizNaoQuadrada = {
+                {1, 2, 3},
+                {4, 5, 6}
+        };
 
+        double[][] matrizNaoSimetrica = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {3, 5, 6}
+        };
 
+        double[][] matrizComNaN = {
+                {1, 2, 3},
+                {2, Double.NaN, 5},
+                {3, 5, 6}
+        };
+
+        double[][] matrizComInfinito = {
+                {1, 2, 3},
+                {2, Double.POSITIVE_INFINITY, 5},
+                {3, 5, 6}
+        };
+
+        double[][] matrizGrande = new double[256][256];
+
+        boolean resultado = verificarMatriz(matrizValida);
+        if (resultdo == false) {
+            valido = false;
+            System.out.println("Erro: Matriz válida foi considerada inválida.");
+        }
+
+        if (verificarMatriz(matrizNaoQuadrada) {
+            valido = false;
+            System.out.println("Erro: Matriz não quadrada foi considerada válida.");
+        }
+
+        if (verificarMatriz(matrizNaoSimetrica) = true) {
+            valido = false;
+            System.out.println("Erro: Matriz não simétrica foi considerada válida.");
+        }
+
+        matrizValida[3][0] = 1;
+
+        if (valido) {
+            System.out.println("Teste de verificação de matriz validado com sucesso!");
+        } else {
+            System.out.println("Teste de verificação de matriz INVALIDADO!");
+        }
+    }
+    
     public static void testarMultiplicarMatrizes() {
         boolean valido = true;
 
