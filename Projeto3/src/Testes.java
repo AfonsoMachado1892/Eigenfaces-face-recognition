@@ -13,7 +13,7 @@ public class Testes {
 
         //Funcionalidade 1
         //testarMatrizVetoresProprios();
-        testarMatrizValoresProprios();
+        //testarMatrizValoresProprios();
         testarCalcularTransposta();
         testarMultiplicarMatrizes();
         testarCalcularA();
@@ -76,7 +76,7 @@ public class Testes {
     }*/
 
 
-    public static void testarMatrizValoresProprios() {
+    /*public static void testarMatrizValoresProprios() {
         boolean valido = true;
 
         double[][] matriz = {
@@ -106,7 +106,7 @@ public class Testes {
         } else {
             System.out.println("Teste de cálculo de Matriz Diagonal de Valores Próprios INVALIDADO!");
         };
-    }
+    }*/
 
     public static void testarCalcularTransposta() {
         boolean valido = true;

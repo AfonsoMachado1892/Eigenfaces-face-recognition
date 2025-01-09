@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class calcularMatrizes {
     //---------- Funcionalidade 1 ----------
@@ -52,14 +53,19 @@ public class calcularMatrizes {
     }
 
     //D - Matriz diagonal com os valores próprios associados aos vetores próprios da matriz A
-    public static double[][] matrizDiagonalValoresProprios(double[][] matriz) {
+    public static double[][] matrizDiagonalValoresProprios(double[][] matriz, int k) {
         RealMatrix matrizReal = new Array2DRowRealMatrix(matriz);
         EigenDecomposition decomposicao = new EigenDecomposition(matrizReal);
         double[] valoresproprios = decomposicao.getRealEigenvalues();
-        int tamanho = valoresproprios.length;
+
+        Arrays.sort(valoresproprios);
+        double[] maioresValores = Arrays.copyOfRange(valoresproprios, valoresproprios.length - k, valoresproprios.length);
+
+        int tamanho = maioresValores.length;
         double[][] matrizdiagonal = new double[tamanho][tamanho];
+
         for (int i = 0; i < tamanho; i++) {
-            matrizdiagonal[i][i] = valoresproprios[i];
+            matrizdiagonal[i][i] = maioresValores[tamanho - 1 - i];
         }
         return matrizdiagonal;
     }

@@ -66,7 +66,7 @@ public class UI {
 
         if (calcularMatrizes.verificarMatriz(matriz)) {
             double[][] vetoresProprios = calcularMatrizes.matrizVetoresProprios(matriz, k);
-            double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz);
+            double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz, k);
 
             double[][] A = calcularMatrizes.calcularA(valoresProprios, vetoresProprios);
             double[][] vetoresPropriosReduzidos = calcularMatrizes.vetoresPropriosReduzidos(vetoresProprios, k);
