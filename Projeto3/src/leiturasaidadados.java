@@ -149,26 +149,34 @@ public class leiturasaidadados {
         return arrayConvertido;
     }
 
-    public static void guardarCSV(double[][] inputCSV, String caminhoOutput, String nome) {
-        int largura = inputCSV[0].length;
-        int dimensaoImagem = 64;
+    public static void guardarCSV(double[][] inputCSV, String caminhoOutput, String nome, int[] indices) {
+        int largura = inputCSV[0].length; // Número de colunas
+        int dimensaoImagem = 64;         // Dimensão da imagem (assumindo 64x64)
 
+        // Verificar se o array de índices está vazio (ou seja, guardar todas as colunas)
+        boolean salvarTudo = (indices == null || indices.length == 0);
+
+        // Iterar pelas colunas que precisam ser salvas
         for (int coluna = 0; coluna < largura; coluna++) {
-            String nomeCSV = nome + "_" + (coluna + 1) + ".csv";
-            String caminhoCSV = caminhoOutput + File.separator + nomeCSV;
-            try (PrintWriter printwriter = new PrintWriter(caminhoCSV)) {
-                for (int i = 0; i < dimensaoImagem; i++) {
-                    for (int j = 0; j < dimensaoImagem; j++) {
-                        printwriter.printf("%.2f ", inputCSV[i * dimensaoImagem + j][coluna]);
-                        if (j == dimensaoImagem - 1) {
-                            printwriter.println();
-                        } else {
-                            printwriter.print("; ");
+            // Verificar se a coluna atual está nos índices ou se devemos salvar tudo
+            if (salvarTudo || calcularMatrizes.contemIndice(indices, coluna)) {
+                String nomeCSV = nome + "_" + (coluna + 1) + ".csv";
+                String caminhoCSV = caminhoOutput + File.separator + nomeCSV;
+
+                try (PrintWriter printwriter = new PrintWriter(caminhoCSV)) {
+                    for (int i = 0; i < dimensaoImagem; i++) {
+                        for (int j = 0; j < dimensaoImagem; j++) {
+                            printwriter.printf("%.2f", inputCSV[i * dimensaoImagem + j][coluna]);
+                            if (j == dimensaoImagem - 1) {
+                                printwriter.println(); // Fim da linha
+                            } else {
+                                printwriter.print("; "); // Separador entre valores
+                            }
                         }
                     }
+                } catch (IOException e) {
+                    System.out.println("Erro ao guardar ficheiro CSV: " + e.getMessage());
                 }
-            } catch (IOException e) {
-                System.out.println("Erro ao guardar ficheiro CSV: " + e.getMessage());
             }
         }
     }

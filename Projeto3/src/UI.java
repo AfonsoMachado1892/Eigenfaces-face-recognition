@@ -122,6 +122,14 @@ public class UI {
         double[][] pesos = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
         double[][] imagensReconstruidas = calcularMatrizes.reconstruirTodasImagens(media, vetoresPropriosNormalizados, pesos, k);
 
+        double[][] eigenFacesRecalibradas = calcularMatrizes.reescalonarEigenfaces(vetoresPropriosNormalizados);
+        double[][] imagensRescalonadas = calcularMatrizes.reescalonarEigenfaces(imagensReconstruidas);
+        int[] indicesDiferentes = calcularMatrizes.compararMatrizes(imagensRescalonadas, imagensReconstruidas);
+
+        for(int i = 0; i < indicesDiferentes.length; i++) {
+            System.out.println(indicesDiferentes[i]);
+        };
+
         leiturasaidadados.exibirMatriz(media, "Matriz µ", 2);
 
         System.out.println();
@@ -136,12 +144,14 @@ public class UI {
 
         System.out.printf("%nNúmero de Eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
 
-        System.out.printf("%nEAM: %.2f%n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensReconstruidas));
+        leiturasaidadados.guardarCSV(vetoresPropriosNormalizados, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface", new int[0]);
+        leiturasaidadados.guardarImagem(eigenFacesRecalibradas, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface");
+        leiturasaidadados.guardarCSV(imagensReconstruidas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "Imagem", new int[0]);
+        leiturasaidadados.guardarImagem(imagensRescalonadas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "imagem");
+        leiturasaidadados.guardarCSV(imagensRescalonadas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "Imagem_Transformada", indicesDiferentes);
+        leiturasaidadados.guardarCSV(eigenFacesRecalibradas, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface_Transformada", new int[0]);
 
-        leiturasaidadados.guardarCSV(vetoresPropriosNormalizados, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface");
-        leiturasaidadados.guardarImagem(vetoresPropriosNormalizados, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface");
-        leiturasaidadados.guardarCSV(imagensReconstruidas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "imagem");
-        leiturasaidadados.guardarImagem(imagensReconstruidas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "imagem");
+        System.out.printf("%nEAM: %.2f%n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensRescalonadas));
     }
 
     public static void identificarImagem(int k, String diretorioNovaI, String baseImagens) throws FileNotFoundException {
