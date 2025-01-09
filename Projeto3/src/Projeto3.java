@@ -21,6 +21,8 @@ public class Projeto3 {
         Imagem 140:    src\inputs\Funcionalidade 3\exemploImagensInputFuncionalidade3\exemploImagensInputFuncionalidade3\image_140.csv
         Imagem 213:    src\inputs\Funcionalidade 3\exemploImagensInputFuncionalidade3\exemploImagensInputFuncionalidade3\image_213.csv
         Base Imagens - src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3
+
+        F4: src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3
         */
 
         /*------------------------------*/
@@ -32,6 +34,7 @@ public class Projeto3 {
         1: java -jar out\artifacts\Projeto3_jar\Projeto3.jar -f 1 -k 5 -i "src\inputs\Funcionalidade1\exampleInputFunc1.csv"
         2: java -jar out\artifacts\Projeto3_jar\Projeto3.jar -f 2 -k 40 -d "src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3"
         3: java -jar out\artifacts\Projeto3_jar\Projeto3.jar -f 3 -k 10 -i "src\inputs\Funcionalidade 3\exemploImagensInputFuncionalidade3\exemploImagensInputFuncionalidade3\image_213.csv" -d "src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3"
+        4: java -jar out\artifacts\Projeto3_jar\Projeto3.jar -f 4 -k 40 -d "src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3"
 
          */
     }
@@ -42,7 +45,7 @@ public class Projeto3 {
             UI.mostrarMenu();
             opcao = UI.obterOpcao();
             UI.executarOpcao(opcao);
-        } while (opcao != 4);
+        } while (opcao != 5);
     }
 
     private static void executarModoNaoInterativo(String[] args) throws FileNotFoundException {
@@ -71,16 +74,16 @@ public class Projeto3 {
             }
         }
 
-        if (f < 1 || f > 3) {
-            System.out.println("Erro: A funcionalidade (f) deve ser 1, 2 ou 3.");
+        if (f < 1 || f > 4) {
+            System.out.println("Erro: A funcionalidade (f) deve ser 1, 2, 3 ou 4.");
             return;
         }
         if ((f == 1 || f == 3) && i == null) {
             System.out.println("Erro: O parâmetro '-i' é obrigatório para as funcionalidades 1 e 3.");
             return;
         }
-        if ((f == 2 || f == 3) && d == null) {
-            System.out.println("Erro: O parâmetro '-d' é obrigatório para as funcionalidades 2 e 3.");
+        if ((f == 2 || f == 3 || f == 4) && d == null) {
+            System.out.println("Erro: O parâmetro '-d' é obrigatório para as funcionalidades 2, 3 e 4.");
             return;
         }
 
@@ -96,6 +99,10 @@ public class Projeto3 {
             case 3:
                 System.out.println("A executar Funcionalidade 3...");
                 UI.identificarImagem(k, i, d);
+                break;
+            case 4:
+                System.out.println("A executar Funcionalidade 4...");
+                UI.gerarNovasImagens(d, k);
                 break;
             default:
                 System.out.println("Erro: Funcionalidade inválida.");

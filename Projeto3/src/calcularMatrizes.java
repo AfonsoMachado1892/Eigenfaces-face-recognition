@@ -67,6 +67,13 @@ public class calcularMatrizes {
         for (int i = 0; i < tamanho; i++) {
             matrizdiagonal[i][i] = maioresValores[tamanho - 1 - i];
         }
+
+        for (int i = 0; i < tamanho; i++) {
+            if((int) matrizdiagonal[i][i] == -0) {
+                matrizdiagonal[i][i] = 0;
+            }
+        }
+
         return matrizdiagonal;
     }
 
@@ -242,6 +249,16 @@ public class calcularMatrizes {
             }
         }
         return vetoresPropriosC;
+    }
+
+    public static double[][] valoresPropriosC(double[][] matrizA, int k) {
+        double[][] transpostaA = calcularTransposta(matrizA);
+        double[][] matrizATA = multiplicarMatrizes(transpostaA, matrizA);
+
+
+        double[][] valoresProprios = matrizDiagonalValoresProprios(matrizATA, k);
+
+        return  valoresProprios;
     }
 
     //Normalizar os vetores próprios de C
@@ -446,13 +463,62 @@ public class calcularMatrizes {
     public static int obterIndiceMenorDistancia(double[] distancias) {
         double menorValor = distancias[0];
         int menorIndice = 0;
+        boolean menorIgual = false;
 
         for(int i = 1; i < distancias.length; i++) {
-            if(distancias[i] < menorValor) {
-                menorValor = distancias[i];
-                menorIndice = i;
+            if(distancias[i] <= menorValor) {
+                if(distancias[i] == menorValor) {
+                    menorIgual = true;
+                } else {
+                    menorIgual = false;
+                    menorValor = distancias[i];
+                    menorIndice = i;
+                }
             }
         }
-        return menorIndice;
+
+        if(menorIgual) {
+            return -1;
+        } else {
+            return menorIndice;
+        }
+    }
+
+    public static double[][] obterImagem(double[][] matrizImagens, int indice) {
+        double[][] imagem = new double[matrizImagens.length][1];
+        for (int i = 0; i < matrizImagens.length; i++) {
+            imagem[i][0] = matrizImagens[i][indice];
+        }
+        return imagem;
+    }
+
+    public static double[][] gerarImagem(double[][] media, double[][] valoresProprios, double[][] vetoresPropriosNormalizados, int k) {
+        double min;
+        double max;
+        double w ;
+
+        double[][] imagemGerada = new double[media.length][1];
+        double[][] mult = new double[media.length][1];
+
+        for(int i = 0; i < media.length; i++) {
+            imagemGerada[i][0] = media[i][0];
+        }
+
+        for(int i = 0; i < k; i++) {
+            min = -(Math.sqrt(valoresProprios[i][i]));
+            max = Math.sqrt(valoresProprios[i][i]);
+
+            w = Math.random() * (max - min) + min;
+
+            for(int j = 0; j < media.length; j++) {
+                mult[j][0] = w * vetoresPropriosNormalizados[j][i];
+            }
+
+            for(int p = 0; p < media.length; p++) {
+                imagemGerada[p][0] += mult[p][0];
+            }
+        }
+
+        return  imagemGerada;
     }
 }

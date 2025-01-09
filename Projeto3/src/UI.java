@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class UI {
@@ -9,7 +10,8 @@ public class UI {
         System.out.println("1. Decomposição Própria de Matriz Simétrica");
         System.out.println("2. Reconstrução de Imagens Utilizando Eigenfaces");
         System.out.println("3. Identificação de Imagem Mais Próxima");
-        System.out.println("4. Sair \n");
+        System.out.println("4. Geração de Imagens Utilizando Eigenfaces");
+        System.out.println("5. Sair \n");
         System.out.print("Escolha uma opção: ");
     }
 
@@ -50,10 +52,19 @@ public class UI {
                 identificarImagem(f, diretorioNovaI, baseImagens);
                 break;
             case 4:
+                System.out.print("\nInsira a localização da base imagens: ");
+                String imagens = sc.nextLine();
+
+                System.out.print("\nSelecione o número de Eigenfaces a utilizar: ");
+                int g = sc.nextInt();
+
+                gerarNovasImagens(imagens, g);
+                break;
+            case 5:
                 System.out.println("A sair...");
                 break;
             default:
-                System.out.println("Input Inválido. [1-4]");
+                System.out.println("Input Inválido. [1-5]");
         }
     }
 
@@ -188,7 +199,38 @@ public class UI {
 
         int menorDistancia = calcularMatrizes.obterIndiceMenorDistancia(distancias);
 
-        System.out.println(menorDistancia);
+        if(menorDistancia == -1) {
+            System.out.println("AVISO: Ocorreu um empate na identificação da imagem mais parecida");
+            leiturasaidadados.guardarImagem(matrizImagens, "src\\outputs\\funcionalidade3\\Identificacao", "Imagem");
+        } else {
+            double[][] imagemParecida = calcularMatrizes.obterImagem(matrizImagens, menorDistancia);
+            leiturasaidadados.guardarImagem(imagemParecida, "src\\outputs\\funcionalidade3\\Identificacao", "Imagem_Mais_Parecida");
 
+            int nomeImagem = (menorDistancia * 10) + 1;
+            System.out.println("image_" + nomeImagem + ".png");
+        }
+
+    }
+
+    public static void gerarNovasImagens(String baseImagens, int k) throws FileNotFoundException {
+
+        final String ficheiroOutput = "src/vetores.csv";
+
+        leiturasaidadados.lerVetoresDeImagens(baseImagens, ficheiroOutput);
+
+        double[][] matrizM = leiturasaidadados.lerMatriz(ficheiroOutput);
+        matrizM = calcularMatrizes.calcularTransposta(matrizM);
+
+        double[][] media = calcularMatrizes.calcularMedia(matrizM);
+        double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizM, media);
+        double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi, k);
+        double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
+        double[][] valoresProprios = calcularMatrizes.valoresPropriosC(matrizPhi, k);
+
+        double[][] imagemGerada = calcularMatrizes.gerarImagem(media, valoresProprios, vetoresPropriosNormalizados, k);
+
+        double[][] imagemGeradaRescalonada = calcularMatrizes.reescalonarEigenfaces(imagemGerada);
+
+        leiturasaidadados.guardarImagem(imagemGeradaRescalonada, "src\\outputs\\funcionalidade4\\Output", "Imagem_Gerada");
     }
 }
