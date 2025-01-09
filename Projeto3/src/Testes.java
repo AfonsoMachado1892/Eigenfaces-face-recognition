@@ -135,8 +135,9 @@ public class Testes {
 
         for(int i = 0; i < resultado.length; i++) {
             for(int j = 0; j < resultado[0].length; j++) {
-                if((int) esperado[i][j] != (int) resultado[i][j]) {
+                if ((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -145,7 +146,7 @@ public class Testes {
             System.out.println("Teste de cálculo de Matriz Transposta validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Matriz Transposta INVALIDADO!");
-        };
+        }
     }
 
     public static void testarCalcularEAM() {
@@ -175,7 +176,7 @@ public class Testes {
             System.out.println("Teste de cálculo de Erro Absoluto Médio validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Erro Absoluto Médio INVALIDADO!");
-        };
+        }
     }
     public static void testarCalcularAk() {
         boolean valido = true;
@@ -201,6 +202,7 @@ public class Testes {
             for (int j = 0; j < resultado[0].length; j++) {
                 if (Math.abs(esperado[i][j] - resultado[i][j]) > 0.01) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -236,6 +238,7 @@ public class Testes {
             for (int j = 0; j < resultado[0].length; j++) {
                 if (Math.abs(esperado[i][j] - resultado[i][j]) > 0.01) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -272,6 +275,7 @@ public class Testes {
             for (int j = 0; j < resultado[0].length; j++) {
                 if ((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -379,6 +383,7 @@ public class Testes {
             for(int j = 0; j < resultado[0].length; j++) {
                 if((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -387,7 +392,7 @@ public class Testes {
             System.out.println("Teste de cálculo de Multiplicação de Matrizes validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Multiplicação de Matrizes INVALIDADO!");
-        };
+        }
     }
 
     public static void testarCalcularA() {
@@ -417,6 +422,7 @@ public class Testes {
             for(int j = 0; j < resultado[0].length; j++) {
                 if((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -425,7 +431,7 @@ public class Testes {
             System.out.println("Teste de cálculo de Matriz A (Decomposição Própria de Matriz Simétrica) validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Matriz A (Decomposição Própria de Matriz Simétrica) INVALIDADO!");
-        };
+        }
     }
 
 
@@ -451,6 +457,7 @@ public class Testes {
             for(int j = 0; j < resultado[0].length; j++) {
                 if((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -459,7 +466,7 @@ public class Testes {
             System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
-        };
+        }
     }
 
     public static void testarCalcularMedia() {
@@ -483,6 +490,7 @@ public class Testes {
             for(int j = 0; j < resultado[0].length; j++) {
                 if((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -491,7 +499,7 @@ public class Testes {
             System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
-        };
+        }
     }
 
     public static void testarCalcularPhi() {
@@ -521,6 +529,7 @@ public class Testes {
             for(int j = 0; j < resultado[0].length; j++) {
                 if((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -529,7 +538,7 @@ public class Testes {
             System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
-        };
+        }
     }
 
     /*

@@ -191,9 +191,6 @@ public class calcularMatrizes {
             if (!linhaEmBranco) {
                 break;
             }
-            if (linhaEmBranco && i < matriz.length - 1) {
-                continue;
-            }
         }
         return true;
     }
@@ -255,10 +252,7 @@ public class calcularMatrizes {
         double[][] transpostaA = calcularTransposta(matrizA);
         double[][] matrizATA = multiplicarMatrizes(transpostaA, matrizA);
 
-
-        double[][] valoresProprios = matrizDiagonalValoresProprios(matrizATA, k);
-
-        return  valoresProprios;
+        return  matrizDiagonalValoresProprios(matrizATA, k);
     }
 
     //Normalizar os vetores próprios de C

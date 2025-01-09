@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.util.Random;
 import java.util.Scanner;
 
 public class UI {
@@ -139,7 +138,7 @@ public class UI {
 
         for(int i = 0; i < indicesDiferentes.length; i++) {
             System.out.println(indicesDiferentes[i]);
-        };
+        }
 
         leiturasaidadados.exibirMatriz(media, "Matriz µ", 2);
 
