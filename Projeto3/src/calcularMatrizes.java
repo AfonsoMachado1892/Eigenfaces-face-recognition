@@ -248,13 +248,6 @@ public class calcularMatrizes {
         return vetoresPropriosC;
     }
 
-    public static double[][] valoresPropriosC(double[][] matrizA, int k) {
-        double[][] transpostaA = calcularTransposta(matrizA);
-        double[][] matrizATA = multiplicarMatrizes(transpostaA, matrizA);
-
-        return  matrizDiagonalValoresProprios(matrizATA, k);
-    }
-
     //Normalizar os vetores próprios de C
     public static double[][] normalizarVetoresPropriosC(double[][] vetoresProprios) {
         double[][] vetoresPropriosNormalizados = new double[vetoresProprios.length][vetoresProprios[0].length];

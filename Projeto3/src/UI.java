@@ -220,11 +220,17 @@ public class UI {
         double[][] matrizM = leiturasaidadados.lerMatriz(ficheiroOutput);
         matrizM = calcularMatrizes.calcularTransposta(matrizM);
 
+        k = verificarK(matrizM[0].length, k);
+
         double[][] media = calcularMatrizes.calcularMedia(matrizM);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizM, media);
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi, k);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
-        double[][] valoresProprios = calcularMatrizes.valoresPropriosC(matrizPhi, k);
+
+        double[][] AT = calcularMatrizes.calcularTransposta(matrizPhi);
+        double[][] ATA = calcularMatrizes.multiplicarMatrizes(AT, matrizPhi);
+
+        double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(ATA, k);
 
         double[][] imagemGerada = calcularMatrizes.gerarImagem(media, valoresProprios, vetoresPropriosNormalizados, k);
 
