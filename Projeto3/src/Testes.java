@@ -3,7 +3,7 @@ public class Testes {
 
         //Funcionalidade 1
         testarMatrizVetoresProprios();
-        //testarMatrizValoresProprios();
+        testarMatrizValoresProprios();
         testarCalcularTransposta();
         testarMultiplicarMatrizes();
         testarCalcularA();
@@ -73,7 +73,7 @@ public class Testes {
     }
 
 
-    /*public static void testarMatrizValoresProprios() {
+    public static void testarMatrizValoresProprios() {
         boolean valido = true;
 
         double[][] matriz = {
@@ -82,18 +82,19 @@ public class Testes {
                 {0, 0, 7}
         };
 
-        double[][] esperado = {
-                {1, 0, 0},
+        double[][] esperadoOrdenado = {
+                {7, 0, 0},
                 {0, 6, 0},
-                {0, 0, 7}
+                {0, 0, 1}
         };
 
-        double[][] resultado = calcularMatrizes.matrizDiagonalValoresProprios(matriz);
+        double[][] resultado = calcularMatrizes.matrizDiagonalValoresProprios(matriz, 3);
 
-        for(int i = 0; i < resultado.length; i++) {
-            for(int j = 0; j < resultado[0].length; j++) {
-                if((int) esperado[i][j] != (int) resultado[i][j]) {
+        for (int i = 0; i < resultado.length; i++) {
+            for (int j = 0; j < resultado[0].length; j++) {
+                if ((int) esperadoOrdenado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -102,8 +103,8 @@ public class Testes {
             System.out.println("Teste de cálculo de Matriz Diagonal de Valores Próprios validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Matriz Diagonal de Valores Próprios INVALIDADO!");
-        };
-    }*/
+        }
+    }
 
     public static void testarCalcularTransposta() {
         boolean valido = true;
