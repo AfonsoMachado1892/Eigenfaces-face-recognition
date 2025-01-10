@@ -2,7 +2,7 @@ public class Testes {
     public static void main(String[] args) {
 
         //Funcionalidade 1
-        //testarMatrizVetoresProprios();
+        testarMatrizVetoresProprios();
         //testarMatrizValoresProprios();
         testarCalcularTransposta();
         testarMultiplicarMatrizes();
@@ -39,7 +39,7 @@ public class Testes {
     }
 
     //---------- Funcionalidade 1 ----------
-    /*public static void testarMatrizVetoresProprios() {
+    public static void testarMatrizVetoresProprios() {
         boolean valido = true;
 
         double[][] matriz = {
@@ -48,18 +48,19 @@ public class Testes {
                 {0, 0, 7}
         };
 
-        double[][] esperado = {
-                {1, (double) 2/5, (double) 11/6},
-                {0, 1, 3},
-                {0, 0, 1}
+        double[][] esperadoOrdenado = {
+                {(double) 11/6, (double) 2/5, 1},
+                {3, 1, 0},
+                {1, 0, 0}
         };
 
-        double[][] resultado = calcularMatrizes.matrizVetoresProprios(matriz);
+        double[][] resultado = calcularMatrizes.matrizVetoresProprios(matriz, 3);
 
-        for(int i = 0; i < resultado.length; i++) {
-            for(int j = 0; j < resultado[0].length; j++) {
-                if((int) esperado[i][j] != (int) resultado[i][j]) {
+        for (int i = 0; i < resultado.length; i++) {
+            for (int j = 0; j < resultado[0].length; j++) {
+                if ((int) esperadoOrdenado[i][j] != (int) resultado[i][j]) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -68,8 +69,8 @@ public class Testes {
             System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
-        };
-    }*/
+        }
+    }
 
 
     /*public static void testarMatrizValoresProprios() {
