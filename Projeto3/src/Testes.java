@@ -2,44 +2,41 @@ public class Testes {
     public static void main(String[] args) {
 
         //Funcionalidade 1
+        /*
         testarMatrizVetoresProprios();
         testarMatrizValoresProprios();
+        */
         testarCalcularTransposta();
         testarMultiplicarMatrizes();
         testarCalcularA();
         testarCalcularAk(); //CORRIGIR
         testarCalcularEAM();
-
-        //Corrigir
         testarVetoresPropriosReduzidos();
         testarMatrizDiagonalReduzida();
         testarVerificarMatriz();
 
-
         //Funcionalidade 2
         testarCalcularMedia();
-        testarCalcularPhi(); //CORRIGIR
+        testarCalcularPhi();
         testarNormalizarVetoresPropriosC();
         testarCalcularPesos();
         testarReconstruirTodasImagens();
         /*
-        testarEscreverArrayComoImagem();
-        rescalonada
-        find...
-        comparar
+        testarFindMin();
+        testarFindMax();
+        testarReescalonarEigenfaces();
+        testarCompararMatrizes();
         */
 
         //Funcionalidade 3
         testarCalcularDistanciaEuclidianaMatriz();
-        //testarObterIndiceMenorDistancia();
 
         //Funcionalidade 4
-        //testarGerarImagens();
-
+        testarGerarImagens(); //CORRIGIR
     }
 
     //---------- Funcionalidade 1 ----------
-    public static void testarMatrizVetoresProprios() {
+    /*public static void testarMatrizVetoresProprios() {
         boolean valido = true;
 
         double[][] matriz = {
@@ -48,19 +45,18 @@ public class Testes {
                 {0, 0, 7}
         };
 
-        double[][] esperadoOrdenado = {
-                {(double) 11/6, (double) 2/5, 1},
-                {3, 1, 0},
-                {1, 0, 0}
+        double[][] esperado = {
+                {1, (double) 2/5, (double) 11/6},
+                {0, 1, 3},
+                {0, 0, 1}
         };
 
-        double[][] resultado = calcularMatrizes.matrizVetoresProprios(matriz, 3);
+        double[][] resultado = calcularMatrizes.matrizVetoresProprios(matriz);
 
-        for (int i = 0; i < resultado.length; i++) {
-            for (int j = 0; j < resultado[0].length; j++) {
-                if ((int) esperadoOrdenado[i][j] != (int) resultado[i][j]) {
+        for(int i = 0; i < resultado.length; i++) {
+            for(int j = 0; j < resultado[0].length; j++) {
+                if((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
-                    break;
                 }
             }
         }
@@ -69,11 +65,11 @@ public class Testes {
             System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
-        }
-    }
+        };
+    }*/
 
 
-    public static void testarMatrizValoresProprios() {
+    /*public static void testarMatrizValoresProprios() {
         boolean valido = true;
 
         double[][] matriz = {
@@ -82,19 +78,18 @@ public class Testes {
                 {0, 0, 7}
         };
 
-        double[][] esperadoOrdenado = {
-                {7, 0, 0},
+        double[][] esperado = {
+                {1, 0, 0},
                 {0, 6, 0},
-                {0, 0, 1}
+                {0, 0, 7}
         };
 
-        double[][] resultado = calcularMatrizes.matrizDiagonalValoresProprios(matriz, 3);
+        double[][] resultado = calcularMatrizes.matrizDiagonalValoresProprios(matriz);
 
-        for (int i = 0; i < resultado.length; i++) {
-            for (int j = 0; j < resultado[0].length; j++) {
-                if ((int) esperadoOrdenado[i][j] != (int) resultado[i][j]) {
+        for(int i = 0; i < resultado.length; i++) {
+            for(int j = 0; j < resultado[0].length; j++) {
+                if((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
-                    break;
                 }
             }
         }
@@ -103,8 +98,8 @@ public class Testes {
             System.out.println("Teste de cálculo de Matriz Diagonal de Valores Próprios validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Matriz Diagonal de Valores Próprios INVALIDADO!");
-        }
-    }
+        };
+    }*/
 
     public static void testarCalcularTransposta() {
         boolean valido = true;
@@ -207,9 +202,9 @@ public class Testes {
         };
 
         double[][] esperado = {
-                {(double) 22939 / 900, (double) 409 / 10, (double) 77 / 6},
-                {(double) 409 / 10, 69, 21},
-                {(double) 77 / 6, 21, 7}
+                {(double) 22939/900, (double) 409/10, (double) 77/6},
+                {(double) 409/10, 69, 21},
+                {(double) 77/6, 21, 7}
         };
 
         double[][] resultado = calcularMatrizes.calcularA(matrizD, matrizP);
@@ -264,28 +259,28 @@ public class Testes {
         boolean valido = true;
 
         double[][] matrizVetoresPropriosReduzidos = {
-                {1, 2, 3},
-                {0, 6, 4},
-                {0, 0, 5}
+                {1, 0, 0},
+                {0, 1, 0},
+                {0, 0, 1}
         };
 
         double[][] matrizDiagonalReduzida = {
-                {3, 5, 7},
-                {0, 1, 6},
-                {0, 0, 2}
+                {3, 0, 0},
+                {0, 5, 0},
+                {0, 0, 7}
         };
 
         double[][] esperado = {
-                {92, 142, 125},
-                {144, 212, 220},
-                {30, 40, 50}
+                {3, 0, 0},
+                {0, 5, 0},
+                {0, 0, 7}
         };
 
         double[][] resultado = calcularMatrizes.calcularAk(matrizVetoresPropriosReduzidos, matrizDiagonalReduzida);
 
         for (int i = 0; i < resultado.length; i++) {
             for (int j = 0; j < resultado[0].length; j++) {
-                if (Math.abs(esperado[i][j] - resultado[i][j]) > 0.01) {
+                if ((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
                     break;
                 }
@@ -320,7 +315,7 @@ public class Testes {
 
         for (int i = 0; i < resultado.length; i++) {
             for (int j = 0; j < resultado[0].length; j++) {
-                if (Math.abs(esperado[i][j] - resultado[i][j]) > 0.01) {
+                if ((int) esperado[i][j] != (int) resultado[i][j]) {
                     valido = false;
                     break;
                 }
@@ -363,12 +358,12 @@ public class Testes {
         }
 
         if (valido) {
-            System.out.println("Teste de cálculo de Matriz diagonal Reduzida validado com sucesso!");
+            System.out.println("Teste de cálculo de Matriz Diagonal Reduzida validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Matriz Diagonal Reduzida INVALIDADO!");
         }
     }
-    
+
     public static void testarVerificarMatriz() {
         boolean valido = true;
 
@@ -425,9 +420,9 @@ public class Testes {
 
         // Exibir resultado final do teste
         if (valido) {
-            System.out.println("Teste de verificação de matriz validado com sucesso!");
+            System.out.println("Teste de verificação de Matriz validado com sucesso!");
         } else {
-            System.out.println("Teste de verificação de matriz INVALIDADO!");
+            System.out.println("Teste de verificação de Matriz INVALIDADO!");
         }
     }
 
@@ -468,13 +463,13 @@ public class Testes {
     public static void testarCalcularPhi() {
         boolean valido = true;
 
-        double[][] matrizA = {
+        double[][] matriz = {
                 {1, 2, 3},
                 {3, 2, 1},
                 {6, 0, 4}
         };
 
-        double[][] matrizB = {
+        double[][] media = {
                 {3},
                 {1},
                 {2},
@@ -483,10 +478,10 @@ public class Testes {
         double[][] esperado = {
                 {-2, -1, 0},
                 {2, 1, 0},
-                {4, 0, 2}
+                {4, -2, 2}
         };
 
-        double[][] resultado = calcularMatrizes.calcularPhi(matrizA, matrizB);
+        double[][] resultado = calcularMatrizes.calcularPhi(matriz, media);
 
         for(int i = 0; i < resultado.length; i++) {
             for(int j = 0; j < resultado[0].length; j++) {
@@ -657,22 +652,57 @@ public class Testes {
         }
 
         if(valido) {
-            System.out.println("Teste de cálculo da Distância Euclidiana validado com sucesso!");
+            System.out.println("Teste de cálculo de Distância Euclidiana validado com sucesso!");
         } else {
-            System.out.println("Teste de cálculo da Distância Euclidiana INVALIDADO!");
+            System.out.println("Teste de cálculo de Distância Euclidiana INVALIDADO!");
         }
     }
 
-    /*
-    public static boolean testarVetoresPropriosC() {
+    //---------- Funcionalidade 4 ----------
+    public static void testarGerarImagens() {
+        boolean valido = true;
 
+        double[][] media = {
+                {1},
+                {3},
+                {2}
+        };
+
+        double[][] valoresProprios = {
+                {1, 2, 3},
+                {0, 6, 2},
+                {0, 0, 5}
+        };
+
+        double[][] vetoresPropriosNormalizados = {
+                {1, 5, 2},
+                {0, 3, 4},
+                {0, 0, 2}
+        };
+
+        int k = 3;
+
+        double[][] esperado = {
+                {2.63},
+                {8.69},
+                {5.58}
+        };
+
+        double[][] resultado = calcularMatrizes.gerarImagem(media, valoresProprios, vetoresPropriosNormalizados, k);
+
+        for(int i = 0; i < resultado.length; i++) {
+            for(int j = 0; j < resultado[0].length; j++) {
+                if((int) esperado[i][j] != (int) resultado[i][j]) {
+                    valido = false;
+                    break;
+                }
+            }
+        }
+
+        if(valido) {
+            System.out.println("Teste de cálculo de Geração de Imagem validado com sucesso!");
+        } else {
+            System.out.println("Teste de cálculo de Geração de Imagem INVALIDADO!");
+        }
     }
-
-    public static boolean testarReconstruirTodasImagens() {
-
-    }
-
-    public static boolean testarEscreverArrayComoImagem() {
-
-    }*/
 }

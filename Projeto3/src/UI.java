@@ -5,7 +5,7 @@ public class UI {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void mostrarMenu() {
-        System.out.println("===================== Menu =====================");
+        System.out.println("\n===================== Menu =====================");
         System.out.println("1. Decomposição Própria de Matriz Simétrica");
         System.out.println("2. Reconstrução de Imagens Utilizando Eigenfaces");
         System.out.println("3. Identificação de Imagem Mais Próxima");
@@ -34,7 +34,7 @@ public class UI {
                 System.out.print("\nInsira o diretório da pasta com as imagens a reconstruir: ");
                 String pasta = sc.nextLine();
 
-                System.out.print("\nSelecione o número de Eigenfaces a utilizar: ");
+                System.out.print("\nSelecione o número de Eigenfaces a utilizar: \n");
                 int e = sc.nextInt();
 
                 reconstruirImagens(e, pasta);
@@ -163,7 +163,7 @@ public class UI {
         leiturasaidadados.guardarCSV(imagensRescalonadas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "Imagem_Transformada", indicesDiferentes);
         leiturasaidadados.guardarCSV(eigenFacesRecalibradas, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface_Transformada", outputCSV);
 
-        System.out.printf("%nEAM: %.2f%n\n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensRescalonadas));
+        System.out.printf("%nEAM: %.2f%n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensRescalonadas));
 
     }
 
