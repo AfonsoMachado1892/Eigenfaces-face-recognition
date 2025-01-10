@@ -3,8 +3,8 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Projeto3_jar</output-path>
     <root id="archive" name="Projeto3.jar">
       <element id="module-output" name="Projeto3" />
-      <element id="library" level="project" name="commons-math3-3.6.1" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/commons-math3-3.6.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="commons-math3-3.6.1" />
     </root>
   </artifact>
 </component>

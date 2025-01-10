@@ -123,6 +123,7 @@ public class UI {
 
         double[][] media = calcularMatrizes.calcularMedia(matrizM);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizM, media);
+        double[][] AT = calcularMatrizes.calcularTransposta(matrizPhi);
 
         k = verificarK(matrizM[0].length, k);
 
@@ -162,6 +163,9 @@ public class UI {
         leiturasaidadados.guardarCSV(eigenFacesRecalibradas, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface_Transformada", new int[0]);
 
         System.out.printf("%nEAM: %.2f%n\n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensRescalonadas));
+
+        leiturasaidadados.exibirMatriz(calcularMatrizes.multiplicarMatrizes(AT, matrizPhi), "Matriz AtA", 2);
+        System.out.println();
     }
 
     //Output da funcionalidade 3
