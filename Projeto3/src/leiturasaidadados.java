@@ -120,7 +120,7 @@ public class leiturasaidadados {
                 String nomeImagem = nome + "_" + (coluna + 1) + ".jpg";
                 String caminhoImagem = caminhoOutput + File.separator + nomeImagem;
 
-                double[][] matrizImagemReconstruida = arrayparaMatriz(intimagemReconstruida);
+                double[][] matrizImagemReconstruida = arrayparaMatriz(intimagemReconstruida, inputCSV);
 
                 calcularMatrizes.escreverArrayComoImagem(matrizImagemReconstruida, caminhoImagem);
                 System.out.println("Imagem " + (coluna + 1) + " escrita com sucesso em: " + caminhoImagem);
@@ -132,9 +132,9 @@ public class leiturasaidadados {
         }
     }
 
-    public static double[][] arrayparaMatriz(int[][] array) {
-        int colunas = 64;
-        int linhas = 64;
+    public static double[][] arrayparaMatriz(int[][] array, double[][] matrizM) {
+        int colunas = (int) Math.sqrt(matrizM.length);
+        int linhas = (int) Math.sqrt(matrizM.length);
 
         if (array.length != linhas * colunas) {
             throw new IllegalArgumentException("O vetor não equivale às dimensões da matriz");
@@ -155,7 +155,7 @@ public class leiturasaidadados {
         }
 
         int largura = inputCSV[0].length; // Número de colunas
-        int dimensaoImagem = 64;         // Dimensão da imagem (assumindo 64x64)
+        int dimensaoImagem = (int) Math.sqrt(inputCSV.length) ;         // Dimensão da imagem
 
         // Verificar se o array de índices está vazio (ou seja, guardar todas as colunas)
         boolean salvarTudo = (indices[0] == -1);
