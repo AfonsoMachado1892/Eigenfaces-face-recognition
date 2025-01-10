@@ -20,16 +20,16 @@ public class Testes {
         testarCalcularMedia();
         testarCalcularPhi();
         testarNormalizarVetoresPropriosC();
+        testarCalcularPesos();
         /*
         testarVetoresPropriosC();
-        testarCalcularPesos();
         testarReconstruirTodasImagens();
         testarEscreverArrayComoImagem();
+        */
 
         //Funcionalidade 3
         testarCalcularDistanciaEuclidianaMatriz();
-        testarObterIndiceMenorDistancia();
-        */
+        //testarObterIndiceMenorDistancia();
 
     }
 
@@ -530,14 +530,55 @@ public class Testes {
         }
     }
 
+    public static void testarCalcularPesos() {
+        boolean valido = true;
+
+        double[][] matrizA = {
+                {1, 3, 6},
+                {0, 1, 3},
+                {0, 0, 1}
+        };
+
+        double[][] matrizEigenfaces = {
+                {1, 2, 5},
+                {0, 6, 3},
+                {0, 0, 7}
+        };
+
+        double[][] esperado = {
+                {1, 3, 6},
+                {2, 12, 30},
+                {5, 18, 46}
+        };
+
+        int k = 3;
+
+        double[][] resultado = calcularMatrizes.calcularPesos(matrizA, matrizEigenfaces, k);
+
+        for(int i = 0; i < resultado.length; i++) {
+            for(int j = 0; j < resultado[0].length; j++) {
+                if((int) esperado[i][j] != (int) resultado[i][j]) {
+                    valido = false;
+                    break;
+                }
+            }
+        }
+
+        if(valido) {
+            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+        } else {
+            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+        }
+    }
+
     //---------- Funcionalidade 3 ----------
     public static void testarCalcularDistanciaEuclidianaMatriz() {
         boolean valido = true;
 
         double[][] omegaNova = {
-                {1, 4, 0},
-                {0, 6, 2},
-                {0, 0, 3}
+                {1},
+                {3},
+                {0}
         };
 
         double[][] omegaJ = {
@@ -547,9 +588,7 @@ public class Testes {
         };
 
         double[][] esperado = {
-                {1, 4, 0},
-                {6, 0, 2},
-                {2, 0, 3}
+                {3, Math.sqrt(17), Math.sqrt(41)},
         };
 
         double[][] resultado = new double[][]{calcularMatrizes.calcularDistanciaEuclidianaMatriz(omegaNova, omegaJ)};
@@ -574,11 +613,7 @@ public class Testes {
     public static boolean testarVetoresPropriosC() {
 
     }
-
-    public static boolean testarCalcularPesos() {
-
-    }
-
+    
     public static boolean testarReconstruirTodasImagens() {
 
     }
