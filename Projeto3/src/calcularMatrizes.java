@@ -351,7 +351,7 @@ public class calcularMatrizes {
         return normalizedMatrix;
     }
 
-    private static double[] normalizeTo255(double[] array, double minVal, double maxVal) {
+    public static double[] normalizeTo255(double[] array, double minVal, double maxVal) {
         double[] normalizedArray = new double[array.length];
         for (int i = 0; i < array.length; i++) {
             normalizedArray[i] = 255 * (array[i] - minVal) / (maxVal - minVal);
@@ -471,6 +471,8 @@ public class calcularMatrizes {
         }
     }
 
+
+    //---------- Funcionalidade 4 ----------
     public static double[][] obterImagem(double[][] matrizImagens, int indice) {
         double[][] imagem = new double[matrizImagens.length][1];
         for (int i = 0; i < matrizImagens.length; i++) {
@@ -494,7 +496,6 @@ public class calcularMatrizes {
         for(int i = 0; i < k; i++) {
             min = -(Math.sqrt(valoresProprios[i][i]));
             max = Math.sqrt(valoresProprios[i][i]);
-
             w = Math.random() * (max - min) + min;
 
             for(int j = 0; j < media.length; j++) {
@@ -505,7 +506,6 @@ public class calcularMatrizes {
                 imagemGerada[p][0] += mult[p][0];
             }
         }
-
         return  imagemGerada;
     }
 }

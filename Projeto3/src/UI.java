@@ -5,7 +5,7 @@ public class UI {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void mostrarMenu() {
-        System.out.println("\n===================== Menu =====================");
+        System.out.println("===================== Menu =====================");
         System.out.println("1. Decomposição Própria de Matriz Simétrica");
         System.out.println("2. Reconstrução de Imagens Utilizando Eigenfaces");
         System.out.println("3. Identificação de Imagem Mais Próxima");
@@ -67,6 +67,7 @@ public class UI {
         }
     }
 
+    //Output da funcionalidade 1
     public static void decomposicaoPropria(int k, String diretorio) throws FileNotFoundException {
         //src\inputs\Funcionalidade1\exampleInputFunc1.csv
 
@@ -110,6 +111,7 @@ public class UI {
     }
 
 
+    //Output da funcionalidade 2
     public static void reconstruirImagens(int k, String pasta) throws FileNotFoundException {
         //src\inputs\Funcionalidades 2 e 3\exemploMatrizesImagensCSVFuncionalidades2e3\exemploMatrizesImagensCSVFuncionalidades2e3
 
@@ -127,8 +129,6 @@ public class UI {
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi, k);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
 
-
-
         double[][] pesos = calcularMatrizes.calcularPesos(matrizPhi, vetoresPropriosNormalizados, k);
         double[][] imagensReconstruidas = calcularMatrizes.reconstruirTodasImagens(media, vetoresPropriosNormalizados, pesos, k);
 
@@ -140,7 +140,7 @@ public class UI {
             System.out.println(indicesDiferentes[i]);
         }
 
-        leiturasaidadados.exibirMatriz(media, "Matriz µ", 2);
+        leiturasaidadados.exibirMatriz(media, "\nMatriz µ", 2);
 
         System.out.println();
         for (int i = 0; i < pesos[0].length; i++) {
@@ -161,9 +161,10 @@ public class UI {
         leiturasaidadados.guardarCSV(imagensRescalonadas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "Imagem_Transformada", indicesDiferentes);
         leiturasaidadados.guardarCSV(eigenFacesRecalibradas, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface_Transformada", new int[0]);
 
-        System.out.printf("%nEAM: %.2f%n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensRescalonadas));
+        System.out.printf("%nEAM: %.2f%n\n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensRescalonadas));
     }
 
+    //Output da funcionalidade 3
     public static void identificarImagem(int k, String diretorioNovaI, String baseImagens) throws FileNotFoundException {
         int cont = 0;
 
@@ -183,7 +184,6 @@ public class UI {
         matrizImagens = calcularMatrizes.calcularTransposta(matrizImagens);
 
         k = verificarK(matrizImagens[0].length, k);
-
 
         double[][] media = calcularMatrizes.calcularMedia(matrizImagens);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizImagens, media);
@@ -211,6 +211,7 @@ public class UI {
 
     }
 
+    //Output da funcionalidade 4
     public static void gerarNovasImagens(String baseImagens, int k) throws FileNotFoundException {
 
         final String ficheiroOutput = "src/vetores.csv";
