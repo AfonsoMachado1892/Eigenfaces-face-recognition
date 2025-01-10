@@ -21,15 +21,20 @@ public class Testes {
         testarCalcularPhi();
         testarNormalizarVetoresPropriosC();
         testarCalcularPesos();
-        /*
-        testarVetoresPropriosC();
         testarReconstruirTodasImagens();
+        /*
         testarEscreverArrayComoImagem();
+        rescalonada
+        find...
+        comparar
         */
 
         //Funcionalidade 3
         testarCalcularDistanciaEuclidianaMatriz();
         //testarObterIndiceMenorDistancia();
+
+        //Funcionalidade 4
+        //testarGerarImagens();
 
     }
 
@@ -571,6 +576,53 @@ public class Testes {
         }
     }
 
+    public static void testarReconstruirTodasImagens() {
+        boolean valido = true;
+
+        double[][] media = {
+                {1},
+                {5},
+                {2}
+        };
+
+        double[][] eigenfaces = {
+                {1, 4, 3},
+                {0, 3, 2},
+                {0, 0, 5}
+        };
+
+        double[][] pesos = {
+                {1, 3, 6},
+                {0, 1, 3},
+                {0, 0, 4}
+        };
+
+        int k = 3;
+
+        double[][] esperado = {
+                {2, 8, 31},
+                {5, 8, 22},
+                {2, 2, 22}
+        };
+
+        double[][] resultado = calcularMatrizes.reconstruirTodasImagens(media, eigenfaces, pesos, k);
+
+        for(int i = 0; i < resultado.length; i++) {
+            for(int j = 0; j < resultado[0].length; j++) {
+                if((int) esperado[i][j] != (int) resultado[i][j]) {
+                    valido = false;
+                    break;
+                }
+            }
+        }
+
+        if(valido) {
+            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+        } else {
+            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+        }
+    }
+
     //---------- Funcionalidade 3 ----------
     public static void testarCalcularDistanciaEuclidianaMatriz() {
         boolean valido = true;
@@ -613,7 +665,7 @@ public class Testes {
     public static boolean testarVetoresPropriosC() {
 
     }
-    
+
     public static boolean testarReconstruirTodasImagens() {
 
     }
