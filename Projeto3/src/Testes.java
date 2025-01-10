@@ -1,13 +1,3 @@
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.EigenDecomposition;
-import org.apache.commons.math3.linear.RealMatrix;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-
 public class Testes {
     public static void main(String[] args) {
 
@@ -290,6 +280,7 @@ public class Testes {
             for (int j = 0; j < resultado[0].length; j++) {
                 if (Math.abs(esperado[i][j] - resultado[i][j]) > 0.01) {
                     valido = false;
+                    break;
                 }
             }
         }
@@ -298,7 +289,7 @@ public class Testes {
             System.out.println("Teste de cálculo de Ak validado com sucesso!");
         } else {
             System.out.println("Teste de cálculo de Ak INVALIDADO!");
-        };
+        }
     }
 
     public static void testarVetoresPropriosReduzidos() {

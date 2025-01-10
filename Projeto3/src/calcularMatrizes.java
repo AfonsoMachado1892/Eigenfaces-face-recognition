@@ -435,9 +435,9 @@ public class calcularMatrizes {
     public static double[] calcularDistanciaEuclidianaMatriz(double[][] omegaNova, double[][] omegaJ) {
         int numImagens = omegaJ[0].length;
         double[] distancias = new double[numImagens];
-
+        double soma;
         for (int colunas = 0; colunas < numImagens; colunas++) {
-            double soma = 0;
+            soma = 0;
             for (int linhas = 0; linhas < omegaNova.length; linhas++) {
                 soma += Math.pow(omegaNova[linhas][0] - omegaJ[linhas][colunas], 2);
             }

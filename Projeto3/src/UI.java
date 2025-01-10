@@ -73,9 +73,8 @@ public class UI {
 
         double[][] matriz = leiturasaidadados.lerMatriz(diretorio);
 
-        k = verificarK(matriz[0].length, k);
-
         if (calcularMatrizes.verificarMatriz(matriz)) {
+            k = verificarK(matriz[0].length, k);
             double[][] vetoresProprios = calcularMatrizes.matrizVetoresProprios(matriz, matriz[0].length);
             double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz, matriz[0].length);
 
@@ -122,10 +121,11 @@ public class UI {
         double[][] matrizM = leiturasaidadados.lerMatriz(ficheiroOutput);
         matrizM = calcularMatrizes.calcularTransposta(matrizM);
 
-        k = verificarK(matrizM[0].length, k);
-
         double[][] media = calcularMatrizes.calcularMedia(matrizM);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizM, media);
+
+        k = verificarK(matrizM[0].length, k);
+
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi, k);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
 
@@ -183,10 +183,11 @@ public class UI {
         double[][]matrizImagens = leiturasaidadados.lerMatriz("src/vetores.csv");
         matrizImagens = calcularMatrizes.calcularTransposta(matrizImagens);
 
-        k = verificarK(matrizImagens[0].length, k);
-
         double[][] media = calcularMatrizes.calcularMedia(matrizImagens);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizImagens, media);
+
+        k = verificarK(matrizImagens[0].length, k);
+
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi, k);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
 
@@ -221,10 +222,11 @@ public class UI {
         double[][] matrizM = leiturasaidadados.lerMatriz(ficheiroOutput);
         matrizM = calcularMatrizes.calcularTransposta(matrizM);
 
-        k = verificarK(matrizM[0].length, k);
-
         double[][] media = calcularMatrizes.calcularMedia(matrizM);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizM, media);
+
+        k = verificarK(matrizM[0].length, k);
+
         double[][] vetoresPropriosC = calcularMatrizes.vetoresPropriosC(matrizPhi, k);
         double[][] vetoresPropriosNormalizados = calcularMatrizes.normalizarVetoresPropriosC(vetoresPropriosC);
 
