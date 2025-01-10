@@ -76,8 +76,8 @@ public class UI {
         k = verificarK(matriz[0].length, k);
 
         if (calcularMatrizes.verificarMatriz(matriz)) {
-            double[][] vetoresProprios = calcularMatrizes.matrizVetoresProprios(matriz, k);
-            double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz, k);
+            double[][] vetoresProprios = calcularMatrizes.matrizVetoresProprios(matriz, matriz[0].length);
+            double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz, matriz[0].length);
 
             double[][] A = calcularMatrizes.calcularA(valoresProprios, vetoresProprios);
             double[][] vetoresPropriosReduzidos = calcularMatrizes.vetoresPropriosReduzidos(vetoresProprios, k);
