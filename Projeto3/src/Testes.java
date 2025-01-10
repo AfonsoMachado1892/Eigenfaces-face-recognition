@@ -7,7 +7,7 @@ public class Testes {
         testarCalcularTransposta();
         testarMultiplicarMatrizes();
         testarCalcularA();
-        testarCalcularAk();
+        testarCalcularAk(); //CORRIGIR
         testarCalcularEAM();
 
         //Corrigir
@@ -18,7 +18,7 @@ public class Testes {
 
         //Funcionalidade 2
         testarCalcularMedia();
-        testarCalcularPhi();
+        testarCalcularPhi(); //CORRIGIR
         testarNormalizarVetoresPropriosC();
         testarCalcularPesos();
         testarReconstruirTodasImagens();
@@ -291,9 +291,9 @@ public class Testes {
         }
 
         if (valido) {
-            System.out.println("Teste de cálculo de Ak validado com sucesso!");
+            System.out.println("Teste de cálculo de Matriz Ak validado com sucesso!");
         } else {
-            System.out.println("Teste de cálculo de Ak INVALIDADO!");
+            System.out.println("Teste de cálculo de Matriz Ak INVALIDADO!");
         }
     }
 
@@ -361,9 +361,9 @@ public class Testes {
         }
 
         if (valido) {
-            System.out.println("Teste de matriz diagonal reduzida validado com sucesso!");
+            System.out.println("Teste de cálculo de Matriz diagonal Reduzida validado com sucesso!");
         } else {
-            System.out.println("Teste de matriz diagonal reduzida INVALIDADO!");
+            System.out.println("Teste de cálculo de Matriz Diagonal Reduzida INVALIDADO!");
         }
     }
     
@@ -457,9 +457,9 @@ public class Testes {
         }
 
         if(valido) {
-            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+            System.out.println("Teste de cálculo de Calcular Média validado com sucesso!");
         } else {
-            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+            System.out.println("Teste de cálculo de Calcular Média INVALIDADO!");
         }
     }
 
@@ -496,9 +496,9 @@ public class Testes {
         }
 
         if(valido) {
-            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+            System.out.println("Teste de cálculo de Calcular Phi validado com sucesso!");
         } else {
-            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+            System.out.println("Teste de cálculo de Calcular Phi INVALIDADO!");
         }
     }
 
@@ -529,9 +529,9 @@ public class Testes {
         }
 
         if(valido) {
-            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+            System.out.println("Teste de cálculo de Normalizar Vetores Próprios de C validado com sucesso!");
         } else {
-            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+            System.out.println("Teste de cálculo de Normalizar Vetores Próprios de C INVALIDADO!");
         }
     }
 
@@ -570,9 +570,9 @@ public class Testes {
         }
 
         if(valido) {
-            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+            System.out.println("Teste de cálculo de Calcular Pesos validado com sucesso!");
         } else {
-            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+            System.out.println("Teste de cálculo de Calcular Pesos INVALIDADO!");
         }
     }
 
@@ -617,9 +617,9 @@ public class Testes {
         }
 
         if(valido) {
-            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+            System.out.println("Teste de cálculo de Reconstruir Todas as Imagens validado com sucesso!");
         } else {
-            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+            System.out.println("Teste de cálculo de Reconstruir Todas as Imagens INVALIDADO!");
         }
     }
 
@@ -655,9 +655,9 @@ public class Testes {
         }
 
         if(valido) {
-            System.out.println("Teste de cálculo de Vetores Próprios validado com sucesso!");
+            System.out.println("Teste de cálculo da Distância Euclidiana validado com sucesso!");
         } else {
-            System.out.println("Teste de cálculo de Vetores Próprios INVALIDADO!");
+            System.out.println("Teste de cálculo da Distância Euclidiana INVALIDADO!");
         }
     }
 
