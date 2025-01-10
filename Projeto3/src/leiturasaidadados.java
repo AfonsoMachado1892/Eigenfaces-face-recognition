@@ -150,13 +150,18 @@ public class leiturasaidadados {
     }
 
     public static void guardarCSV(double[][] inputCSV, String caminhoOutput, String nome, int[] indices) {
+        if (indices == null || indices.length == 0) {
+            return;
+        }
+
         int largura = inputCSV[0].length; // Número de colunas
         int dimensaoImagem = 64;         // Dimensão da imagem (assumindo 64x64)
 
         // Verificar se o array de índices está vazio (ou seja, guardar todas as colunas)
-        boolean salvarTudo = (indices == null || indices.length == 0);
+        boolean salvarTudo = (indices[0] == -1);
 
         // Iterar pelas colunas que precisam ser salvas
+
         for (int coluna = 0; coluna < largura; coluna++) {
             // Verificar se a coluna atual está nos índices ou se devemos salvar tudo
             if (salvarTudo || calcularMatrizes.contemIndice(indices, coluna)) {

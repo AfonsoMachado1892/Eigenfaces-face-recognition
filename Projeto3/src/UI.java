@@ -123,7 +123,6 @@ public class UI {
 
         double[][] media = calcularMatrizes.calcularMedia(matrizM);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizM, media);
-        double[][] AT = calcularMatrizes.calcularTransposta(matrizPhi);
 
         k = verificarK(matrizM[0].length, k);
 
@@ -155,17 +154,17 @@ public class UI {
 
         System.out.printf("%nNúmero de Eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
 
-        leiturasaidadados.guardarCSV(vetoresPropriosNormalizados, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface", new int[0]);
+        int[] outputCSV = new int[1];
+        outputCSV[0] = -1;
+        leiturasaidadados.guardarCSV(vetoresPropriosNormalizados, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface", outputCSV);
         leiturasaidadados.guardarImagem(eigenFacesRecalibradas, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface");
-        leiturasaidadados.guardarCSV(imagensReconstruidas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "Imagem", new int[0]);
+        leiturasaidadados.guardarCSV(imagensReconstruidas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "Imagem", outputCSV);
         leiturasaidadados.guardarImagem(imagensRescalonadas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "imagem");
         leiturasaidadados.guardarCSV(imagensRescalonadas, "src\\outputs\\funcionalidade2\\ImagensReconstruidas", "Imagem_Transformada", indicesDiferentes);
-        leiturasaidadados.guardarCSV(eigenFacesRecalibradas, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface_Transformada", new int[0]);
+        leiturasaidadados.guardarCSV(eigenFacesRecalibradas, "src\\outputs\\funcionalidade2\\Eigenfaces", "Eigenface_Transformada", outputCSV);
 
         System.out.printf("%nEAM: %.2f%n\n", calcularMatrizes.calcularErroAbsolutoMedio(matrizM, imagensRescalonadas));
 
-        leiturasaidadados.exibirMatriz(calcularMatrizes.multiplicarMatrizes(AT, matrizPhi), "Matriz AtA", 2);
-        System.out.println();
     }
 
     //Output da funcionalidade 3
