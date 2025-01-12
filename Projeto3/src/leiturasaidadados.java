@@ -80,12 +80,19 @@ public class leiturasaidadados {
 
         File[] ficheiros = new File(caminho).listFiles();
 
-        try (PrintWriter printwriter = new PrintWriter((ficheiroOutput))) {
+        try (PrintWriter printwriter = new PrintWriter(ficheiroOutput)) {
             for (File f : ficheiros) {
                 String filePath = f.getAbsolutePath();
                 String fileExtension = filePath.substring(filePath.lastIndexOf(".") + 1);
                 if ("csv".equals(fileExtension)) {
                     matriz = lerMatriz(filePath);
+
+                    // Verificação da matriz
+                    if (!calcularMatrizes.verificarMatriz(matriz, false)) {
+                        System.out.println("Matriz inválida encontrada no arquivo: " + filePath);
+                        throw new IllegalArgumentException("Matriz inválida encontrada no arquivo: " + filePath);
+                    }
+
                     vetor = new double[matriz.length * matriz[0].length];
                     cont = 0;
                     for (int i = 0; i < matriz.length; i++) {
@@ -108,6 +115,7 @@ public class leiturasaidadados {
             System.out.println("Erro ao guardar ficheiro: " + e.getMessage());
         }
     }
+
 
     public static void guardarImagem(double[][] inputCSV, String caminhoOutput, String nome) {
         try {
@@ -171,7 +179,7 @@ public class leiturasaidadados {
                 try (PrintWriter printwriter = new PrintWriter(caminhoCSV)) {
                     for (int i = 0; i < dimensaoImagem; i++) {
                         for (int j = 0; j < dimensaoImagem; j++) {
-                            printwriter.printf("%.2f", inputCSV[i * dimensaoImagem + j][coluna]);
+                            printwriter.printf("%.0f", inputCSV[i * dimensaoImagem + j][coluna]);
                             if (j == dimensaoImagem - 1) {
                                 printwriter.println(); // Fim da linha
                             } else {
@@ -184,5 +192,20 @@ public class leiturasaidadados {
                 }
             }
         }
+    }
+
+    public static void exibirPesos(double[][] pesos, int k) {
+        System.out.println();
+
+        for (int i = 0; i < pesos[0].length; i++) {
+            System.out.println("Imagem " + (i + 1) + ":");
+            System.out.print("Pesos w: ");
+            for (int p = 0; p < k; p++) {
+                System.out.printf("%.2f ", pesos[p][i]);
+            }
+            System.out.println();
+        }
+
+        System.out.println();
     }
 }

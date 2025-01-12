@@ -154,32 +154,32 @@ public class calcularMatrizes {
     }
 
     //Verificação das matrizes
-    public static boolean verificarMatriz(double[][] matriz) {
-        //Tem que ser uma matriz quadrada
+    public static boolean verificarMatriz(double[][] matriz, boolean exigirSimetria) {
+        // Tem que ser uma matriz quadrada
         if (matriz.length == 0 || matriz.length != matriz[0].length) {
             return false;
         }
 
-        //Tem que ter o número de linhas menor que 256
+        // Tem que ter o número de linhas menor que 256
         if (matriz.length >= 256) {
             return false;
         }
 
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
-                //Tem que ser um número real
+                // Tem que ser um número real
                 if (Double.isNaN(matriz[i][j]) || Double.isInfinite(matriz[i][j])) {
                     return false;
                 }
 
-                //Tem que ser uma matriz simétrica
-                if (matriz[i][j] != matriz[j][i]) {
+                // Verificar simetria apenas se exigido
+                if (exigirSimetria && matriz[i][j] != matriz[j][i]) {
                     return false;
                 }
             }
         }
 
-        //Pode ter linhas em branco no final de cada matriz
+        // Pode ter linhas em branco no final de cada matriz
         for (int i = matriz.length - 1; i >= 0; i--) {
             boolean linhaEmBranco = true;
             for (int j = 0; j < matriz[i].length; j++) {
@@ -194,6 +194,7 @@ public class calcularMatrizes {
         }
         return true;
     }
+
 
 
     //---------- Funcionalidade 2 ----------

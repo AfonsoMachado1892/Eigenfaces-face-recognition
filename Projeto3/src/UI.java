@@ -73,7 +73,7 @@ public class UI {
 
         double[][] matriz = leiturasaidadados.lerMatriz(diretorio);
 
-        if (calcularMatrizes.verificarMatriz(matriz)) {
+        if (calcularMatrizes.verificarMatriz(matriz, true)) {
             k = verificarK(matriz[0].length, k);
             double[][] vetoresProprios = calcularMatrizes.matrizVetoresProprios(matriz, matriz[0].length);
             double[][] valoresProprios = calcularMatrizes.matrizDiagonalValoresProprios(matriz, matriz[0].length);
@@ -123,6 +123,8 @@ public class UI {
 
         double[][] media = calcularMatrizes.calcularMedia(matrizM);
         double[][] matrizPhi = calcularMatrizes.calcularPhi(matrizM, media);
+        double[][] AT = calcularMatrizes.calcularTransposta(matrizPhi);
+        double[][] ATA = calcularMatrizes.multiplicarMatrizes(AT, matrizPhi);
 
         k = verificarK(matrizM[0].length, k);
 
@@ -136,21 +138,10 @@ public class UI {
         double[][] imagensRescalonadas = calcularMatrizes.reescalonarEigenfaces(imagensReconstruidas);
         int[] indicesDiferentes = calcularMatrizes.compararMatrizes(imagensRescalonadas, imagensReconstruidas);
 
-        for(int i = 0; i < indicesDiferentes.length; i++) {
-            System.out.println(indicesDiferentes[i]);
-        }
-
+        leiturasaidadados.exibirMatriz(ATA, "\nMatriz AtA", 2);
         leiturasaidadados.exibirMatriz(media, "\nMatriz µ", 2);
 
-        System.out.println();
-        for (int i = 0; i < pesos[0].length; i++) {
-            System.out.println("Imagem " + (i + 1) + ":");
-            System.out.print("Pesos w: ");
-            for (int p = 0; p < k; p++) {
-                System.out.printf("%.2f ", pesos[p][i]);
-            }
-            System.out.println();
-        }
+        leiturasaidadados.exibirPesos(pesos, k);
 
         System.out.printf("%nNúmero de Eigenfaces utilizadas na reconstrução de cada imagem: %d%n", k);
 
@@ -201,6 +192,18 @@ public class UI {
         double[] distancias = calcularMatrizes.calcularDistanciaEuclidianaMatriz(pesosNovaImagem, pesosBaseImagens);
 
         int menorDistancia = calcularMatrizes.obterIndiceMenorDistancia(distancias);
+
+        System.out.printf("%nNúmero de Eigenfaces utilizadas na identificação de imagem mais parecida: %d%n%n", k);
+
+        leiturasaidadados.exibirMatriz(pesosNovaImagem, "Vetor Ωnova", 2);
+        leiturasaidadados.exibirPesos(pesosBaseImagens, k);
+
+        System.out.println("Distâncias Euclidianas:");
+        for (int i = 0; i < distancias.length; i++) {
+            System.out.printf("Imagem %d: %.2f%n", i + 1, distancias[i]);
+        }
+
+        System.out.println();
 
         if(menorDistancia == -1) {
             System.out.println("AVISO: Ocorreu um empate na identificação da imagem mais parecida");

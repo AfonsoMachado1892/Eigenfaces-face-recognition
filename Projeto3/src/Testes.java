@@ -395,25 +395,25 @@ public class Testes {
         };
 
         // Teste Matriz Válida (Deve ser TRUE)
-        if (!calcularMatrizes.verificarMatriz(matrizValida)) {
+        if (!calcularMatrizes.verificarMatriz(matrizValida, true)) {
             valido = false;
             System.out.println("ERRO: Matriz válida foi considerada inválida!");
         }
 
         // Teste Matriz Não Simétrica (Deve ser FALSE)
-        if (calcularMatrizes.verificarMatriz(matrizNaoSimetrica)) {
+        if (calcularMatrizes.verificarMatriz(matrizNaoSimetrica, true)) {
             valido = false;
             System.out.println("ERRO: Matriz não simétrica foi considerada válida!");
         }
 
         // Teste Matriz Inválida com NaN e Infinito (Deve ser FALSE)
-        if (calcularMatrizes.verificarMatriz(matrizInvalida)) {
+        if (calcularMatrizes.verificarMatriz(matrizInvalida, true)) {
             valido = false;
             System.out.println("ERRO: Matriz com valores NaN/Infinito foi considerada válida!");
         }
 
         // Teste Matriz Não Quadrada (Deve ser FALSE)
-        if (calcularMatrizes.verificarMatriz(matrizNaoQuadrada)) {
+        if (calcularMatrizes.verificarMatriz(matrizNaoQuadrada, true)) {
             valido = false;
             System.out.println("ERRO: Matriz não quadrada foi considerada válida!");
         }
