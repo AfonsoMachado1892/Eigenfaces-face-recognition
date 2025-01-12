@@ -211,9 +211,6 @@ public class UI {
         } else {
             double[][] imagemParecida = calcularMatrizes.obterImagem(matrizImagens, menorDistancia);
             leiturasaidadados.guardarImagem(imagemParecida, "src\\outputs\\funcionalidade3\\Identificacao", "Imagem_Mais_Parecida");
-
-            int nomeImagem = (menorDistancia * 10) + 1;
-            System.out.println("image_" + nomeImagem + ".png");
         }
 
     }
