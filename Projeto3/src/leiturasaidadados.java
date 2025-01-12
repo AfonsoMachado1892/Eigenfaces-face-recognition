@@ -89,8 +89,8 @@ public class leiturasaidadados {
 
                     // Verificação da matriz
                     if (!calcularMatrizes.verificarMatriz(matriz, false)) {
-                        System.out.println("Matriz inválida encontrada no arquivo: " + filePath);
-                        throw new IllegalArgumentException("Matriz inválida encontrada no arquivo: " + filePath);
+                        System.out.println("Matriz inválida encontrada no ficheiro: " + filePath);
+                        throw new IllegalArgumentException("Matriz inválida encontrada no ficheiro: " + filePath);
                     }
 
                     vetor = new double[matriz.length * matriz[0].length];
